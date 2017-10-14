@@ -48,10 +48,10 @@ Download this package from **NuGet** with **Visual Studio** creating a **NuGet.c
 :---: |
 [Nicholls](mailto:jdnichollsc@hotmail.com) |
 
-## Credits 🍻
+## Credits 👍
 * [Real Serious Games/C-Sharp-Promise](https://github.com/Real-Serious-Games/C-Sharp-Promise)
 
-## Supporting
+## Supporting 🍻
 I believe in Unicorns 🦄
 Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
 
