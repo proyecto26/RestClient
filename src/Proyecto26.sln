@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{5DD5E4FA-CB73-4610-85AB-557B54E96AA9}") = "Proyecto26.RestClient", "Proyecto26.RestClient\Proyecto26.RestClient.nuproj", "{1C08D661-A8D7-42BC-A84C-12803DD0A70E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C08D661-A8D7-42BC-A84C-12803DD0A70E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C08D661-A8D7-42BC-A84C-12803DD0A70E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C08D661-A8D7-42BC-A84C-12803DD0A70E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C08D661-A8D7-42BC-A84C-12803DD0A70E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
