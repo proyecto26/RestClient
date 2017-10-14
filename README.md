@@ -30,10 +30,26 @@ RestClient.GetArray<Post>(root + "/posts").Then(res => {
 }).Catch(err => EditorUtility.DisplayDialog ("Error", err.Message, "Ok"));
 ```
 
+## Installation
+### Nuget package
+Download this package from **NuGet** with **Visual Studio** creating a **NuGet.config** file at the root of your **Unity Project**, for example:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <config>
+    <add key="repositoryPath" value=".\Assets\Packages" />
+  </config>
+</configuration>
+```
+
 ## Collaborators
 [<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/2154886?v=3&s=117" width="117">](https://github.com/jdnichollsc) |
 :---: |
 [Nicholls](mailto:jdnichollsc@hotmail.com) |
+
+## Credits
+* [Real Serious Games/C-Sharp-Promise](https://github.com/Real-Serious-Games/C-Sharp-Promise)
 
 ## Supporting
 I believe in Unicorns 🦄
