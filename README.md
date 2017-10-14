@@ -2,7 +2,7 @@
 
 <img src="https://github.com/proyecto26/RestClient/blob/master/img/icono.png?raw=true" width="150px" align="right" alt="Proyecto26.RestClient logo" />
 
-This HTTP/REST Client is based on Promises to avoid the [Callback Hell](http://callbackhell.com/) ☠️ and the [Pyramid of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)) 💩 working with **Coroutines** in **Unity**, example:
+This HTTP/REST Client is based on Promises to avoid the [Callback Hell](http://callbackhell.com/) ☠️ and the [Pyramid of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)) 💩 working with **Coroutines** in **Unity** 🎮, example:
 
 ```csharp
 RestClient.GetArray<Post>(root + "/posts", (err, res) => {
@@ -55,7 +55,7 @@ Download this package from **NuGet** with **Visual Studio** creating a **NuGet.c
 I believe in Unicorns 🦄
 Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
 
-## Happy coding 
+## Happy coding 💯
 Made with ❤️
 
 <img width="150px" src="http://phaser.azurewebsites.net/assets/nicholls.png" align="right">
