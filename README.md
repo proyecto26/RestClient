@@ -1,4 +1,4 @@
-# Proyecto26.RestClient 🤘
+# RestClient for Unity 🤘
 
 <img src="https://github.com/proyecto26/RestClient/blob/master/img/icono.png?raw=true" width="150px" align="right" alt="Proyecto26.RestClient logo" />
 
