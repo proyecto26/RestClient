@@ -1,8 +1,8 @@
-# Proyecto26.RestClient
+# Proyecto26.RestClient 🤘
 
 <img src="https://github.com/proyecto26/RestClient/blob/master/img/icono.png?raw=true" width="150px" align="right" alt="Proyecto26.RestClient logo" />
 
-This HTTP/REST Client is based on Promises to avoid the [Callback Hell](http://callbackhell.com/) and the [Pyramid of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)) working with **Coroutines** in **Unity**, example:
+This HTTP/REST Client is based on Promises to avoid the [Callback Hell](http://callbackhell.com/) 💩 and the [Pyramid of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)) ☠️ working with **Coroutines** in **Unity**, example:
 
 ```csharp
 RestClient.GetArray<Post>(root + "/posts", (err, res) => {
@@ -16,7 +16,7 @@ RestClient.GetArray<Post>(root + "/posts", (err, res) => {
 });
 ```
 
-But working with **Promises** we can improve our code, yay!
+But working with **Promises** we can improve our code, yay! 👏
 
 ```csharp
 RestClient.GetArray<Post>(root + "/posts").Then(res => {
@@ -30,7 +30,7 @@ RestClient.GetArray<Post>(root + "/posts").Then(res => {
 }).Catch(err => EditorUtility.DisplayDialog ("Error", err.Message, "Ok"));
 ```
 
-## Installation
+## Installation 👨‍💻
 ### Nuget package
 Download this package from **NuGet** with **Visual Studio** creating a **NuGet.config** file at the root of your **Unity Project**, for example:
 
@@ -43,19 +43,19 @@ Download this package from **NuGet** with **Visual Studio** creating a **NuGet.c
 </configuration>
 ```
 
-## Collaborators
+## Collaborators 🥇
 [<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/2154886?v=3&s=117" width="117">](https://github.com/jdnichollsc) |
 :---: |
 [Nicholls](mailto:jdnichollsc@hotmail.com) |
 
-## Credits
+## Credits 🍻
 * [Real Serious Games/C-Sharp-Promise](https://github.com/Real-Serious-Games/C-Sharp-Promise)
 
 ## Supporting
 I believe in Unicorns 🦄
 Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
 
-## Happy coding
-Made with <3
+## Happy coding 
+Made with ❤️
 
 <img width="150px" src="http://phaser.azurewebsites.net/assets/nicholls.png" align="right">
