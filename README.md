@@ -5,6 +5,7 @@
 This **HTTP/REST** Client is based on Promises to avoid the [Callback Hell](http://callbackhell.com/) ☠️ and the [Pyramid of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)) 💩 working with **Coroutines** in **Unity** 🎮, example:
 
 ```csharp
+var root = "https://jsonplaceholder.typicode.com";
 RestClient.GetArray<Post>(root + "/posts", (err, res) => {
   RestClient.GetArray<Todo>(root + "/todos", (errTodos, resTodos) => {
     RestClient.GetArray<User>(root + "/users", (errUsers, resUsers) => {
