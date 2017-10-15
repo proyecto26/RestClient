@@ -49,7 +49,7 @@ Download this package from **NuGet** with **Visual Studio** creating a **NuGet.c
 ```
 The package to search for is **Proyecto26.RestClient**.
 
-## Getting Started
+## Getting Started 📚
 The default methods **(GET, POST, PUT, DELETE)** are the following
 ```
 RequestClient.Get("https://jsonplaceholder.typicode.com/posts/1").Then(res => {
