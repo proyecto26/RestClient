@@ -47,7 +47,7 @@ Download this package from **NuGet** with **Visual Studio** creating a **NuGet.c
   </config>
 </configuration>
 ```
-The package to search for is **Proyecto26.RestClient**.
+The package to search for is **[Proyecto26.RestClient](https://www.nuget.org/packages/Proyecto26.RestClient/)**.
 
 ## Getting Started 📚
 The default methods **(GET, POST, PUT, DELETE)** are:
