@@ -93,7 +93,7 @@ RequestClient.Get<User>(usersRoot + "/1").Then(firstUser => {
 ```
 * **GET Array**
 ```
-RequestClient.GetArray<Users>(usersRoot).Then(allUsers => {
+RequestClient.GetArray<User>(usersRoot).Then(allUsers => {
   EditorUtility.DisplayDialog("JSON Array", JsonHelper.ArrayToJsonString<Post>(allUsers, true), "Ok");
 })
 ```
