@@ -21,7 +21,7 @@
     <PackageTags>unity,promises,http,rest,http-client,httpclient,rest-client,restclient</PackageTags>
     <Title>Proyecto26.RestClient</Title>
     <Description>Simple HTTP and REST client for Unity based on Promises, also support Callbacks!</Description>
-    <TargetFrameworkProfile/>
+    <TargetFrameworkProfile />
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
