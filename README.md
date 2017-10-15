@@ -69,7 +69,7 @@ RequestClient.Delete("https://jsonplaceholder.typicode.com/posts/1").Then(res =>
 })
 ```
 
-But we are going to create a class **"Post"** and the HTTP requests to load **JSON** data easily from the server
+But we are going to create a class **"Post"** and the HTTP requests to load **JSON** data easily
 ```
 [Serializable]
 public class Post
