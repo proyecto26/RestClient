@@ -15,7 +15,6 @@ namespace Proyecto26.RestClient
                 T response = default(T);
                 if (request.isDone)
                 {
-                    Debug.Log("Response: " + request.downloadHandler.text);
                     response = JsonUtility.FromJson<T>(request.downloadHandler.text);
                     callback(null, response);
                 }
@@ -32,7 +31,6 @@ namespace Proyecto26.RestClient
             {
                 yield return request.SendWebRequest();
                 var json = request.downloadHandler.text.Trim();
-                Debug.Log("Response: " + json);
                 if (request.isDone && !string.IsNullOrEmpty(json))
                 {
                     var response = JsonHelper.ArrayFromJson<T>(json);

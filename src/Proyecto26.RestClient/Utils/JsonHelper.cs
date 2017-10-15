@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using UnityEngine;
 
 namespace Proyecto26.RestClient
 {
@@ -8,13 +8,13 @@ namespace Proyecto26.RestClient
         public static T[] ArrayFromJson<T>(string json)
         {
             string newJson = "{ \"Items\": " + json + "}";
-            var wrapper = UnityEngine.JsonUtility.FromJson<Wrapper<T>>(newJson);
+            var wrapper = JsonUtility.FromJson<Wrapper<T>>(newJson);
             return wrapper.Items;
         }
 
         public static T[] FromJsonString<T>(string json)
         {
-            var wrapper = UnityEngine.JsonUtility.FromJson<Wrapper<T>>(json);
+            var wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
             return wrapper.Items;
         }
 
@@ -22,7 +22,7 @@ namespace Proyecto26.RestClient
         {
             var wrapper = new Wrapper<T>();
             wrapper.Items = array;
-            return UnityEngine.JsonUtility.ToJson(wrapper, prettyPrint);
+            return JsonUtility.ToJson(wrapper, prettyPrint);
         }
 
         [Serializable]
