@@ -50,7 +50,7 @@ Download this package from **NuGet** with **Visual Studio** creating a **NuGet.c
 The package to search for is **Proyecto26.RestClient**.
 
 ## Getting Started 📚
-The default methods **(GET, POST, PUT, DELETE)** are the following
+The default methods **(GET, POST, PUT, DELETE)** are:
 ```
 RequestClient.Get("https://jsonplaceholder.typicode.com/posts/1").Then(res => {
   EditorUtility.DisplayDialog("Response", res, "Ok");
@@ -69,43 +69,51 @@ RequestClient.Delete("https://jsonplaceholder.typicode.com/posts/1").Then(res =>
 })
 ```
 
-But we are going to create a class **"Post"** and the HTTP requests to load **JSON** data easily
+But we are going to create a class **"User"** and the HTTP requests to load **JSON** data easily:
 ```
 [Serializable]
-public class Post
+public class User
 {
   public int id;
-
-  public int userId;
-
-  public string title;
-
-  public string body;
+  public string name;
+  public string username;
+  public string email;
+  public string phone;
+  public string website;
 }
 ```
 
 * **GET JSON**
 ```
-RequestClient.Get<Post>("https://jsonplaceholder.typicode.com/posts/1").Then(myPost => {
-  EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(myPost, true), "Ok");
+var usersRoot = "https://jsonplaceholder.typicode.com/users"; 
+RequestClient.Get<User>(usersRoot + "/1").Then(firstUser => {
+  EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(firstUser, true), "Ok");
 })
 ```
 * **GET Array**
 ```
-RequestClient.GetArray<Post>("https://jsonplaceholder.typicode.com/posts").Then(allPosts => {
-  EditorUtility.DisplayDialog("JSON Array", JsonHelper.ArrayToJsonString<Post>(allPosts, true), "Ok");
+RequestClient.GetArray<Users>(usersRoot).Then(allUsers => {
+  EditorUtility.DisplayDialog("JSON Array", JsonHelper.ArrayToJsonString<Post>(allUsers, true), "Ok");
 })
+```
+Also we can create different classes for custom responses:
+```
+[Serializable]
+public class CustomResponse
+{
+  public int id;
+}
 ```
 * **POST**
 ```
-RequestClient.Post<CustomMessage>("https://jsonplaceholder.typicode.com/posts", newPost).Then(customMessage => {
-  EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customMessage, true), "Ok");
+RequestClient.Post<CustomResponse>(usersRoot, newUser).Then(customResponse => {
+  EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customResponse, true), "Ok");
 })
 ```
 * **PUT**
 ```
-RequestClient.Get<CustomMessage>("https://jsonplaceholder.typicode.com/posts/1", updatedPost).Then(customMessage => {
-  EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customMessage, true), "Ok");
+RequestClient.Get<CustomResponse>(usersRoot + "/1", updatedUser).Then(customResponse => {
+  EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customResponse, true), "Ok");
 })
 ```
 
