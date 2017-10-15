@@ -1,7 +1,7 @@
 ﻿using System;
 using RSG;
 
-namespace Proyecto26.RestClient
+namespace Proyecto26
 {
     public static class RestClient
     {

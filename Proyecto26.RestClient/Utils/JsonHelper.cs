@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Proyecto26.RestClient
+namespace Proyecto26
 {
     public static class JsonHelper
     {

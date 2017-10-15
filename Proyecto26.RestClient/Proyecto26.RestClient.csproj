@@ -8,7 +8,6 @@
     <RootNamespace>Proyecto26.RestClient</RootNamespace>
     <AssemblyName>Proyecto26.RestClient</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <PackOnBuild>true</PackOnBuild>
     <PackageId>Proyecto26.RestClient</PackageId>
     <PackageVersion>1.0.0</PackageVersion>
     <Authors>jdnichollsc</Authors>
@@ -23,6 +22,7 @@
     <Description>Simple HTTP and REST client for Unity based on Promises, also support Callbacks!</Description>
     <TargetFrameworkProfile />
     <RestorePackages>true</RestorePackages>
+    <PackOnBuild>true</PackOnBuild>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
