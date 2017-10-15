@@ -1,6 +1,6 @@
 # RestClient for Unity 🤘
 
-<img src="https://github.com/proyecto26/RestClient/blob/master/img/icono.png?raw=true" width="150px" align="right" alt="Proyecto26.RestClient logo" />
+<img src="img/icono.png" width="150px" align="right" alt="Proyecto26.RestClient logo" />
 
 This **HTTP/REST** Client is based on Promises to avoid the [Callback Hell](http://callbackhell.com/) ☠️ and the [Pyramid of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)) 💩 working with **Coroutines** in **Unity** 🎮, example:
 
@@ -29,6 +29,11 @@ RestClient.GetArray<Post>(root + "/posts").Then(res => {
   EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJson<User>(res, true), "Ok");
 }).Catch(err => EditorUtility.DisplayDialog ("Error", err.Message, "Ok"));
 ```
+
+## Demo ⏯
+Do you want to see this beautiful package in action? Download the demo [here](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/proyecto26/RestClient/tree/master/demo)
+
+![Demo](img/demo.png)
 
 ## Installation 👨‍💻
 ### Nuget package
@@ -79,25 +84,25 @@ public class Post
 }
 ```
 
-* GET JSON
+* **GET JSON**
 ```
 RequestClient.Get<Post>("https://jsonplaceholder.typicode.com/posts/1").Then(myPost => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(myPost, true), "Ok");
 })
 ```
-* GET Array
+* **GET Array**
 ```
 RequestClient.GetArray<Post>("https://jsonplaceholder.typicode.com/posts").Then(allPosts => {
   EditorUtility.DisplayDialog("JSON Array", JsonHelper.ArrayToJsonString<Post>(allPosts, true), "Ok");
 })
 ```
-* POST
+* **POST**
 ```
 RequestClient.Post<CustomMessage>("https://jsonplaceholder.typicode.com/posts", newPost).Then(customMessage => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customMessage, true), "Ok");
 })
 ```
-* PUT
+* **PUT**
 ```
 RequestClient.Get<CustomMessage>("https://jsonplaceholder.typicode.com/posts/1", updatedPost).Then(customMessage => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customMessage, true), "Ok");
