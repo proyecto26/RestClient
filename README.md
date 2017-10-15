@@ -44,6 +44,66 @@ Download this package from **NuGet** with **Visual Studio** creating a **NuGet.c
 ```
 The package to search for is **Proyecto26.RestClient**.
 
+## Getting Started
+The default methods **(GET, POST, PUT, DELETE)** are the following
+```
+RequestClient.Get("https://jsonplaceholder.typicode.com/posts/1").Then(res => {
+  EditorUtility.DisplayDialog("Response", res, "Ok");
+})
+
+RequestClient.Post("https://jsonplaceholder.typicode.com/posts", newPost).Then(res => {
+  EditorUtility.DisplayDialog("Status", res.statusCode.ToString(), "Ok");
+})
+
+RequestClient.Put("https://jsonplaceholder.typicode.com/posts/1", updatedPost).Then(res => {
+  EditorUtility.DisplayDialog("Status", res.statusCode.ToString(), "Ok");
+})
+
+RequestClient.Delete("https://jsonplaceholder.typicode.com/posts/1").Then(res => {
+  EditorUtility.DisplayDialog("Status", res.statusCode.ToString(), "Ok");
+})
+```
+
+But we are going to create a class **"Post"** and the HTTP requests to load **JSON** data easily from the server
+```
+[Serializable]
+public class Post
+{
+  public int id;
+
+  public int userId;
+
+  public string title;
+
+  public string body;
+}
+```
+
+* GET JSON
+```
+RequestClient.Get<Post>("https://jsonplaceholder.typicode.com/posts/1").Then(myPost => {
+  EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(myPost, true), "Ok");
+})
+```
+* GET Array
+```
+RequestClient.GetArray<Post>("https://jsonplaceholder.typicode.com/posts").Then(allPosts => {
+  EditorUtility.DisplayDialog("JSON Array", JsonHelper.ArrayToJsonString<Post>(allPosts, true), "Ok");
+})
+```
+* POST
+```
+RequestClient.Post<CustomMessage>("https://jsonplaceholder.typicode.com/posts", newPost).Then(customMessage => {
+  EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customMessage, true), "Ok");
+})
+```
+* PUT
+```
+RequestClient.Get<CustomMessage>("https://jsonplaceholder.typicode.com/posts/1", updatedPost).Then(customMessage => {
+  EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customMessage, true), "Ok");
+})
+```
+
 ## Collaborators 🥇
 [<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/2154886?v=3&s=117" width="117">](https://github.com/jdnichollsc) |
 :---: |
