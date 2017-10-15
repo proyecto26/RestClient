@@ -43,7 +43,7 @@ Download this package from **NuGet** with **Visual Studio** creating a **NuGet.c
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <config>
-    <add key="repositoryPath" value=".\Assets\Packages" />
+    <add key="repositoryPath" value="./Assets/Packages" />
   </config>
 </configuration>
 ```
