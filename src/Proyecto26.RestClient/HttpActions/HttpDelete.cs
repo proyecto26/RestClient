@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 using UnityEngine.Networking;
 
-namespace Proyecto26.RestClient
+namespace Proyecto26
 {
     public static class HttpDelete
     {

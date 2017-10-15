@@ -4,7 +4,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Proyecto26.RestClient
+namespace Proyecto26
 {
     public static class HttpBase
     {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using Models;
-using Proyecto26.RestClient;
+using Proyecto26;
 
 public class MainScript : MonoBehaviour {
 
@@ -10,13 +10,13 @@ public class MainScript : MonoBehaviour {
 	public void Get(){
 
         RestClient.GetArray<Post>(basePath + "/posts").Then(res => {
-            EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJsonString<Post>(res, true), "Ok");
+            EditorUtility.DisplayDialog ("Posts", JsonHelper.ArrayToJsonString<Post>(res, true), "Ok");
             return RestClient.GetArray<Todo>(basePath + "/todos");
 		}).Then(res => {
-            EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJsonString<Todo>(res, true), "Ok");
+            EditorUtility.DisplayDialog ("Todos", JsonHelper.ArrayToJsonString<Todo>(res, true), "Ok");
             return RestClient.GetArray<User>(basePath + "/users");
 		}).Then(res => {
-            EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJsonString<User>(res, true), "Ok");
+            EditorUtility.DisplayDialog ("Users", JsonHelper.ArrayToJsonString<User>(res, true), "Ok");
 		}).Catch(err => EditorUtility.DisplayDialog ("Error", err.Message, "Ok"));
 	}
 

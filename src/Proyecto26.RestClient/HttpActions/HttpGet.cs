@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
 
-namespace Proyecto26.RestClient
+namespace Proyecto26
 {
     public static class HttpGet
     {

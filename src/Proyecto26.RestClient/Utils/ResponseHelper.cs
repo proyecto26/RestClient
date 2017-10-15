@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace Proyecto26.RestClient
+namespace Proyecto26
 {
     [Serializable]
     public class ResponseHelper

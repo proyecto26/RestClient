@@ -1,4 +1,4 @@
-﻿namespace Proyecto26.RestClient
+﻿namespace Proyecto26
 {
     public enum HttpAction
     {
