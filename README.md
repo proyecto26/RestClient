@@ -113,7 +113,7 @@ RequestClient.Post<CustomResponse>(usersRoot, newUser).Then(customResponse => {
 ```
 * **PUT**
 ```
-RequestClient.Get<CustomResponse>(usersRoot + "/1", updatedUser).Then(customResponse => {
+RequestClient.Put<CustomResponse>(usersRoot + "/1", updatedUser).Then(customResponse => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customResponse, true), "Ok");
 })
 ```
