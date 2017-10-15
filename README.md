@@ -94,7 +94,7 @@ RequestClient.Get<User>(usersRoot + "/1").Then(firstUser => {
 * **GET Array**
 ```
 RequestClient.GetArray<User>(usersRoot).Then(allUsers => {
-  EditorUtility.DisplayDialog("JSON Array", JsonHelper.ArrayToJsonString<Post>(allUsers, true), "Ok");
+  EditorUtility.DisplayDialog("JSON Array", JsonHelper.ArrayToJsonString<User>(allUsers, true), "Ok");
 })
 ```
 Also we can create different classes for custom responses:
