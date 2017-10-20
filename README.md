@@ -53,19 +53,19 @@ The package to search for is **[Proyecto26.RestClient](https://www.nuget.org/pac
 ## Getting Started 📚
 The default methods **(GET, POST, PUT, DELETE)** are:
 ```
-RequestClient.Get("https://jsonplaceholder.typicode.com/posts/1").Then(res => {
+RestClient.Get("https://jsonplaceholder.typicode.com/posts/1").Then(res => {
   EditorUtility.DisplayDialog("Response", res, "Ok");
 })
 
-RequestClient.Post("https://jsonplaceholder.typicode.com/posts", newPost).Then(res => {
+RestClient.Post("https://jsonplaceholder.typicode.com/posts", newPost).Then(res => {
   EditorUtility.DisplayDialog("Status", res.statusCode.ToString(), "Ok");
 })
 
-RequestClient.Put("https://jsonplaceholder.typicode.com/posts/1", updatedPost).Then(res => {
+RestClient.Put("https://jsonplaceholder.typicode.com/posts/1", updatedPost).Then(res => {
   EditorUtility.DisplayDialog("Status", res.statusCode.ToString(), "Ok");
 })
 
-RequestClient.Delete("https://jsonplaceholder.typicode.com/posts/1").Then(res => {
+RestClient.Delete("https://jsonplaceholder.typicode.com/posts/1").Then(res => {
   EditorUtility.DisplayDialog("Status", res.statusCode.ToString(), "Ok");
 })
 ```
@@ -87,13 +87,13 @@ public class User
 * **GET JSON**
 ```
 var usersRoot = "https://jsonplaceholder.typicode.com/users"; 
-RequestClient.Get<User>(usersRoot + "/1").Then(firstUser => {
+RestClient.Get<User>(usersRoot + "/1").Then(firstUser => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(firstUser, true), "Ok");
 })
 ```
 * **GET Array**
 ```
-RequestClient.GetArray<User>(usersRoot).Then(allUsers => {
+RestClient.GetArray<User>(usersRoot).Then(allUsers => {
   EditorUtility.DisplayDialog("JSON Array", JsonHelper.ArrayToJsonString<User>(allUsers, true), "Ok");
 })
 ```
@@ -107,13 +107,13 @@ public class CustomResponse
 ```
 * **POST**
 ```
-RequestClient.Post<CustomResponse>(usersRoot, newUser).Then(customResponse => {
+RestClient.Post<CustomResponse>(usersRoot, newUser).Then(customResponse => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customResponse, true), "Ok");
 })
 ```
 * **PUT**
 ```
-RequestClient.Put<CustomResponse>(usersRoot + "/1", updatedUser).Then(customResponse => {
+RestClient.Put<CustomResponse>(usersRoot + "/1", updatedUser).Then(customResponse => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customResponse, true), "Ok");
 })
 ```
