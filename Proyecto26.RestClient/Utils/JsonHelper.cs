@@ -5,6 +5,12 @@ namespace Proyecto26
 {
     public static class JsonHelper
     {
+        /// <summary>
+        /// Get an array of objects when the response is an array "[]" instead of a valid JSON "{}"
+        /// </summary>
+        /// <returns>An array of objects.</returns>
+        /// <param name="json">An array returned from the server.</param>
+        /// <typeparam name="T">The element type of the array.</typeparam>
         public static T[] ArrayFromJson<T>(string json)
         {
             string newJson = "{ \"Items\": " + json + "}";
