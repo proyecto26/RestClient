@@ -123,6 +123,7 @@ RestClient.Put<CustomResponse>(usersRoot + "/1", updatedUser).Then(customRespons
 ```
 RestClient.DefaultRequestHeaders["Authorization"] = "Bearer ...";
 ```
+
 Also we can add specific options and override default headers for a request
 ```
 var requestOptions = new RequestHelper { 
@@ -134,6 +135,11 @@ var requestOptions = new RequestHelper {
 RestClient.GetArray<Photo>(requestOptions).Then(response => {
   EditorUtility.DisplayDialog("Autorization header", requestOptions.GetRequestHeader("Authorization"), "Ok");
 })
+```
+
+And later we can clean the default headers for all requests
+```
+RestClient.CleanDefaultHeaders();
 ```
 
 ## Collaborators 🥇
