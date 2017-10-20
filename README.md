@@ -133,7 +133,7 @@ var requestOptions = new RequestHelper {
   }
 };
 RestClient.GetArray<Photo>(requestOptions).Then(response => {
-  EditorUtility.DisplayDialog("Autorization header", requestOptions.GetRequestHeader("Authorization"), "Ok");
+  EditorUtility.DisplayDialog("Header", requestOptions.GetRequestHeader("Authorization"), "Ok");
 })
 ```
 
