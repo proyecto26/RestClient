@@ -1,39 +1,19 @@
 ﻿using System;
 using System.Collections;
-using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
+using Proyecto26.Common.Extensions;
 
 namespace Proyecto26
 {
     public static class HttpBase
     {
-        private static IEnumerator SendWebRequest(this UnityWebRequest request, object bodyJson)
+        public static IEnumerator DefaultUnityWebRequest(RequestHelper options, object bodyJson, string method, Action<Exception, ResponseHelper> callback)
         {
-            byte[] bodyRaw = Encoding.UTF8.GetBytes(JsonUtility.ToJson(bodyJson).ToCharArray());
-            request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
-            request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-            request.SetRequestHeader("Content-Type", "application/json");
-            yield return request.SendWebRequest();
-        }
-
-        private static ResponseHelper CreateResponse(this UnityWebRequest request){
-            return new ResponseHelper
+            using(var request = new UnityWebRequest(options.url, method.ToString()))
             {
-                statusCode = request.responseCode,
-                data = request.downloadHandler.data,
-                text = request.downloadHandler.text,
-                headers = request.GetResponseHeaders(),
-                error = request.error
-            };
-        }
-
-        public static IEnumerator DefaultUnityWebRequest(string url, object bodyJson, HttpAction method, Action<Exception, ResponseHelper> callback)
-        {
-            using(var request = new UnityWebRequest(url, method.ToString()))
-            {
-                yield return request.SendWebRequest(bodyJson);
-                var response = request.CreateResponse();
+                yield return request.SendWebRequest(options, bodyJson);
+                var response = request.CreateWebResponse();
                 if (request.isDone)
                 {
                     callback(null, response);
@@ -44,12 +24,13 @@ namespace Proyecto26
                 }
             }
         }
-        public static IEnumerator DefaultUnityWebRequest<TResponse>(string url, object bodyJson, HttpAction method, Action<Exception, ResponseHelper, TResponse> callback)
+
+        public static IEnumerator DefaultUnityWebRequest<TResponse>(RequestHelper options, object bodyJson, string method, Action<Exception, ResponseHelper, TResponse> callback)
         {
-            using (var request = new UnityWebRequest(url, method.ToString()))
+            using (var request = new UnityWebRequest(options.url, method.ToString()))
             {
-                yield return request.SendWebRequest(bodyJson);
-                var response = request.CreateResponse();
+                yield return request.SendWebRequest(options, bodyJson);
+                var response = request.CreateWebResponse();
                 if (request.isDone)
                 {
                     var body = JsonUtility.FromJson<TResponse>(request.downloadHandler.text);

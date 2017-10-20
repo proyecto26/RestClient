@@ -1,23 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections;
-using System;
 using UnityEngine.Networking;
+using Proyecto26.Common.Extensions;
 
 namespace Proyecto26
 {
     public static class HttpDelete
     {
-        public static IEnumerator DeleteUnityWebRequest(string url, Action<Exception, ResponseHelper> callback)
+        public static IEnumerator DeleteUnityWebRequest(RequestHelper options, Action<Exception, ResponseHelper> callback)
         {
-            using (var request = UnityWebRequest.Delete(url))
+            using (var request = UnityWebRequest.Delete(options.url))
             {
-                yield return request.SendWebRequest();
-                var response = new ResponseHelper
-                {
-                    statusCode = request.responseCode,
-                    headers = request.GetResponseHeaders(),
-                    error = request.error
-                };
+                yield return request.SendWebRequest(options);
+                var response = request.CreateWebResponse();
                 if (request.isDone)
                 {
                     callback(null, response);
