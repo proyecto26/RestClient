@@ -20,14 +20,14 @@ RestClient.GetArray<Post>(root + "/posts", (err, res) => {
 But working with **Promises** we can improve our code, yay! 👏
 
 ```csharp
-RestClient.GetArray<Post>(root + "/posts").Then(res => {
-  EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJson<Post>(res, true), "Ok");
+RestClient.GetArray<Post>(root + "/posts").Then(response => {
+  EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJson<Post>(response, true), "Ok");
   return RestClient.GetArray<Todo>(root + "/todos");
-}).Then(res => {
-  EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJson<Todo>(res, true), "Ok");
+}).Then(response => {
+  EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJson<Todo>(response, true), "Ok");
   return RestClient.GetArray<User>(root + "/users");
-}).Then(res => {
-  EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJson<User>(res, true), "Ok");
+}).Then(response => {
+  EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJson<User>(response, true), "Ok");
 }).Catch(err => EditorUtility.DisplayDialog ("Error", err.Message, "Ok"));
 ```
 
@@ -53,20 +53,20 @@ The package to search for is **[Proyecto26.RestClient](https://www.nuget.org/pac
 ## Getting Started 📚
 The default methods **(GET, POST, PUT, DELETE)** are:
 ```
-RestClient.Get("https://jsonplaceholder.typicode.com/posts/1").Then(res => {
-  EditorUtility.DisplayDialog("Response", res, "Ok");
+RestClient.Get("https://jsonplaceholder.typicode.com/posts/1").Then(response => {
+  EditorUtility.DisplayDialog("Response", response, "Ok");
 })
 
-RestClient.Post("https://jsonplaceholder.typicode.com/posts", newPost).Then(res => {
-  EditorUtility.DisplayDialog("Status", res.statusCode.ToString(), "Ok");
+RestClient.Post("https://jsonplaceholder.typicode.com/posts", newPost).Then(response => {
+  EditorUtility.DisplayDialog("Status", response.statusCode.ToString(), "Ok");
 })
 
-RestClient.Put("https://jsonplaceholder.typicode.com/posts/1", updatedPost).Then(res => {
-  EditorUtility.DisplayDialog("Status", res.statusCode.ToString(), "Ok");
+RestClient.Put("https://jsonplaceholder.typicode.com/posts/1", updatedPost).Then(response => {
+  EditorUtility.DisplayDialog("Status", response.statusCode.ToString(), "Ok");
 })
 
-RestClient.Delete("https://jsonplaceholder.typicode.com/posts/1").Then(res => {
-  EditorUtility.DisplayDialog("Status", res.statusCode.ToString(), "Ok");
+RestClient.Delete("https://jsonplaceholder.typicode.com/posts/1").Then(response => {
+  EditorUtility.DisplayDialog("Status", response.statusCode.ToString(), "Ok");
 })
 ```
 
@@ -115,6 +115,24 @@ RestClient.Post<CustomResponse>(usersRoot, newUser).Then(customResponse => {
 ```
 RestClient.Put<CustomResponse>(usersRoot + "/1", updatedUser).Then(customResponse => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customResponse, true), "Ok");
+})
+```
+
+## Custom HTTP Headers and Options 💥
+**HTTP Headers**, such as `Authorization`, can be set in the **DefaultRequestHeaders** object for all requests
+```
+RestClient.DefaultRequestHeaders["Authorization"] = "Bearer ...";
+```
+Also we can add specific options and override default headers for a request
+```
+var requestOptions = new RequestHelper { 
+  url = "https://jsonplaceholder.typicode.com/photos",
+  headers = new Dictionary<string, string>{
+    { "Authorization", "Other token..." }
+  }
+};
+RestClient.GetArray<Photo>(requestOptions).Then(response => {
+  EditorUtility.DisplayDialog("Autorization header", requestOptions.GetRequestHeader("Authorization"), "Ok");
 })
 ```
 
