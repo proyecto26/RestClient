@@ -5,10 +5,10 @@
 This **HTTP/REST** Client is based on Promises to avoid the [Callback Hell](http://callbackhell.com/) ☠️ and the [Pyramid of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)) 💩 working with **Coroutines** in **Unity** 🎮, example:
 
 ```csharp
-var root = "https://jsonplaceholder.typicode.com";
-RestClient.GetArray<Post>(root + "/posts", (err, res) => {
-  RestClient.GetArray<Todo>(root + "/todos", (errTodos, resTodos) => {
-    RestClient.GetArray<User>(root + "/users", (errUsers, resUsers) => {
+var api = "https://jsonplaceholder.typicode.com";
+RestClient.GetArray<Post>(api + "/posts", (err, res) => {
+  RestClient.GetArray<Todo>(api + "/todos", (errTodos, resTodos) => {
+    RestClient.GetArray<User>(api + "/users", (errUsers, resUsers) => {
       if(err != null){
         EditorUtility.DisplayDialog ("Error", errTodos.Message, "Ok");
       }
@@ -20,12 +20,12 @@ RestClient.GetArray<Post>(root + "/posts", (err, res) => {
 But working with **Promises** we can improve our code, yay! 👏
 
 ```csharp
-RestClient.GetArray<Post>(root + "/posts").Then(response => {
+RestClient.GetArray<Post>(api + "/posts").Then(response => {
   EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJson<Post>(response, true), "Ok");
-  return RestClient.GetArray<Todo>(root + "/todos");
+  return RestClient.GetArray<Todo>(api + "/todos");
 }).Then(response => {
   EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJson<Todo>(response, true), "Ok");
-  return RestClient.GetArray<User>(root + "/users");
+  return RestClient.GetArray<User>(api + "/users");
 }).Then(response => {
   EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJson<User>(response, true), "Ok");
 }).Catch(err => EditorUtility.DisplayDialog ("Error", err.Message, "Ok"));
@@ -86,14 +86,14 @@ public class User
 
 * **GET JSON**
 ```
-var usersRoot = "https://jsonplaceholder.typicode.com/users"; 
-RestClient.Get<User>(usersRoot + "/1").Then(firstUser => {
+var usersRoute = "https://jsonplaceholder.typicode.com/users"; 
+RestClient.Get<User>(usersRoute + "/1").Then(firstUser => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(firstUser, true), "Ok");
 })
 ```
 * **GET Array**
 ```
-RestClient.GetArray<User>(usersRoot).Then(allUsers => {
+RestClient.GetArray<User>(usersRoute).Then(allUsers => {
   EditorUtility.DisplayDialog("JSON Array", JsonHelper.ArrayToJsonString<User>(allUsers, true), "Ok");
 })
 ```
@@ -107,13 +107,13 @@ public class CustomResponse
 ```
 * **POST**
 ```
-RestClient.Post<CustomResponse>(usersRoot, newUser).Then(customResponse => {
+RestClient.Post<CustomResponse>(usersRoute, newUser).Then(customResponse => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customResponse, true), "Ok");
 })
 ```
 * **PUT**
 ```
-RestClient.Put<CustomResponse>(usersRoot + "/1", updatedUser).Then(customResponse => {
+RestClient.Put<CustomResponse>(usersRoute + "/1", updatedUser).Then(customResponse => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customResponse, true), "Ok");
 })
 ```
@@ -133,7 +133,7 @@ var requestOptions = new RequestHelper {
   }
 };
 RestClient.GetArray<Photo>(requestOptions).Then(response => {
-  EditorUtility.DisplayDialog("Header", requestOptions.GetRequestHeader("Authorization"), "Ok");
+  EditorUtility.DisplayDialog("Header", requestOptions.GetHeader("Authorization"), "Ok");
 })
 ```
 
