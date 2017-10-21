@@ -38,7 +38,7 @@ Do you want to see this beautiful package in action? Download the demo [here](ht
 
 ## Installation 👨‍💻
 ### Nuget package
-Download this package from **NuGet** with **Visual Studio** creating a **NuGet.config** file at the root of your **Unity Project**, for example:
+Download this package from **NuGet** with **Visual Studio** creating a **[NuGet.config](https://github.com/proyecto26/RestClient/blob/master/demo/NuGet.config)** file at the root of your **Unity Project**, for example:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
