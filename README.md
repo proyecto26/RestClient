@@ -54,7 +54,7 @@ The package to search for is **[Proyecto26.RestClient](https://www.nuget.org/pac
 The default methods **(GET, POST, PUT, DELETE)** are:
 ```
 RestClient.Get("https://jsonplaceholder.typicode.com/posts/1").Then(response => {
-  EditorUtility.DisplayDialog("Response", response, "Ok");
+  EditorUtility.DisplayDialog("Response", response.text, "Ok");
 })
 
 RestClient.Post("https://jsonplaceholder.typicode.com/posts", newPost).Then(response => {
