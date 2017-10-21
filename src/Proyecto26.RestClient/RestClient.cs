@@ -16,9 +16,9 @@ namespace Proyecto26
         /// </summary>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Get(string url, Action<Exception, string> callback)
+        public static void Get(string url, Action<Exception, ResponseHelper> callback)
         {
-            Get<String>(new RequestHelper { url = url }, callback);
+            Get(new RequestHelper { url = url }, callback);
         }
 
         /// <summary>
@@ -26,9 +26,9 @@ namespace Proyecto26
         /// </summary>
         /// <param name="options">An options object.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Get(RequestHelper options, Action<Exception, string> callback)
+        public static void Get(RequestHelper options, Action<Exception, ResponseHelper> callback)
         {
-            Get<String>(options, callback);
+            StaticCoroutine.StartCoroutine(HttpBase.DefaultUnityWebRequest(options, null, UnityWebRequest.kHttpVerbGET, callback));
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Proyecto26
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The relement type of the response.</typeparam>
-        public static void Get<T>(string url, Action<Exception, T> callback)
+        public static void Get<T>(string url, Action<Exception, ResponseHelper, T> callback)
         {
             Get<T>(new RequestHelper { url = url }, callback);
         }
@@ -48,12 +48,9 @@ namespace Proyecto26
         /// <param name="options">An options object.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The relement type of the response.</typeparam>
-        public static void Get<T>(RequestHelper options, Action<Exception, T> callback)
+        public static void Get<T>(RequestHelper options, Action<Exception, ResponseHelper, T> callback)
         {
-            StaticCoroutine.StartCoroutine(HttpBase.DefaultUnityWebRequest<T>(options, null, UnityWebRequest.kHttpVerbGET, (err, res, body) =>
-            {
-                callback(err, body);
-            }));
+            StaticCoroutine.StartCoroutine(HttpBase.DefaultUnityWebRequest<T>(options, null, UnityWebRequest.kHttpVerbGET, callback));
         }
 
         /// <summary>
@@ -199,7 +196,7 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a string value.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
-        public static IPromise<String> Get(string url)
+        public static IPromise<ResponseHelper> Get(string url)
         {
             return Get(new RequestHelper { url = url });
         }
@@ -209,10 +206,10 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a string value.</returns>
         /// <param name="options">An options object.</param>
-        public static IPromise<String> Get(RequestHelper options)
+        public static IPromise<ResponseHelper> Get(RequestHelper options)
         {
-            var promise = new Promise<String>();
-            Get<String>(options, promise.Promisify);
+            var promise = new Promise<ResponseHelper>();
+            Get(options, promise.Promisify);
             return promise;
         }
 
@@ -236,7 +233,7 @@ namespace Proyecto26
         public static IPromise<T> Get<T>(RequestHelper options)
         {
             var promise = new Promise<T>();
-            Get<T>(options, promise.Promisify);
+            Get<T>(options, promise.PromisifyHelper);
             return promise;
         }
 

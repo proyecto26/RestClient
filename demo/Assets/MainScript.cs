@@ -34,7 +34,7 @@ public class MainScript : MonoBehaviour {
 			};
 			return RestClient.GetArray<Photo>(requestOptions);
 		}).Then(res => {
-			EditorUtility.DisplayDialog("Header", requestOptions.GetRequestHeader("Authorization"), "Ok");
+			EditorUtility.DisplayDialog("Header", requestOptions.GetHeader("Authorization"), "Ok");
 
 			// And later we can clean the default headers for all requests
 			RestClient.CleanDefaultHeaders();
