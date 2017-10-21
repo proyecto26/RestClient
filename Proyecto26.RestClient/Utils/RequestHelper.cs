@@ -41,7 +41,7 @@ namespace Proyecto26
             }
         }
 
-        public string GetRequestHeader(string name){
+        public string GetHeader(string name){
             string headerValue;
             if(request != null)
             {
