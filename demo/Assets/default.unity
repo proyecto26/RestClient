@@ -1033,7 +1033,7 @@ Behaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2093631975}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &2093631979
 Camera:
   m_ObjectHideFlags: 0
@@ -1090,7 +1090,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2093631975}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d225423ef8cf34aa4ba26ec395de8c00, type: 3}
+  m_Script: {fileID: 11500000, guid: 447e21740505d48bd8be1073c5806fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2142652265
