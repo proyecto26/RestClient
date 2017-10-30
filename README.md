@@ -33,6 +33,7 @@ RestClient.GetArray<Post>(api + "/posts").Then(response => {
 
 ## Demo ⏯
 Do you want to see this beautiful package in action? Download the demo [here](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/proyecto26/RestClient/tree/master/demo)
+> Restore the nuget packages using **Visual Studio** or executing the following command from the terminal/command line: **nuget restore Assets/packages.config**
 
 ![Demo](img/demo.png)
 
