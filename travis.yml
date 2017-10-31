@@ -1,0 +1,10 @@
+language: csharp
+solution: src/Proyecto26.RestClient.sln
+
+before_script: cd src
+ 
+install:
+  - nuget restore Proyecto26.RestClient.sln
+ 
+script:
+  - xbuild /p:Configuration=Debug Proyecto26.RestClient.sln
