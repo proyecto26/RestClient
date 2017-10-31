@@ -1,7 +1,7 @@
 language: csharp
-solution: src/Proyecto26.RestClient.sln
+solution: Proyecto26.RestClient.sln
 
-before_script: cd src
+before_install: cd src
  
 install:
   - nuget restore Proyecto26.RestClient.sln
