@@ -39,8 +39,12 @@ Do you want to see this beautiful package in action? Download the demo [here](ht
 ![Demo](img/demo.png)
 
 ## Installation 👨‍💻
+
+### Unity package
+Download and install the **.unitypackage** file of the latest release published [here](https://github.com/proyecto26/RestClient/releases).
+
 ### Nuget package
-Download this package from **NuGet** with **Visual Studio** creating a **[NuGet.config](https://github.com/proyecto26/RestClient/blob/master/demo/NuGet.config)** file at the root of your **Unity Project**, for example:
+Other option is download this package from **NuGet** with **Visual Studio** or using the **nuget-cli**, a **[NuGet.config](https://github.com/proyecto26/RestClient/blob/master/demo/NuGet.config)** file is required at the root of your **Unity Project**, for example:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
