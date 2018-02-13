@@ -13,9 +13,7 @@ var api = "https://jsonplaceholder.typicode.com";
 RestClient.GetArray<Post>(api + "/posts", (err, res) => {
   RestClient.GetArray<Todo>(api + "/todos", (errTodos, resTodos) => {
     RestClient.GetArray<User>(api + "/users", (errUsers, resUsers) => {
-      if(err != null){
-        EditorUtility.DisplayDialog ("Error", errTodos.Message, "Ok");
-      }
+      //Missing validations to catch errors!
     });
   });
 });
