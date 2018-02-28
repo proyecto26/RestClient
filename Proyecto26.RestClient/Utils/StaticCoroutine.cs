@@ -15,6 +15,7 @@ namespace Proyecto26
                 if (_runner == null)
                 {
                     _runner = new GameObject("Static Corotuine RestClient").AddComponent<CoroutineHolder>();
+                    Object.DontDestroyOnLoad(_runner);
                 }
                 return _runner;
             }
