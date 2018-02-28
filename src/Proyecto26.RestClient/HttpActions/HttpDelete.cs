@@ -13,13 +13,13 @@ namespace Proyecto26
             {
                 yield return request.SendWebRequest(options);
                 var response = request.CreateWebResponse();
-                if (request.isDone)
+                if (request.isDone && string.IsNullOrEmpty(request.error))
                 {
                     callback(null, response);
                 }
                 else
                 {
-                    callback(new Exception(request.error), response);
+                    callback(new RequestException(request.error, request.isHttpError, request.isNetworkError), response);
                 }
 
             }

@@ -10,35 +10,35 @@ namespace Proyecto26
     {
         public static IEnumerator DefaultUnityWebRequest(RequestHelper options, object bodyJson, string method, Action<Exception, ResponseHelper> callback)
         {
-            using(var request = new UnityWebRequest(options.url, method.ToString()))
+            using(var request = new UnityWebRequest(options.url, method))
             {
                 yield return request.SendWebRequest(options, bodyJson);
                 var response = request.CreateWebResponse();
-                if (request.isDone)
+                if (request.isDone && string.IsNullOrEmpty(request.error))
                 {
                     callback(null, response);
                 }
                 else
                 {
-                    callback(new Exception(request.error), response);
+                    callback(new RequestException(request.error, request.isHttpError, request.isNetworkError), response);
                 }
             }
         }
 
         public static IEnumerator DefaultUnityWebRequest<TResponse>(RequestHelper options, object bodyJson, string method, Action<Exception, ResponseHelper, TResponse> callback)
         {
-            using (var request = new UnityWebRequest(options.url, method.ToString()))
+            using (var request = new UnityWebRequest(options.url, method))
             {
                 yield return request.SendWebRequest(options, bodyJson);
                 var response = request.CreateWebResponse();
-                if (request.isDone)
+                if (request.isDone && string.IsNullOrEmpty(request.error))
                 {
                     var body = JsonUtility.FromJson<TResponse>(request.downloadHandler.text);
                     callback(null, response, body);
                 }
                 else
                 {
-                    callback(new Exception(request.error), response, default(TResponse));
+                    callback(new RequestException(request.error, request.isHttpError, request.isNetworkError), response, default(TResponse));
                 }
             }
         }
