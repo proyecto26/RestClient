@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class MainScript : MonoBehaviour {
 
-	string basePath = "https://jsonplaceholder.typicode.com";
+    private readonly string basePath = "https://jsonplaceholder.typicode.com";
 
 	public void Get(){
 
