@@ -16,7 +16,7 @@ namespace Proyecto26
 
         public int? timeout;
 
-        public Dictionary<string, string> headers;
+        public Dictionary<string, string> headers { get; private set; }
 
         public float uploadProgress {
             get {

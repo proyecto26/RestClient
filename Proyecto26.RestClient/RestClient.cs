@@ -7,7 +7,19 @@ namespace Proyecto26
 {
     public static class RestClient
     {
-        public static Dictionary<string, string> DefaultRequestHeaders = new Dictionary<string, string>();
+        private static Dictionary<string, string> _defaultRequestHeaders;
+        public static Dictionary<string, string> DefaultRequestHeaders 
+        {
+            get 
+            {
+                if(_defaultRequestHeaders == null)
+                {
+                    _defaultRequestHeaders = new Dictionary<string, string>();
+                }
+                return _defaultRequestHeaders;
+            }
+            private set { _defaultRequestHeaders = value; }
+        }
 
         #region Callbacks
 
@@ -408,7 +420,7 @@ namespace Proyecto26
         /// <typeparam name="T">The element type of the response.</typeparam>
         private static void Promisify<T>(this Promise<T> p, Exception err, T res)
         {
-            if (err != null) p.Reject(err); else p.Resolve(res);
+            if (err != null) { p.Reject(err); } else { p.Resolve(res); }
         }
 
         /// <summary>

@@ -11,8 +11,8 @@
     <iconUrl>https://github.com/proyecto26/RestClient/blob/master/img/icono.png?raw=true</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>First release.</releaseNotes>
-    <copyright>Copyright 2017</copyright>
+    <releaseNotes>Validate internet connection.</releaseNotes>
+    <copyright>Copyright 2018</copyright>
     <tags>Unity Promises Http Rest http-client HttpClient rest-client RestClient Request</tags>
   </metadata>
 </package>

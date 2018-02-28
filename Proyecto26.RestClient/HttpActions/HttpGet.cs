@@ -16,14 +16,19 @@ namespace Proyecto26
             {
                 yield return request.SendWebRequest(options);
                 var json = request.downloadHandler.text.Trim();
-                if (request.isDone && !string.IsNullOrEmpty(json))
+                var responseIsEmpty = string.IsNullOrEmpty(json);
+                if (request.isDone && string.IsNullOrEmpty(request.error) && !responseIsEmpty)
                 {
                     var response = JsonHelper.ArrayFromJson<T>(json);
                     callback(null, response);
                 }
                 else
                 {
-                    callback(new Exception(request.error ?? "The response is empty"), null);
+                    var message = request.error;
+                    if(responseIsEmpty){
+                        message = "The response is empty";
+                    }
+                    callback(new RequestException(message, request.isHttpError, request.isNetworkError), null);
                 }
             }
         }
