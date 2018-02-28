@@ -18,7 +18,7 @@ namespace Proyecto26
                 }
                 return _defaultRequestHeaders;
             }
-            private set { _defaultRequestHeaders = value; }
+            set { _defaultRequestHeaders = value; }
         }
 
         #region Callbacks

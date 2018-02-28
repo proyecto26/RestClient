@@ -3,14 +3,14 @@ namespace Proyecto26
 {
     public class RequestException : Exception
     {
-        private bool _isHttpError = false;
+        private bool _isHttpError;
         public bool IsHttpError
         {
             get { return _isHttpError; }
             private set { _isHttpError = value; }
         }
 
-        private bool _isNetworkError = false;
+        private bool _isNetworkError;
         public bool IsNetworkError
         {
             get { return _isNetworkError; }
