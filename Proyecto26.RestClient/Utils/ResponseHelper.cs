@@ -15,7 +15,19 @@ namespace Proyecto26
 
         public string error;
 
-        public Dictionary<string, string> headers;
+        private Dictionary<string, string> _headers;
+        public Dictionary<string, string> headers
+        {
+            get
+            {
+                if (_headers == null)
+                {
+                    _headers = new Dictionary<string, string>();
+                }
+                return _headers;
+            }
+            set { _headers = value; }
+        }
 
         public override string ToString()
         {

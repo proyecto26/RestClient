@@ -16,7 +16,19 @@ namespace Proyecto26
 
         public int? timeout;
 
-        public Dictionary<string, string> headers { get; private set; }
+        private Dictionary<string, string> _headers;
+        public Dictionary<string, string> headers 
+        { 
+            get
+            {
+                if (_headers == null)
+                {
+                    _headers = new Dictionary<string, string>();
+                }
+                return _headers;
+            }
+            set { _headers = value; } 
+        }
 
         public float uploadProgress {
             get {
