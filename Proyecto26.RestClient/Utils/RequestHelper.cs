@@ -7,11 +7,6 @@ namespace Proyecto26
 {
     public class RequestHelper
     {
-        public RequestHelper()
-        {
-            headers = new Dictionary<string, string>();
-        }
-
         public string url;
 
         public int? timeout;
