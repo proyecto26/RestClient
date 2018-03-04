@@ -28,7 +28,7 @@ public class MainScript : MonoBehaviour {
 			// We can add specific options and override default headers for a request
 			requestOptions = new RequestHelper { 
 				url = basePath + "/photos",
-				headers = new Dictionary<string, string>{
+				headers = new Dictionary<string, string> {
 					{ "Authorization", "Other token..." }
 				}
 			};

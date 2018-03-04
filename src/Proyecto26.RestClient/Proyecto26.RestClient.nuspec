@@ -2,15 +2,15 @@
 <package >
   <metadata>
     <id>Proyecto26.RestClient</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
+    <version>1.2.2</version>
+    <title>RestClient for Unity</title>
+    <authors>Juan David Nicholls Cardona</authors>
+    <owners>jdnichollsc</owners>
     <licenseUrl>https://github.com/proyecto26/RestClient/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/proyecto26/RestClient</projectUrl>
     <iconUrl>https://github.com/proyecto26/RestClient/blob/master/img/icono.png?raw=true</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
+    <description>Simple HTTP and REST client for Unity based on Promises, also support Callbacks!</description>
     <releaseNotes>Validate internet connection.</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>Unity Promises Http Rest http-client HttpClient rest-client RestClient Request</tags>
