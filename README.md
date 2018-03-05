@@ -35,7 +35,7 @@ RestClient.GetArray<Post>(api + "/posts").Then(response => {
 ```
 
 ## Supported platforms
-The UnityWebRequest system supports most Unity platforms:
+The [UnityWebRequest](https://docs.unity3d.com/Manual/UnityWebRequest.html) system supports most Unity platforms:
 
 * All versions of the Editor and Standalone players
 * WebGL
