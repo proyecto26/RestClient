@@ -34,6 +34,17 @@ RestClient.GetArray<Post>(api + "/posts").Then(response => {
 }).Catch(err => EditorUtility.DisplayDialog ("Error", err.Message, "Ok"));
 ```
 
+## Supported platforms
+The UnityWebRequest system supports most Unity platforms:
+
+* All versions of the Editor and Standalone players
+* WebGL
+* Mobile platforms: iOS, Android
+* Universal Windows Platform
+* PS4 and PSVita
+* XboxOne
+* Nintendo Switch
+
 ## Demo ⏯
 Do you want to see this beautiful package in action? Download the demo [here](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/proyecto26/RestClient/tree/master/demo)
 
