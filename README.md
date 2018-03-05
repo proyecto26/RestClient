@@ -89,7 +89,7 @@ RestClient.Delete("https://jsonplaceholder.typicode.com/posts/1").Then(response 
 })
 ```
 
-But we are going to create a class **"User"** and the HTTP requests to load **JSON** data easily:
+But we can also indicate the type of response, in the following example we are going to create a class **"User"** and the HTTP requests to load **JSON** data easily:
 ```
 [Serializable]
 public class User
