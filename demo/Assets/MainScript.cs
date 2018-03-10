@@ -13,7 +13,7 @@ public class MainScript : MonoBehaviour {
 		// We can add default request headers for all requests
 		RestClient.DefaultRequestHeaders["Authorization"] = "Bearer ...";
 
-		RequestHelper requestOptions;
+		RequestHelper requestOptions = null;
 
 		RestClient.GetArray<Post>(basePath + "/posts").Then(res => {
 			EditorUtility.DisplayDialog ("Posts", JsonHelper.ArrayToJsonString<Post>(res, true), "Ok");
