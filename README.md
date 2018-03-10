@@ -147,7 +147,7 @@ Also we can add specific options and override default headers for a request
 ```
 var requestOptions = new RequestHelper { 
   url = "https://jsonplaceholder.typicode.com/photos",
-  headers = new Dictionary<string, string>{
+  headers = new Dictionary<string, string> {
     { "Authorization", "Other token..." }
   }
 };
@@ -167,7 +167,7 @@ RestClient.CleanDefaultHeaders();
 [Diego Ossa](mailto:diegoossa@gmail.com) | [Juan Nicholls](mailto:jdnichollsc@hotmail.com) |
 
 ## Credits 👍
-* [Real Serious Games/C-Sharp-Promise](https://github.com/Real-Serious-Games/C-Sharp-Promise)
+* **Promises library for C#: ** [Real Serious Games/C-Sharp-Promise](https://github.com/Real-Serious-Games/C-Sharp-Promise)
 
 ## Supporting 🍻
 I believe in Unicorns 🦄
