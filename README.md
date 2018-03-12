@@ -167,7 +167,7 @@ RestClient.CleanDefaultHeaders();
 [Diego Ossa](mailto:diegoossa@gmail.com) | [Juan Nicholls](mailto:jdnichollsc@hotmail.com) |
 
 ## Credits 👍
-* **Promises library for C#: ** [Real Serious Games/C-Sharp-Promise](https://github.com/Real-Serious-Games/C-Sharp-Promise)
+* **Promises library for C#:** [Real Serious Games/C-Sharp-Promise](https://github.com/Real-Serious-Games/C-Sharp-Promise)
 
 ## Supporting 🍻
 I believe in Unicorns 🦄
