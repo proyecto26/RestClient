@@ -161,6 +161,27 @@ And later we can clean the default headers for all requests
 RestClient.CleanDefaultHeaders();
 ```
 
+## Example 🧐
+```
+[Serializable]
+public class ServerResponse {
+  public string id;
+  public DateTime date;
+}
+[Serializable]
+public class User {
+  public string firstName;
+  public string lastName;
+}
+RestClient.Post<ServerResponse>("www.api.com/endpoint", new User {
+  firstName = "Juan David",
+  lastName = "Nicholls Cardona"
+}).Then(response => {
+  EditorUtility.DisplayDialog("ID: ", response.id, "Ok");
+  EditorUtility.DisplayDialog("Date: ", response.date.ToString(), "Ok");
+});
+```
+
 ## Collaborators 🥇
 [<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/3436237?v=3&s=117" width="117">](https://github.com/diegoossa) | [<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/2154886?v=3&s=117" width="117">](https://github.com/jdnichollsc) |
 :---: | :---: |
