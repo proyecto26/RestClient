@@ -44,10 +44,10 @@ public class MainScript : MonoBehaviour {
 
 	public void Post(){
 		
-		RestClient.Post<Models.Post>(basePath + "/posts", new {
-			title = "foo",
-			body = "bar",
-			userId = 1
+		RestClient.Post<Models.Post>(basePath + "/posts", new Models.Post {
+			title = "My first title",
+			body = "My first message",
+			userId = 26
 		})
 		.Then(res => EditorUtility.DisplayDialog ("Success", JsonUtility.ToJson(res, true), "Ok"))
 		.Catch(err => EditorUtility.DisplayDialog ("Error", err.Message, "Ok"));
@@ -55,10 +55,10 @@ public class MainScript : MonoBehaviour {
 
 	public void Put(){
 
-		RestClient.Put<Post>(basePath + "/posts/1", new {
-			title = "foo",
-			body = "bar",
-			userId = 1
+		RestClient.Put<Post>(basePath + "/posts/1", new Models.Post {
+			title = "My new title",
+			body = "My new message",
+			userId = 26
 		}, (err, res, body) => {
 			if(err != null){
 				EditorUtility.DisplayDialog ("Error", err.Message, "Ok");
