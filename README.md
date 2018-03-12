@@ -161,7 +161,7 @@ And later we can clean the default headers for all requests
 RestClient.CleanDefaultHeaders();
 ```
 
-## Example 🧐
+### Example
 ```
 [Serializable]
 public class ServerResponse {
