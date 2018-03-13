@@ -43,6 +43,7 @@ The [UnityWebRequest](https://docs.unity3d.com/Manual/UnityWebRequest.html) syst
 * Universal Windows Platform
 * PS4 and PSVita
 * XboxOne
+* HoloLens
 * Nintendo Switch
 
 ## Demo ⏯
