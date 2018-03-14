@@ -163,11 +163,12 @@ RestClient.CleanDefaultHeaders();
 ```
 
 ### Example
+- Unity
 ```
 [Serializable]
 public class ServerResponse {
   public string id;
-  public DateTime date;
+  public string date; //DateTime is not supported by JsonUtility
 }
 [Serializable]
 public class User {
@@ -179,7 +180,17 @@ RestClient.Post<ServerResponse>("www.api.com/endpoint", new User {
   lastName = "Nicholls Cardona"
 }).Then(response => {
   EditorUtility.DisplayDialog("ID: ", response.id, "Ok");
-  EditorUtility.DisplayDialog("Date: ", response.date.ToString(), "Ok");
+  EditorUtility.DisplayDialog("Date: ", response.date, "Ok");
+});
+```
+- NodeJS as Backend (Using [Express](http://expressjs.com/es/starter/hello-world.html))
+```
+router.post('/', function(req, res) {
+  console.log(req.body.firstName)
+  res.json({
+    id: 123,
+    date: new Date()
+  })
 });
 ```
 
