@@ -24,7 +24,14 @@ namespace Proyecto26
             return wrapper.Items;
         }
 
-        public static string ArrayToJsonString<T>(T[] array, bool prettyPrint = false)
+        public static string ArrayToJsonString<T>(T[] array)
+        {
+            var wrapper = new Wrapper<T>();
+            wrapper.Items = array;
+            return JsonUtility.ToJson(wrapper);
+        }
+
+        public static string ArrayToJsonString<T>(T[] array, bool prettyPrint)
         {
             var wrapper = new Wrapper<T>();
             wrapper.Items = array;

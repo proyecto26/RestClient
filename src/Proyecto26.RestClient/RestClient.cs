@@ -7,6 +7,9 @@ namespace Proyecto26
 {
     public static class RestClient
     {
+        /// <summary>
+        /// The default request headers.
+        /// </summary>
         private static Dictionary<string, string> _defaultRequestHeaders;
         public static Dictionary<string, string> DefaultRequestHeaders 
         {
@@ -23,11 +26,22 @@ namespace Proyecto26
 
         #region Callbacks
 
+        /// <summary>
+        /// Create an HTTP request
+        /// </summary>
+        /// <param name="options">The options of the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
         public static void Request(RequestHelper options, Action<Exception, ResponseHelper> callback)
         {
             StaticCoroutine.StartCoroutine(HttpBase.DefaultUnityWebRequest(options, callback));
         }
 
+        /// <summary>
+        /// Request the specified options and callback.
+        /// </summary>
+        /// <param name="options">The options of the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        /// <typeparam name="T">The element type of the response.</typeparam>
         public static void Request<T>(RequestHelper options, Action<Exception, ResponseHelper, T> callback)
         {
             StaticCoroutine.StartCoroutine(HttpBase.DefaultUnityWebRequest(options, callback));
@@ -46,7 +60,7 @@ namespace Proyecto26
         /// <summary>
         /// Load data from the server using a HTTP GET request
         /// </summary>
-        /// <param name="options">An options object.</param>
+        /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         public static void Get(RequestHelper options, Action<Exception, ResponseHelper> callback)
         {
@@ -59,7 +73,7 @@ namespace Proyecto26
         /// </summary>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        /// <typeparam name="T">The relement type of the response.</typeparam>
+        /// <typeparam name="T">The element type of the response.</typeparam>
         public static void Get<T>(string url, Action<Exception, ResponseHelper, T> callback)
         {
             Get<T>(new RequestHelper { Uri = url }, callback);
@@ -68,9 +82,9 @@ namespace Proyecto26
         /// <summary>
         /// Load data from the server using a HTTP GET request
         /// </summary>
-        /// <param name="options">An options object.</param>
+        /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        /// <typeparam name="T">The relement type of the response.</typeparam>
+        /// <typeparam name="T">The element type of the response.</typeparam>
         public static void Get<T>(RequestHelper options, Action<Exception, ResponseHelper, T> callback)
         {
             options.Method = UnityWebRequest.kHttpVerbGET;
@@ -91,7 +105,7 @@ namespace Proyecto26
         /// <summary>
         /// Load a JSON array from the server using a HTTP GET request
         /// </summary>
-        /// <param name="options">An options object.</param>
+        /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the array.</typeparam>
         public static void GetArray<T>(RequestHelper options, Action<Exception, T[]> callback)
@@ -113,7 +127,7 @@ namespace Proyecto26
         /// <summary>
         /// Load data from the server using a HTTP POST request.
         /// </summary>
-        /// <param name="options">An options object.</param>
+        /// <param name="options">The options of the request.</param>
         /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         public static void Post(RequestHelper options, object bodyJson, Action<Exception, ResponseHelper> callback)
@@ -138,7 +152,7 @@ namespace Proyecto26
         /// <summary>
         /// Load data from the server using a HTTP POST request.
         /// </summary>
-        /// <param name="options">An options object.</param>
+        /// <param name="options">The options of the request.</param>
         /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
@@ -163,7 +177,7 @@ namespace Proyecto26
         /// <summary>
         /// Load data from the server using a HTTP PUT request.
         /// </summary>
-        /// <param name="options">An options object.</param>
+        /// <param name="options">The options of the request.</param>
         /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         public static void Put(RequestHelper options, object bodyJson, Action<Exception, ResponseHelper> callback)
@@ -188,7 +202,7 @@ namespace Proyecto26
         /// <summary>
         /// Load data from the server using a HTTP PUT request.
         /// </summary>
-        /// <param name="options">An options object.</param>
+        /// <param name="options">The options of the request.</param>
         /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
@@ -212,7 +226,7 @@ namespace Proyecto26
         /// <summary>
         /// Delete the specified resource identified by the URI.
         /// </summary>
-        /// <param name="options">An options object.</param>
+        /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         public static void Delete(RequestHelper options, Action<Exception, ResponseHelper> callback)
         {
@@ -223,6 +237,11 @@ namespace Proyecto26
 
         #region Promises
 
+        /// <summary>
+        /// Create an HTTP request and return a promise.
+        /// </summary>
+        /// <returns>Returns a promise of the request.</returns>
+        /// <param name="options">The options of the request.</param>
         public static IPromise<ResponseHelper> Request(RequestHelper options)
         {
             var promise = new Promise<ResponseHelper>();
@@ -230,6 +249,12 @@ namespace Proyecto26
             return promise;
         }
 
+        /// <summary>
+        /// Create an HTTP request and convert the response.
+        /// </summary>
+        /// <returns>The request.</returns>
+        /// <param name="options">The options of the request.</param>
+        /// <typeparam name="T">The element type of the response.</typeparam>
         public static IPromise<T> Request<T>(RequestHelper options)
         {
             var promise = new Promise<T>();
@@ -251,7 +276,7 @@ namespace Proyecto26
         /// Load data from the server using a HTTP GET request
         /// </summary>
         /// <returns>Returns a promise for a string value.</returns>
-        /// <param name="options">An options object.</param>
+        /// <param name="options">The options of the request.</param>
         public static IPromise<ResponseHelper> Get(RequestHelper options)
         {
             var promise = new Promise<ResponseHelper>();
@@ -274,7 +299,7 @@ namespace Proyecto26
         /// Load data from the server using a HTTP GET request
         /// </summary>
         /// <returns>Returns a promise for a value of a specified type.</returns>
-        /// <param name="options">An options object.</param>
+        /// <param name="options">The options of the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
         public static IPromise<T> Get<T>(RequestHelper options)
         {
@@ -298,7 +323,7 @@ namespace Proyecto26
         /// Load data from the server using a HTTP GET request
         /// </summary>
         /// <returns>Returns a promise for an array of values.</returns>
-        /// <param name="options">An options object.</param>
+        /// <param name="options">The options of the request.</param>
         /// <typeparam name="T">The element type of the array.</typeparam>
         public static IPromise<T[]> GetArray<T>(RequestHelper options)
         {
@@ -322,7 +347,7 @@ namespace Proyecto26
         /// Load data from the server using a HTTP POST request.
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
-        /// <param name="options">An options object.</param>
+        /// <param name="options">The options of the request.</param>
         /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
         public static IPromise<ResponseHelper> Post(RequestHelper options, object bodyJson)
         {
@@ -347,7 +372,7 @@ namespace Proyecto26
         /// Load data from the server using a HTTP POST request.
         /// </summary>
         /// <returns>Returns a promise for a value of a specified type.</returns>
-        /// <param name="options">An options object.</param>
+        /// <param name="options">The options of the request.</param>
         /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
         public static IPromise<T> Post<T>(RequestHelper options, object bodyJson)
@@ -372,7 +397,7 @@ namespace Proyecto26
         /// Load data from the server using a HTTP PUT request.
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
-        /// <param name="options">An options object.</param>
+        /// <param name="options">The options of the request.</param>
         /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
         public static IPromise<ResponseHelper> Put(RequestHelper options, object bodyJson)
         {
@@ -397,7 +422,7 @@ namespace Proyecto26
         /// Load data from the server using a HTTP PUT request.
         /// </summary>
         /// <returns>Returns a promise for a value of a specified type.</returns>
-        /// <param name="options">An options object.</param>
+        /// <param name="options">The options of the request.</param>
         /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
         public static IPromise<T> Put<T>(RequestHelper options, object bodyJson)
@@ -421,7 +446,7 @@ namespace Proyecto26
         /// Delete the specified resource identified by the URI.
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
-        /// <param name="options">An options object.</param>
+        /// <param name="options">The options of the request.</param>
         public static IPromise<ResponseHelper> Delete(RequestHelper options)
         {
             var promise = new Promise<ResponseHelper>();
