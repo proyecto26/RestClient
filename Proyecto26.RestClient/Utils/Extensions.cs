@@ -27,13 +27,13 @@ namespace Proyecto26.Common.Extensions
             {
                 request.SetRequestHeader(header.Key, header.Value);
             }
-            foreach (var header in options.headers)
+            foreach (var header in options.Headers)
             {
                 request.SetRequestHeader(header.Key, header.Value);
             }
-            if (options.timeout.HasValue)
+            if (options.Timeout.HasValue)
             {
-                request.timeout = options.timeout.Value;
+                request.timeout = options.Timeout.Value;
             }
             options.request = request;
             yield return request.SendWebRequest();
@@ -48,12 +48,21 @@ namespace Proyecto26.Common.Extensions
         {
             return new ResponseHelper
             {
-                statusCode = request.responseCode,
-                data = request.downloadHandler.data,
-                text = request.downloadHandler.text,
-                headers = request.GetResponseHeaders(),
-                error = request.error
+                StatusCode = request.responseCode,
+                Data = request.downloadHandler.data,
+                Text = request.downloadHandler.text,
+                Headers = request.GetResponseHeaders(),
+                Error = request.error
             };
+        }
+
+        public static bool IsValidRequest(this UnityWebRequest request, RequestHelper options)
+        {
+            return request.isDone &&
+            !request.isNetworkError &&
+            (
+                !request.isHttpError || options.IgnoreHttpException
+            );
         }
     }
 }

@@ -17,15 +17,23 @@ namespace Proyecto26
             private set { _isNetworkError = value; }
         }
 
+        private long _statusCode;
+        public long StatusCode
+        {
+            get { return _statusCode; }
+            private set { _statusCode = value; }
+        }
+
         public RequestException(): base() { }
 
         public RequestException(string message): base(message) { }
 
         public RequestException(string format, params object[] args): base(string.Format(format, args)) { }
 
-        public RequestException(string message, bool isHttpError, bool isNetworkError) : base(message) {
+        public RequestException(string message, bool isHttpError, bool isNetworkError, long statusCode) : base(message) {
             _isHttpError = isHttpError;
             _isNetworkError = isNetworkError;
+            _statusCode = statusCode;
         }
     }
 }
