@@ -7,12 +7,43 @@ namespace Proyecto26
 {
     public class RequestHelper
     {
-        public string url;
+        private string _uri;
+        public string Uri
+        {
+            get { return _uri; }
+            set { _uri = value; }
+        }
 
-        public int? timeout;
+        private int? _timeout;
+        public int? Timeout
+        {
+            get { return _timeout; }
+            set { _timeout = value; }
+        }
+
+        private bool _ignoreHttpException;
+        public bool IgnoreHttpException
+        {
+            get { return _ignoreHttpException; }
+            set { _ignoreHttpException = value; }
+        }
+
+        private object _body;
+        public object Body
+        {
+            get { return _body; }
+            set { _body = value; }
+        }
+
+        private string _method;
+        public string Method
+        {
+            get { return _method; }
+            set { _method = value; }
+        }
 
         private Dictionary<string, string> _headers;
-        public Dictionary<string, string> headers 
+        public Dictionary<string, string> Headers 
         { 
             get
             {
@@ -25,17 +56,20 @@ namespace Proyecto26
             set { _headers = value; } 
         }
 
-        public float uploadProgress {
-            get {
+        public float UploadProgress
+        {
+            get 
+            {
                 float progress = 0;
-                if(this.request != null){
+                if(this.request != null)
+                {
                     progress = this.request.uploadProgress;
                 }
                 return progress;
             }
         }
 
-        public float downloadProgress
+        public float DownloadProgress
         {
             get
             {
@@ -48,7 +82,8 @@ namespace Proyecto26
             }
         }
 
-        public string GetHeader(string name){
+        public string GetHeader(string name)
+        {
             string headerValue;
             if(request != null)
             {
@@ -56,7 +91,7 @@ namespace Proyecto26
             }
             else
             {
-                this.headers.TryGetValue(name, out headerValue);
+                this.Headers.TryGetValue(name, out headerValue);
             }
             return headerValue;
         }

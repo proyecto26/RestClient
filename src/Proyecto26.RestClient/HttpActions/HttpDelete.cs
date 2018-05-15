@@ -9,17 +9,18 @@ namespace Proyecto26
     {
         public static IEnumerator DeleteUnityWebRequest(RequestHelper options, Action<Exception, ResponseHelper> callback)
         {
-            using (var request = UnityWebRequest.Delete(options.url))
+            using (var request = UnityWebRequest.Delete(options.Uri))
             {
                 yield return request.SendWebRequest(options);
                 var response = request.CreateWebResponse();
-                if (request.isDone && string.IsNullOrEmpty(request.error))
+                if (request.IsValidRequest(options))
                 {
                     callback(null, response);
                 }
                 else
                 {
-                    callback(new RequestException(request.error, request.isHttpError, request.isNetworkError), response);
+                    var message = request.error ?? request.downloadHandler.text;
+                    callback(new RequestException(message, request.isHttpError, request.isNetworkError, request.responseCode), response);
                 }
 
             }

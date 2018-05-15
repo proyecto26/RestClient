@@ -12,23 +12,17 @@ namespace Proyecto26
         /// </summary>
         public static IEnumerator GetArrayUnityWebRequest<T>(RequestHelper options, Action<Exception, T[]> callback)
         {
-            using (var request = UnityWebRequest.Get(options.url))
+            using (var request = UnityWebRequest.Get(options.Uri))
             {
                 yield return request.SendWebRequest(options);
-                var json = request.downloadHandler.text.Trim();
-                var responseIsEmpty = string.IsNullOrEmpty(json);
-                if (request.isDone && string.IsNullOrEmpty(request.error) && !responseIsEmpty)
+                if (request.IsValidRequest(options))
                 {
-                    var response = JsonHelper.ArrayFromJson<T>(json);
-                    callback(null, response);
+                    callback(null, JsonHelper.ArrayFromJson<T>(request.downloadHandler.text));
                 }
                 else
                 {
-                    var message = request.error;
-                    if(responseIsEmpty){
-                        message = "The response is empty";
-                    }
-                    callback(new RequestException(message, request.isHttpError, request.isNetworkError), null);
+                    var message = request.error ?? request.downloadHandler.text;
+                    callback(new RequestException(message, request.isHttpError, request.isNetworkError, request.responseCode), null);
                 }
             }
         }

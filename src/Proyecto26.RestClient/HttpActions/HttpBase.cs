@@ -8,37 +8,38 @@ namespace Proyecto26
 {
     public static class HttpBase
     {
-        public static IEnumerator DefaultUnityWebRequest(RequestHelper options, object bodyJson, string method, Action<Exception, ResponseHelper> callback)
+        public static IEnumerator DefaultUnityWebRequest(RequestHelper options, Action<Exception, ResponseHelper> callback)
         {
-            using(var request = new UnityWebRequest(options.url, method))
+            using(var request = new UnityWebRequest(options.Uri, options.Method))
             {
-                yield return request.SendWebRequest(options, bodyJson);
+                yield return request.SendWebRequest(options, options.Body);
                 var response = request.CreateWebResponse();
-                if (request.isDone && string.IsNullOrEmpty(request.error))
+                if (request.IsValidRequest(options))
                 {
                     callback(null, response);
                 }
                 else
                 {
-                    callback(new RequestException(request.error, request.isHttpError, request.isNetworkError), response);
+                    var message = request.error ?? request.downloadHandler.text;
+                    callback(new RequestException(message, request.isHttpError, request.isNetworkError, request.responseCode), response);
                 }
             }
         }
 
-        public static IEnumerator DefaultUnityWebRequest<TResponse>(RequestHelper options, object bodyJson, string method, Action<Exception, ResponseHelper, TResponse> callback)
+        public static IEnumerator DefaultUnityWebRequest<TResponse>(RequestHelper options, Action<Exception, ResponseHelper, TResponse> callback)
         {
-            using (var request = new UnityWebRequest(options.url, method))
+            using (var request = new UnityWebRequest(options.Uri, options.Method))
             {
-                yield return request.SendWebRequest(options, bodyJson);
+                yield return request.SendWebRequest(options, options.Body);
                 var response = request.CreateWebResponse();
-                if (request.isDone && string.IsNullOrEmpty(request.error))
+                if (request.IsValidRequest(options))
                 {
-                    var body = JsonUtility.FromJson<TResponse>(request.downloadHandler.text);
-                    callback(null, response, body);
+                    callback(null, response, JsonUtility.FromJson<TResponse>(request.downloadHandler.text));
                 }
                 else
                 {
-                    callback(new RequestException(request.error, request.isHttpError, request.isNetworkError), response, default(TResponse));
+                    var message = request.error ?? request.downloadHandler.text;
+                    callback(new RequestException(message, request.isHttpError, request.isNetworkError, request.responseCode), response, default(TResponse));
                 }
             }
         }
