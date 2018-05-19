@@ -13,12 +13,15 @@ namespace Proyecto26.Common.Extensions
         /// <returns>An UnityWebRequestAsyncOperation object.</returns>
         /// <param name="request">An UnityWebRequest object.</param>
         /// <param name="options">An options object.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
-        public static IEnumerator SendWebRequest(this UnityWebRequest request, RequestHelper options, object bodyJson = null)
+        public static IEnumerator SendWebRequest(this UnityWebRequest request, RequestHelper options)
         {
-            if (bodyJson != null)
+            if (options.Body != null || !string.IsNullOrEmpty(options.BodyString))
             {
-                byte[] bodyRaw = Encoding.UTF8.GetBytes(JsonUtility.ToJson(bodyJson).ToCharArray());
+                var bodyString = options.BodyString;
+                if (options.Body != null) {
+                    bodyString = JsonUtility.ToJson(options.Body);
+                }
+                byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyString.ToCharArray());
                 request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
             }
             request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();

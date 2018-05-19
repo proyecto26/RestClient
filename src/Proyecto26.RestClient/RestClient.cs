@@ -48,7 +48,7 @@ namespace Proyecto26
         }
 
         /// <summary>
-        /// Load data from the server using a HTTP GET request
+        /// Load data from the server using a HTTP GET request.
         /// </summary>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
@@ -58,7 +58,7 @@ namespace Proyecto26
         }
 
         /// <summary>
-        /// Load data from the server using a HTTP GET request
+        /// Load data from the server using a HTTP GET request.
         /// </summary>
         /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
@@ -69,7 +69,7 @@ namespace Proyecto26
         }
 
         /// <summary>
-        /// Load data from the server using a HTTP GET request
+        /// Load data from the server using a HTTP GET request.
         /// </summary>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
@@ -80,7 +80,7 @@ namespace Proyecto26
         }
 
         /// <summary>
-        /// Load data from the server using a HTTP GET request
+        /// Load data from the server using a HTTP GET request.
         /// </summary>
         /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
@@ -110,30 +110,39 @@ namespace Proyecto26
         /// <typeparam name="T">The element type of the array.</typeparam>
         public static void GetArray<T>(RequestHelper options, Action<Exception, T[]> callback)
         {
-            StaticCoroutine.StartCoroutine(HttpGet.GetArrayUnityWebRequest<T>(options, callback));
+            StaticCoroutine.StartCoroutine(HttpGetExtension.GetArrayUnityWebRequest<T>(options, callback));
         }
 
         /// <summary>
         /// Load data from the server using a HTTP POST request.
         /// </summary>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
+        /// <param name="body">A plain object that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Post(string url, object bodyJson, Action<Exception, ResponseHelper> callback)
+        public static void Post(string url, object body, Action<Exception, ResponseHelper> callback)
         {
-            Post(new RequestHelper { Uri = url }, bodyJson, callback);
+            Post(new RequestHelper { Uri = url, Body = body }, callback);
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP POST request.
+        /// </summary>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        public static void Post(string url, string bodyString, Action<Exception, ResponseHelper> callback)
+        {
+            Post(new RequestHelper { Uri = url, BodyString = bodyString }, callback);
         }
 
         /// <summary>
         /// Load data from the server using a HTTP POST request.
         /// </summary>
         /// <param name="options">The options of the request.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Post(RequestHelper options, object bodyJson, Action<Exception, ResponseHelper> callback)
+        public static void Post(RequestHelper options, Action<Exception, ResponseHelper> callback)
         {
             options.Method = UnityWebRequest.kHttpVerbPOST;
-            options.Body = bodyJson;
             Request(options, callback);
         }
 
@@ -141,25 +150,35 @@ namespace Proyecto26
         /// Load data from the server using a HTTP POST request.
         /// </summary>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
+        /// <param name="body">A plain object that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static void Post<T>(string url, object bodyJson, Action<Exception, ResponseHelper, T> callback)
+        public static void Post<T>(string url, object body, Action<Exception, ResponseHelper, T> callback)
         {
-            Post<T>(new RequestHelper { Uri = url }, bodyJson, callback);
+            Post<T>(new RequestHelper { Uri = url, Body = body }, callback);
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP POST request.
+        /// </summary>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        /// <typeparam name="T">The element type of the response.</typeparam>
+        public static void Post<T>(string url, string bodyString, Action<Exception, ResponseHelper, T> callback)
+        {
+            Post<T>(new RequestHelper { Uri = url, BodyString = bodyString }, callback);
         }
 
         /// <summary>
         /// Load data from the server using a HTTP POST request.
         /// </summary>
         /// <param name="options">The options of the request.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static void Post<T>(RequestHelper options, object bodyJson, Action<Exception, ResponseHelper, T> callback)
+        public static void Post<T>(RequestHelper options, Action<Exception, ResponseHelper, T> callback)
         {
             options.Method = UnityWebRequest.kHttpVerbPOST;
-            options.Body = bodyJson;
             Request(options, callback);
         }
 
@@ -167,23 +186,32 @@ namespace Proyecto26
         /// Load data from the server using a HTTP PUT request.
         /// </summary>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
+        /// <param name="body">A plain object that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Put(string url, object bodyJson, Action<Exception, ResponseHelper> callback)
+        public static void Put(string url, object body, Action<Exception, ResponseHelper> callback)
         {
-            Put(new RequestHelper { Uri = url }, bodyJson, callback);
+            Put(new RequestHelper { Uri = url, Body = body }, callback);
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PUT request.
+        /// </summary>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        public static void Put(string url, string bodyString, Action<Exception, ResponseHelper> callback)
+        {
+            Put(new RequestHelper { Uri = url, BodyString = bodyString }, callback);
         }
 
         /// <summary>
         /// Load data from the server using a HTTP PUT request.
         /// </summary>
         /// <param name="options">The options of the request.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Put(RequestHelper options, object bodyJson, Action<Exception, ResponseHelper> callback)
+        public static void Put(RequestHelper options, Action<Exception, ResponseHelper> callback)
         {
             options.Method = UnityWebRequest.kHttpVerbPUT;
-            options.Body = bodyJson;
             Request(options, callback);
         }
 
@@ -191,25 +219,35 @@ namespace Proyecto26
         /// Load data from the server using a HTTP PUT request.
         /// </summary>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
+        /// <param name="body">A plain object that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static void Put<T>(string url, object bodyJson, Action<Exception, ResponseHelper, T> callback)
+        public static void Put<T>(string url, object body, Action<Exception, ResponseHelper, T> callback)
         {
-            Put<T>(new RequestHelper { Uri = url }, bodyJson, callback);
+            Put<T>(new RequestHelper { Uri = url, Body = body }, callback);
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PUT request.
+        /// </summary>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        /// <typeparam name="T">The element type of the response.</typeparam>
+        public static void Put<T>(string url, string bodyString, Action<Exception, ResponseHelper, T> callback)
+        {
+            Put<T>(new RequestHelper { Uri = url, BodyString = bodyString }, callback);
         }
 
         /// <summary>
         /// Load data from the server using a HTTP PUT request.
         /// </summary>
         /// <param name="options">The options of the request.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static void Put<T>(RequestHelper options, object bodyJson, Action<Exception, ResponseHelper, T> callback)
+        public static void Put<T>(RequestHelper options, Action<Exception, ResponseHelper, T> callback)
         {
             options.Method = UnityWebRequest.kHttpVerbPUT;
-            options.Body = bodyJson;
             Request(options, callback);
         }
 
@@ -233,6 +271,27 @@ namespace Proyecto26
             StaticCoroutine.StartCoroutine(HttpDelete.DeleteUnityWebRequest(options, callback));
         }
 
+        /// <summary>
+        /// Requests the headers that are returned from the server
+        /// </summary>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        public static void Head(string url, Action<Exception, ResponseHelper> callback)
+        {
+            Head(new RequestHelper { Uri = url }, callback);
+        }
+
+        /// <summary>
+        /// Requests the headers that are returned from the server
+        /// </summary>
+        /// <param name="options">The options of the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        public static void Head(RequestHelper options, Action<Exception, ResponseHelper> callback)
+        {
+            options.Method = UnityWebRequest.kHttpVerbHEAD;
+            Request(options, callback);
+        }
+
         #endregion
 
         #region Promises
@@ -240,7 +299,7 @@ namespace Proyecto26
         /// <summary>
         /// Create an HTTP request and return a promise.
         /// </summary>
-        /// <returns>Returns a promise of the request.</returns>
+        /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="options">The options of the request.</param>
         public static IPromise<ResponseHelper> Request(RequestHelper options)
         {
@@ -252,7 +311,7 @@ namespace Proyecto26
         /// <summary>
         /// Create an HTTP request and convert the response.
         /// </summary>
-        /// <returns>The request.</returns>
+        /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="options">The options of the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
         public static IPromise<T> Request<T>(RequestHelper options)
@@ -263,9 +322,9 @@ namespace Proyecto26
         }
 
         /// <summary>
-        /// Load data from the server using a HTTP GET request
+        /// Load data from the server using a HTTP GET request.
         /// </summary>
-        /// <returns>Returns a promise for a string value.</returns>
+        /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         public static IPromise<ResponseHelper> Get(string url)
         {
@@ -273,9 +332,9 @@ namespace Proyecto26
         }
 
         /// <summary>
-        /// Load data from the server using a HTTP GET request
+        /// Load data from the server using a HTTP GET request.
         /// </summary>
-        /// <returns>Returns a promise for a string value.</returns>
+        /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="options">The options of the request.</param>
         public static IPromise<ResponseHelper> Get(RequestHelper options)
         {
@@ -285,7 +344,7 @@ namespace Proyecto26
         }
 
         /// <summary>
-        /// Load data from the server using a HTTP GET request
+        /// Load data from the server using a HTTP GET request.
         /// </summary>
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
@@ -296,7 +355,7 @@ namespace Proyecto26
         }
 
         /// <summary>
-        /// Load data from the server using a HTTP GET request
+        /// Load data from the server using a HTTP GET request.
         /// </summary>
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="options">The options of the request.</param>
@@ -309,7 +368,7 @@ namespace Proyecto26
         }
 
         /// <summary>
-        /// Load data from the server using a HTTP GET request
+        /// Load data from the server using a HTTP GET request.
         /// </summary>
         /// <returns>Returns a promise for an array of values.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
@@ -320,7 +379,7 @@ namespace Proyecto26
         }
 
         /// <summary>
-        /// Load data from the server using a HTTP GET request
+        /// Load data from the server using a HTTP GET request.
         /// </summary>
         /// <returns>Returns a promise for an array of values.</returns>
         /// <param name="options">The options of the request.</param>
@@ -337,10 +396,21 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
-        public static IPromise<ResponseHelper> Post(string url, object bodyJson)
+        /// <param name="body">A plain object that is sent to the server with the request.</param>
+        public static IPromise<ResponseHelper> Post(string url, object body)
         {
-            return Post(new RequestHelper { Uri = url }, bodyJson);
+            return Post(new RequestHelper { Uri = url, Body = body });
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP POST request.
+        /// </summary>
+        /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        public static IPromise<ResponseHelper> Post(string url, string bodyString)
+        {
+            return Post(new RequestHelper { Uri = url, BodyString = bodyString });
         }
 
         /// <summary>
@@ -348,11 +418,10 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="options">The options of the request.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
-        public static IPromise<ResponseHelper> Post(RequestHelper options, object bodyJson)
+        public static IPromise<ResponseHelper> Post(RequestHelper options)
         {
             var promise = new Promise<ResponseHelper>();
-            Post(options, bodyJson, promise.Promisify);
+            Post(options, promise.Promisify);
             return promise;
         }
 
@@ -361,11 +430,23 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
+        /// <param name="body">A plain object that is sent to the server with the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static IPromise<T> Post<T>(string url, object bodyJson)
+        public static IPromise<T> Post<T>(string url, object body)
         {
-            return Post<T>(new RequestHelper { Uri = url }, bodyJson);
+            return Post<T>(new RequestHelper { Uri = url, Body = body });
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP POST request.
+        /// </summary>
+        /// <returns>Returns a promise for a value of a specified type.</returns>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        /// <typeparam name="T">The element type of the response.</typeparam>
+        public static IPromise<T> Post<T>(string url, string bodyString)
+        {
+            return Post<T>(new RequestHelper { Uri = url, BodyString = bodyString });
         }
 
         /// <summary>
@@ -373,12 +454,11 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="options">The options of the request.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static IPromise<T> Post<T>(RequestHelper options, object bodyJson)
+        public static IPromise<T> Post<T>(RequestHelper options)
         {
             var promise = new Promise<T>();
-            Post<T>(options, bodyJson, promise.PromisifyBodyHelper);
+            Post<T>(options, promise.PromisifyBodyHelper);
             return promise;
         }
 
@@ -387,10 +467,21 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
-        public static IPromise<ResponseHelper> Put(string url, object bodyJson)
+        /// <param name="body">A plain object that is sent to the server with the request.</param>
+        public static IPromise<ResponseHelper> Put(string url, object body)
         {
-            return Put(new RequestHelper { Uri = url }, bodyJson);
+            return Put(new RequestHelper { Uri = url, Body = body });
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PUT request.
+        /// </summary>
+        /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        public static IPromise<ResponseHelper> Put(string url, string bodyString)
+        {
+            return Put(new RequestHelper { Uri = url, BodyString = bodyString });
         }
 
         /// <summary>
@@ -398,11 +489,10 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="options">The options of the request.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
-        public static IPromise<ResponseHelper> Put(RequestHelper options, object bodyJson)
+        public static IPromise<ResponseHelper> Put(RequestHelper options)
         {
             var promise = new Promise<ResponseHelper>();
-            Put(options, bodyJson, promise.Promisify);
+            Put(options, promise.Promisify);
             return promise;
         }
 
@@ -411,11 +501,23 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
+        /// <param name="body">A plain object that is sent to the server with the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static IPromise<T> Put<T>(string url, object bodyJson)
+        public static IPromise<T> Put<T>(string url, object body)
         {
-            return Put<T>(new RequestHelper { Uri = url }, bodyJson);
+            return Put<T>(new RequestHelper { Uri = url, Body = body });
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PUT request.
+        /// </summary>
+        /// <returns>Returns a promise for a value of a specified type.</returns>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        /// <typeparam name="T">The element type of the response.</typeparam>
+        public static IPromise<T> Put<T>(string url, string bodyString)
+        {
+            return Put<T>(new RequestHelper { Uri = url, BodyString = bodyString });
         }
 
         /// <summary>
@@ -423,12 +525,11 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="options">The options of the request.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static IPromise<T> Put<T>(RequestHelper options, object bodyJson)
+        public static IPromise<T> Put<T>(RequestHelper options)
         {
             var promise = new Promise<T>();
-            Put<T>(options, bodyJson, promise.PromisifyBodyHelper);
+            Put<T>(options, promise.PromisifyBodyHelper);
             return promise;
         }
 
@@ -451,6 +552,28 @@ namespace Proyecto26
         {
             var promise = new Promise<ResponseHelper>();
             Delete(options, promise.Promisify);
+            return promise;
+        }
+
+        /// <summary>
+        /// Requests the headers that are returned from the server
+        /// </summary>
+        /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        public static IPromise<ResponseHelper> Head(string url)
+        {
+            return Delete(new RequestHelper { Uri = url });
+        }
+
+        /// <summary>
+        /// Requests the headers that are returned from the server
+        /// </summary>
+        /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
+        /// <param name="options">The options of the request.</param>
+        public static IPromise<ResponseHelper> Head(RequestHelper options)
+        {
+            var promise = new Promise<ResponseHelper>();
+            Head(options, promise.Promisify);
             return promise;
         }
 
