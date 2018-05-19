@@ -71,26 +71,45 @@ Other option is download this package from **NuGet** with **Visual Studio** or u
 The package to search for is **[Proyecto26.RestClient](https://www.nuget.org/packages/Proyecto26.RestClient/)**.
 
 ## Getting Started 📚
-The default methods **(GET, POST, PUT, DELETE)** are:
+The default methods **(GET, POST, PUT, DELETE, HEAD)** are:
 ```
 RestClient.Get("https://jsonplaceholder.typicode.com/posts/1").Then(response => {
-  EditorUtility.DisplayDialog("Response", response.text, "Ok");
+  EditorUtility.DisplayDialog("Response", response.Text, "Ok");
 })
 
 RestClient.Post("https://jsonplaceholder.typicode.com/posts", newPost).Then(response => {
-  EditorUtility.DisplayDialog("Status", response.statusCode.ToString(), "Ok");
+  EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
 })
 
 RestClient.Put("https://jsonplaceholder.typicode.com/posts/1", updatedPost).Then(response => {
-  EditorUtility.DisplayDialog("Status", response.statusCode.ToString(), "Ok");
+  EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
 })
 
 RestClient.Delete("https://jsonplaceholder.typicode.com/posts/1").Then(response => {
-  EditorUtility.DisplayDialog("Status", response.statusCode.ToString(), "Ok");
+  EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
+})
+
+RestClient.Head("https://jsonplaceholder.typicode.com/posts").Then(response => {
+  EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
 })
 ```
 
-But we can also indicate the type of response, in the following example we are going to create a class **"User"** and the HTTP requests to load **JSON** data easily:
+And we have a generic method to create any type of request:
+```
+RestClient.Request(new RequestHelper { 
+  Uri = "https://jsonplaceholder.typicode.com/photos",
+  Headers = new Dictionary<string, string> {
+    { "Authorization", "Other token..." }
+  },
+  Body = newPost,
+  BodyString = "Use it instead of 'Body' if you want to use other tool to serialize the JSON"
+  Method = "GET"
+}).Then(response => {
+  EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
+})
+```
+
+With all the methods we have the possibility to indicate the type of response, in the following example we're going to create a class and the **HTTP** requests to load **JSON** data easily:
 ```
 [Serializable]
 public class User
@@ -111,12 +130,13 @@ RestClient.Get<User>(usersRoute + "/1").Then(firstUser => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(firstUser, true), "Ok");
 })
 ```
-* **GET Array**
+* **GET Array (JsonHelper is an extension to manage arrays)**
 ```
 RestClient.GetArray<User>(usersRoute).Then(allUsers => {
   EditorUtility.DisplayDialog("JSON Array", JsonHelper.ArrayToJsonString<User>(allUsers, true), "Ok");
 })
 ```
+
 Also we can create different classes for custom responses:
 ```
 [Serializable]
@@ -147,8 +167,8 @@ RestClient.DefaultRequestHeaders["Authorization"] = "Bearer ...";
 Also we can add specific options and override default headers for a request
 ```
 var requestOptions = new RequestHelper { 
-  url = "https://jsonplaceholder.typicode.com/photos",
-  headers = new Dictionary<string, string> {
+  Uri = "https://jsonplaceholder.typicode.com/photos",
+  Headers = new Dictionary<string, string> {
     { "Authorization", "Other token..." }
   }
 };
