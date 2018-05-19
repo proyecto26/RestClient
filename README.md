@@ -99,7 +99,7 @@ And we have a generic method to create any type of request:
 RestClient.Request(new RequestHelper { 
   Uri = "https://jsonplaceholder.typicode.com/photos",
   Headers = new Dictionary<string, string> {
-    { "Authorization", "Other token..." }
+    { "Authorization", "Bearer JWT_token..." }
   },
   Body = newPost,
   BodyString = "Use it instead of 'Body' if you want to use other tool to serialize the JSON"
