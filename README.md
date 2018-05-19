@@ -102,8 +102,8 @@ RestClient.Request(new RequestHelper {
     { "Authorization", "Bearer JWT_token..." }
   },
   Body = newPost,
-  BodyString = "Use it instead of 'Body' if you want to use other tool to serialize the JSON"
-  Method = "GET"
+  BodyString = "Use it instead of 'Body' if you want to use other tool to serialize the JSON",
+  Method = "POST"
 }).Then(response => {
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
 })
