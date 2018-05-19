@@ -5,7 +5,7 @@ using Proyecto26.Common.Extensions;
 
 namespace Proyecto26
 {
-    public static class HttpGet
+    public static class HttpGetExtension
     {
         /// <summary>
         /// Load an array returned from the server using a HTTP GET request

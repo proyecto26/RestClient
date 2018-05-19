@@ -35,6 +35,13 @@ namespace Proyecto26
             set { _body = value; }
         }
 
+        private string _bodyString;
+        public string BodyString
+        {
+            get { return _bodyString; }
+            set { _bodyString = value; }
+        }
+
         private string _method;
         public string Method
         {

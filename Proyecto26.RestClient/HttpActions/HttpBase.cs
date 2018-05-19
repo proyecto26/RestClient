@@ -12,7 +12,7 @@ namespace Proyecto26
         {
             using(var request = new UnityWebRequest(options.Uri, options.Method))
             {
-                yield return request.SendWebRequest(options, options.Body);
+                yield return request.SendWebRequest(options);
                 var response = request.CreateWebResponse();
                 if (request.IsValidRequest(options))
                 {
@@ -30,7 +30,7 @@ namespace Proyecto26
         {
             using (var request = new UnityWebRequest(options.Uri, options.Method))
             {
-                yield return request.SendWebRequest(options, options.Body);
+                yield return request.SendWebRequest(options);
                 var response = request.CreateWebResponse();
                 if (request.IsValidRequest(options))
                 {
