@@ -10,7 +10,7 @@ namespace Proyecto26
         /// <summary>
         /// Load an array returned from the server using a HTTP GET request
         /// </summary>
-        public static IEnumerator GetArrayUnityWebRequest<T>(RequestHelper options, Action<Exception, T[]> callback)
+        public static IEnumerator GetArrayUnityWebRequest<T>(RequestHelper options, Action<RequestException, T[]> callback)
         {
             using (var request = UnityWebRequest.Get(options.Uri))
             {

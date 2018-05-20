@@ -7,7 +7,7 @@ namespace Proyecto26
 {
     public static class HttpDelete
     {
-        public static IEnumerator DeleteUnityWebRequest(RequestHelper options, Action<Exception, ResponseHelper> callback)
+        public static IEnumerator DeleteUnityWebRequest(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
             using (var request = UnityWebRequest.Delete(options.Uri))
             {

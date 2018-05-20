@@ -31,7 +31,7 @@ namespace Proyecto26
         /// </summary>
         /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Request(RequestHelper options, Action<Exception, ResponseHelper> callback)
+        public static void Request(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
             StaticCoroutine.StartCoroutine(HttpBase.DefaultUnityWebRequest(options, callback));
         }
@@ -42,7 +42,7 @@ namespace Proyecto26
         /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static void Request<T>(RequestHelper options, Action<Exception, ResponseHelper, T> callback)
+        public static void Request<T>(RequestHelper options, Action<RequestException, ResponseHelper, T> callback)
         {
             StaticCoroutine.StartCoroutine(HttpBase.DefaultUnityWebRequest(options, callback));
         }
@@ -52,7 +52,7 @@ namespace Proyecto26
         /// </summary>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Get(string url, Action<Exception, ResponseHelper> callback)
+        public static void Get(string url, Action<RequestException, ResponseHelper> callback)
         {
             Get(new RequestHelper { Uri = url }, callback);
         }
@@ -62,7 +62,7 @@ namespace Proyecto26
         /// </summary>
         /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Get(RequestHelper options, Action<Exception, ResponseHelper> callback)
+        public static void Get(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
             options.Method = UnityWebRequest.kHttpVerbGET;
             Request(options, callback);
@@ -74,7 +74,7 @@ namespace Proyecto26
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static void Get<T>(string url, Action<Exception, ResponseHelper, T> callback)
+        public static void Get<T>(string url, Action<RequestException, ResponseHelper, T> callback)
         {
             Get<T>(new RequestHelper { Uri = url }, callback);
         }
@@ -85,7 +85,7 @@ namespace Proyecto26
         /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static void Get<T>(RequestHelper options, Action<Exception, ResponseHelper, T> callback)
+        public static void Get<T>(RequestHelper options, Action<RequestException, ResponseHelper, T> callback)
         {
             options.Method = UnityWebRequest.kHttpVerbGET;
             Request(options, callback);
@@ -97,7 +97,7 @@ namespace Proyecto26
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the array.</typeparam>
-        public static void GetArray<T>(string url, Action<Exception, T[]> callback)
+        public static void GetArray<T>(string url, Action<RequestException, T[]> callback)
         {
             GetArray<T>(new RequestHelper { Uri = url }, callback);
         }
@@ -108,7 +108,7 @@ namespace Proyecto26
         /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the array.</typeparam>
-        public static void GetArray<T>(RequestHelper options, Action<Exception, T[]> callback)
+        public static void GetArray<T>(RequestHelper options, Action<RequestException, T[]> callback)
         {
             StaticCoroutine.StartCoroutine(HttpGetExtension.GetArrayUnityWebRequest<T>(options, callback));
         }
@@ -119,7 +119,7 @@ namespace Proyecto26
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="body">A plain object that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Post(string url, object body, Action<Exception, ResponseHelper> callback)
+        public static void Post(string url, object body, Action<RequestException, ResponseHelper> callback)
         {
             Post(new RequestHelper { Uri = url, Body = body }, callback);
         }
@@ -130,7 +130,7 @@ namespace Proyecto26
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="bodyString">A string that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Post(string url, string bodyString, Action<Exception, ResponseHelper> callback)
+        public static void Post(string url, string bodyString, Action<RequestException, ResponseHelper> callback)
         {
             Post(new RequestHelper { Uri = url, BodyString = bodyString }, callback);
         }
@@ -140,7 +140,7 @@ namespace Proyecto26
         /// </summary>
         /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Post(RequestHelper options, Action<Exception, ResponseHelper> callback)
+        public static void Post(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
             options.Method = UnityWebRequest.kHttpVerbPOST;
             Request(options, callback);
@@ -153,7 +153,7 @@ namespace Proyecto26
         /// <param name="body">A plain object that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static void Post<T>(string url, object body, Action<Exception, ResponseHelper, T> callback)
+        public static void Post<T>(string url, object body, Action<RequestException, ResponseHelper, T> callback)
         {
             Post<T>(new RequestHelper { Uri = url, Body = body }, callback);
         }
@@ -165,7 +165,7 @@ namespace Proyecto26
         /// <param name="bodyString">A string that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static void Post<T>(string url, string bodyString, Action<Exception, ResponseHelper, T> callback)
+        public static void Post<T>(string url, string bodyString, Action<RequestException, ResponseHelper, T> callback)
         {
             Post<T>(new RequestHelper { Uri = url, BodyString = bodyString }, callback);
         }
@@ -176,7 +176,7 @@ namespace Proyecto26
         /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static void Post<T>(RequestHelper options, Action<Exception, ResponseHelper, T> callback)
+        public static void Post<T>(RequestHelper options, Action<RequestException, ResponseHelper, T> callback)
         {
             options.Method = UnityWebRequest.kHttpVerbPOST;
             Request(options, callback);
@@ -188,7 +188,7 @@ namespace Proyecto26
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="body">A plain object that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Put(string url, object body, Action<Exception, ResponseHelper> callback)
+        public static void Put(string url, object body, Action<RequestException, ResponseHelper> callback)
         {
             Put(new RequestHelper { Uri = url, Body = body }, callback);
         }
@@ -199,7 +199,7 @@ namespace Proyecto26
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="bodyString">A string that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Put(string url, string bodyString, Action<Exception, ResponseHelper> callback)
+        public static void Put(string url, string bodyString, Action<RequestException, ResponseHelper> callback)
         {
             Put(new RequestHelper { Uri = url, BodyString = bodyString }, callback);
         }
@@ -209,7 +209,7 @@ namespace Proyecto26
         /// </summary>
         /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Put(RequestHelper options, Action<Exception, ResponseHelper> callback)
+        public static void Put(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
             options.Method = UnityWebRequest.kHttpVerbPUT;
             Request(options, callback);
@@ -222,7 +222,7 @@ namespace Proyecto26
         /// <param name="body">A plain object that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static void Put<T>(string url, object body, Action<Exception, ResponseHelper, T> callback)
+        public static void Put<T>(string url, object body, Action<RequestException, ResponseHelper, T> callback)
         {
             Put<T>(new RequestHelper { Uri = url, Body = body }, callback);
         }
@@ -234,7 +234,7 @@ namespace Proyecto26
         /// <param name="bodyString">A string that is sent to the server with the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static void Put<T>(string url, string bodyString, Action<Exception, ResponseHelper, T> callback)
+        public static void Put<T>(string url, string bodyString, Action<RequestException, ResponseHelper, T> callback)
         {
             Put<T>(new RequestHelper { Uri = url, BodyString = bodyString }, callback);
         }
@@ -245,7 +245,7 @@ namespace Proyecto26
         /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static void Put<T>(RequestHelper options, Action<Exception, ResponseHelper, T> callback)
+        public static void Put<T>(RequestHelper options, Action<RequestException, ResponseHelper, T> callback)
         {
             options.Method = UnityWebRequest.kHttpVerbPUT;
             Request(options, callback);
@@ -256,7 +256,7 @@ namespace Proyecto26
         /// </summary>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Delete(string url, Action<Exception, ResponseHelper> callback)
+        public static void Delete(string url, Action<RequestException, ResponseHelper> callback)
         {
             Delete(new RequestHelper { Uri = url }, callback);
         }
@@ -266,7 +266,7 @@ namespace Proyecto26
         /// </summary>
         /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Delete(RequestHelper options, Action<Exception, ResponseHelper> callback)
+        public static void Delete(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
             StaticCoroutine.StartCoroutine(HttpDelete.DeleteUnityWebRequest(options, callback));
         }
@@ -276,7 +276,7 @@ namespace Proyecto26
         /// </summary>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Head(string url, Action<Exception, ResponseHelper> callback)
+        public static void Head(string url, Action<RequestException, ResponseHelper> callback)
         {
             Head(new RequestHelper { Uri = url }, callback);
         }
@@ -286,7 +286,7 @@ namespace Proyecto26
         /// </summary>
         /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
-        public static void Head(RequestHelper options, Action<Exception, ResponseHelper> callback)
+        public static void Head(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
             options.Method = UnityWebRequest.kHttpVerbHEAD;
             Request(options, callback);
@@ -317,7 +317,7 @@ namespace Proyecto26
         public static IPromise<T> Request<T>(RequestHelper options)
         {
             var promise = new Promise<T>();
-            Request<T>(options, promise.PromisifyBodyHelper);
+            Request<T>(options, promise.Promisify);
             return promise;
         }
 
@@ -363,7 +363,7 @@ namespace Proyecto26
         public static IPromise<T> Get<T>(RequestHelper options)
         {
             var promise = new Promise<T>();
-            Get<T>(options, promise.PromisifyBodyHelper);
+            Get<T>(options, promise.Promisify);
             return promise;
         }
 
@@ -458,7 +458,7 @@ namespace Proyecto26
         public static IPromise<T> Post<T>(RequestHelper options)
         {
             var promise = new Promise<T>();
-            Post<T>(options, promise.PromisifyBodyHelper);
+            Post<T>(options, promise.Promisify);
             return promise;
         }
 
@@ -529,7 +529,7 @@ namespace Proyecto26
         public static IPromise<T> Put<T>(RequestHelper options)
         {
             var promise = new Promise<T>();
-            Put<T>(options, promise.PromisifyBodyHelper);
+            Put<T>(options, promise.Promisify);
             return promise;
         }
 
@@ -594,27 +594,30 @@ namespace Proyecto26
         #region Helpers
 
         /// <summary>
-        /// Promisify the specified callback
+        /// Promisify the specified callback.
         /// </summary>
-        /// <param name="promise">The Promise.</param>
-        /// <param name="error">An Exception parameter.</param>
-        /// <param name="response">A Response parameter.</param>
+        /// <param name="promise">The promise to resolve.</param>
+        /// <param name="error">The exception of the request.</param>
+        /// <param name="response">The response of the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        private static void Promisify<T>(this Promise<T> promise, Exception error, T response)
+        private static void Promisify<T>(this Promise<T> promise, RequestException error, T response)
         {
             if (error != null) { promise.Reject(error); } else { promise.Resolve(response); }
         }
 
         /// <summary>
-        /// Promisify the specified callback ignoring the ResponseHelper.
+        /// Promisify the specified callback ignoring the response.
         /// </summary>
-        /// <param name="promise">The Promise.</param>
-        /// <param name="error">An Exception parameter.</param>
-        /// <param name="response">A ResponseHelper parameter.</param>
+        /// <param name="promise">The promise to resolve.</param>
+        /// <param name="error">The exception of the request.</param>
+        /// <param name="response">The response of the request.</param>
         /// <param name="body">A body of the response.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        private static void PromisifyBodyHelper<T>(this Promise<T> promise, Exception error, ResponseHelper response, T body)
+        private static void Promisify<T>(this Promise<T> promise, RequestException error, ResponseHelper response, T body)
         {
+            if (error != null && response != null) {
+                error.ServerMessage = response.Error ?? error.Message;
+            }
             promise.Promisify(error, body);
         }
 

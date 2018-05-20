@@ -8,7 +8,7 @@ namespace Proyecto26
 {
     public static class HttpBase
     {
-        public static IEnumerator DefaultUnityWebRequest(RequestHelper options, Action<Exception, ResponseHelper> callback)
+        public static IEnumerator DefaultUnityWebRequest(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
             using(var request = new UnityWebRequest(options.Uri, options.Method))
             {
@@ -26,7 +26,7 @@ namespace Proyecto26
             }
         }
 
-        public static IEnumerator DefaultUnityWebRequest<TResponse>(RequestHelper options, Action<Exception, ResponseHelper, TResponse> callback)
+        public static IEnumerator DefaultUnityWebRequest<TResponse>(RequestHelper options, Action<RequestException, ResponseHelper, TResponse> callback)
         {
             using (var request = new UnityWebRequest(options.Uri, options.Method))
             {
