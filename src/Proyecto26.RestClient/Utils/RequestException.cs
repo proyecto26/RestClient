@@ -31,7 +31,7 @@ namespace Proyecto26
             set { _serverMessage = value; }
         }
 
-        public RequestException(): base() { }
+        public RequestException() { }
 
         public RequestException(string message): base(message) { }
 
