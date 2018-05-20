@@ -14,18 +14,11 @@ namespace Proyecto26
             set { _uri = value; }
         }
 
-        private int? _timeout;
-        public int? Timeout
+        private string _method;
+        public string Method
         {
-            get { return _timeout; }
-            set { _timeout = value; }
-        }
-
-        private bool _ignoreHttpException;
-        public bool IgnoreHttpException
-        {
-            get { return _ignoreHttpException; }
-            set { _ignoreHttpException = value; }
+            get { return _method; }
+            set { _method = value; }
         }
 
         private object _body;
@@ -42,6 +35,27 @@ namespace Proyecto26
             set { _bodyString = value; }
         }
 
+        private int? _timeout;
+        public int? Timeout
+        {
+            get { return _timeout; }
+            set { _timeout = value; }
+        }
+
+        private bool? _chunkedTransfer;
+        public bool? ChunkedTransfer
+        {
+            get { return _chunkedTransfer; }
+            set { _chunkedTransfer = value; }
+        }
+
+        private bool _ignoreHttpException;
+        public bool IgnoreHttpException
+        {
+            get { return _ignoreHttpException; }
+            set { _ignoreHttpException = value; }
+        }
+
         private Dictionary<string, string> _simpleForm;
         public Dictionary<string, string> SimpleForm
         {
@@ -54,13 +68,6 @@ namespace Proyecto26
         {
             get { return _formSections; }
             set { _formSections = value; }
-        }
-
-        private string _method;
-        public string Method
-        {
-            get { return _method; }
-            set { _method = value; }
         }
 
         private Dictionary<string, string> _headers;
@@ -103,10 +110,15 @@ namespace Proyecto26
             }
         }
 
+        /// <summary>
+        /// Internal use
+        /// </summary>
+        public UnityWebRequest request { private get; set; }
+
         public string GetHeader(string name)
         {
             string headerValue;
-            if(request != null)
+            if (request != null)
             {
                 headerValue = request.GetRequestHeader(name);
             }
@@ -117,9 +129,11 @@ namespace Proyecto26
             return headerValue;
         }
 
-        /// <summary>
-        /// Internal use
-        /// </summary>
-        public UnityWebRequest request { private get; set; }
+        public void Abort() {
+            if (this.request != null)
+            {
+                this.request.Abort();
+            }
+        }
     }
 }

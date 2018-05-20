@@ -29,7 +29,8 @@ namespace Proyecto26.Common.Extensions
             {
                 bodyRaw = UnityWebRequest.SerializeSimpleForm(options.SimpleForm);
             }
-            else if (options.FormSections != null && options.FormSections.Count > 0) {
+            else if (options.FormSections != null && options.FormSections.Count > 0) 
+            {
                 byte[] boundary = UnityWebRequest.GenerateBoundary();
                 byte[] formSections = UnityWebRequest.SerializeFormSections(options.FormSections, boundary);
                 byte[] terminate = Encoding.UTF8.GetBytes(string.Concat("\r\n--", Encoding.UTF8.GetString(boundary), "--"));
@@ -55,6 +56,10 @@ namespace Proyecto26.Common.Extensions
             if (options.Timeout.HasValue)
             {
                 request.timeout = options.Timeout.Value;
+            }
+            if (options.ChunkedTransfer.HasValue)
+            {
+                request.chunkedTransfer = options.ChunkedTransfer.Value;
             }
             options.request = request;
             yield return request.SendWebRequest();
