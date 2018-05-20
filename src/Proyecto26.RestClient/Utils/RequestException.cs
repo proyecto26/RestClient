@@ -24,6 +24,13 @@ namespace Proyecto26
             private set { _statusCode = value; }
         }
 
+        private string _serverMessage;
+        public string ServerMessage
+        {
+            get { return _serverMessage; }
+            set { _serverMessage = value; }
+        }
+
         public RequestException(): base() { }
 
         public RequestException(string message): base(message) { }
