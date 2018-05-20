@@ -15,17 +15,35 @@ namespace Proyecto26.Common.Extensions
         /// <param name="options">An options object.</param>
         public static IEnumerator SendWebRequest(this UnityWebRequest request, RequestHelper options)
         {
+            byte[] bodyRaw = null;
+            string contentType = "application/json";
             if (options.Body != null || !string.IsNullOrEmpty(options.BodyString))
             {
                 var bodyString = options.BodyString;
                 if (options.Body != null) {
                     bodyString = JsonUtility.ToJson(options.Body);
                 }
-                byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyString.ToCharArray());
+                bodyRaw = Encoding.UTF8.GetBytes(bodyString.ToCharArray());
+            }
+            else if (options.SimpleForm != null && options.SimpleForm.Count > 0)
+            {
+                bodyRaw = UnityWebRequest.SerializeSimpleForm(options.SimpleForm);
+            }
+            else if (options.FormSections != null && options.FormSections.Count > 0) {
+                byte[] boundary = UnityWebRequest.GenerateBoundary();
+                byte[] formSections = UnityWebRequest.SerializeFormSections(options.FormSections, boundary);
+                byte[] terminate = Encoding.UTF8.GetBytes(string.Concat("\r\n--", Encoding.UTF8.GetString(boundary), "--"));
+                bodyRaw = new byte[formSections.Length + terminate.Length];
+                System.Buffer.BlockCopy(formSections, 0, bodyRaw, 0, formSections.Length);
+                System.Buffer.BlockCopy(terminate, 0, bodyRaw, formSections.Length, terminate.Length);
+                contentType = string.Concat("multipart/form-data; boundary=", Encoding.UTF8.GetString(boundary));
+            }
+            if (bodyRaw != null) {
                 request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
+                request.uploadHandler.contentType = contentType;
             }
             request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Content-Type", contentType);
             foreach (var header in RestClient.DefaultRequestHeaders)
             {
                 request.SetRequestHeader(header.Key, header.Value);

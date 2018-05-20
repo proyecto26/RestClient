@@ -42,6 +42,20 @@ namespace Proyecto26
             set { _bodyString = value; }
         }
 
+        private Dictionary<string, string> _simpleForm;
+        public Dictionary<string, string> SimpleForm
+        {
+            get { return _simpleForm; }
+            set { _simpleForm = value; }
+        }
+
+        private List<IMultipartFormSection> _formSections;
+        public List<IMultipartFormSection> FormSections
+        {
+            get { return _formSections; }
+            set { _formSections = value; }
+        }
+
         private string _method;
         public string Method
         {
