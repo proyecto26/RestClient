@@ -28,6 +28,7 @@ namespace Proyecto26.Common.Extensions
             else if (options.SimpleForm != null && options.SimpleForm.Count > 0)
             {
                 bodyRaw = UnityWebRequest.SerializeSimpleForm(options.SimpleForm);
+                contentType = "application/x-www-form-urlencoded";
             }
             else if (options.FormSections != null && options.FormSections.Count > 0) 
             {
