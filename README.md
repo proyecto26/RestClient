@@ -98,12 +98,17 @@ And we have a generic method to create any type of request:
 ```
 RestClient.Request(new RequestHelper { 
   Uri = "https://jsonplaceholder.typicode.com/photos",
+  Method = "POST",
+  Timeout = 10000,
   Headers = new Dictionary<string, string> {
     { "Authorization", "Bearer JWT_token..." }
   },
-  Body = newPost,
+  Body = newPost, //Content-Type: application/json
   BodyString = "Use it instead of 'Body' if you want to use other tool to serialize the JSON",
-  Method = "POST"
+  SimpleForm = new Dictionary<string, string> {}, //Content-Type: application/x-www-form-urlencoded
+  FormSections = new List<IMultipartFormSection>() {}, //Content-Type: multipart/form-data
+  ChunkedTransfer = true,
+  IgnoreHttpException = true, //Prevent to catch http exceptions
 }).Then(response => {
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
 })
@@ -166,15 +171,19 @@ RestClient.DefaultRequestHeaders["Authorization"] = "Bearer ...";
 
 Also we can add specific options and override default headers for a request
 ```
-var requestOptions = new RequestHelper { 
+var currentRequest = new RequestHelper { 
   Uri = "https://jsonplaceholder.typicode.com/photos",
   Headers = new Dictionary<string, string> {
     { "Authorization", "Other token..." }
   }
 };
-RestClient.GetArray<Photo>(requestOptions).Then(response => {
-  EditorUtility.DisplayDialog("Header", requestOptions.GetHeader("Authorization"), "Ok");
+RestClient.GetArray<Photo>(currentRequest).Then(response => {
+  EditorUtility.DisplayDialog("Header", currentRequest.GetHeader("Authorization"), "Ok");
 })
+
+currentRequest.UploadProgress //To know the progress by uploading data to the server
+currentRequest.DownloadProgress //To know the progress by downloading data from the server
+currentRequest.Abort(); //Abort the request manually
 ```
 
 And later we can clean the default headers for all requests
