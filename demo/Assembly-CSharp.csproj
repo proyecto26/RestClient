@@ -49,8 +49,11 @@
     <Reference Include="UnityEditor">
       <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="RSG.Promise">
+      <HintPath>Assets\Packages\RSG.Promise.3.0.0\lib\net35\RSG.Promise.dll</HintPath>
+    </Reference>
     <Reference Include="Proyecto26.RestClient">
-      <HintPath>..\src\Proyecto26.RestClient\bin\Debug\Proyecto26.RestClient.dll</HintPath>
+      <HintPath>Assets\Packages\Proyecto26.RestClient.2.0.0\lib\net35\Proyecto26.RestClient.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -59,9 +62,6 @@
      <Compile Include="Assets\Models\Post.cs" />
      <Compile Include="Assets\Models\Todo.cs" />
      <Compile Include="Assets\Models\User.cs" />
- <Reference Include="Facebook.Unity.Settings">
- <HintPath>/Users/jdnichollsc/dev/proyecto26/rest-client/demo/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -140,9 +140,6 @@
  <Reference Include="UnityEditor.Facebook.Extensions">
  <HintPath>/Applications/Unity/PlaybackEngines/Facebook/UnityEditor.Facebook.Extensions.dll</HintPath>
  </Reference>
- <Reference Include="RSG.Promise">
- <HintPath>/Users/jdnichollsc/dev/proyecto26/rest-client/demo/Assets/Packages/RSG.Promise.3.0.0/lib/net35/RSG.Promise.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.Advertisements">
  <HintPath>/Users/jdnichollsc/Library/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
  </Reference>
@@ -164,6 +161,9 @@
  <Reference Include="UnityEngine.StandardEvents">
  <HintPath>/Users/jdnichollsc/Library/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
