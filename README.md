@@ -87,7 +87,7 @@ RestClient.Delete("https://jsonplaceholder.typicode.com/posts/1").Then(response 
 });
 RestClient.Head("https://jsonplaceholder.typicode.com/posts").Then(response => {
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
-})
+});
 ```
 
 And we have a generic method to create any type of request:
