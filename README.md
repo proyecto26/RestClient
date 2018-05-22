@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/proyecto26/RestClient.svg?branch=master)](https://travis-ci.org/proyecto26/RestClient)
 
 # RestClient for Unity 🤘
+> Supported Unity versions 2017.2 or higher
 
 <img src="img/icono.png" width="150px" align="right" alt="Proyecto26.RestClient logo" />
 
@@ -33,6 +34,18 @@ RestClient.GetArray<Post>(api + "/posts").Then(response => {
 }).Catch(err => EditorUtility.DisplayDialog ("Error", err.Message, "Ok"));
 ```
 
+## Supported platforms
+The [UnityWebRequest](https://docs.unity3d.com/Manual/UnityWebRequest.html) system supports most Unity platforms:
+
+* All versions of the Editor and Standalone players
+* WebGL
+* Mobile platforms: iOS, Android
+* Universal Windows Platform
+* PS4 and PSVita
+* XboxOne
+* HoloLens
+* Nintendo Switch
+
 ## Demo ⏯
 Do you want to see this beautiful package in action? Download the demo [here](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/proyecto26/RestClient/tree/master/demo)
 
@@ -58,27 +71,47 @@ Other option is download this package from **NuGet** with **Visual Studio** or u
 The package to search for is **[Proyecto26.RestClient](https://www.nuget.org/packages/Proyecto26.RestClient/)**.
 
 ## Getting Started 📚
-The default methods **(GET, POST, PUT, DELETE)** are:
-```
+The default methods **(GET, POST, PUT, DELETE, HEAD)** are:
+```csharp
 RestClient.Get("https://jsonplaceholder.typicode.com/posts/1").Then(response => {
-  EditorUtility.DisplayDialog("Response", response.text, "Ok");
-})
-
+  EditorUtility.DisplayDialog("Response", response.Text, "Ok");
+});
 RestClient.Post("https://jsonplaceholder.typicode.com/posts", newPost).Then(response => {
-  EditorUtility.DisplayDialog("Status", response.statusCode.ToString(), "Ok");
-})
-
+  EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
+});
 RestClient.Put("https://jsonplaceholder.typicode.com/posts/1", updatedPost).Then(response => {
-  EditorUtility.DisplayDialog("Status", response.statusCode.ToString(), "Ok");
-})
-
+  EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
+});
 RestClient.Delete("https://jsonplaceholder.typicode.com/posts/1").Then(response => {
-  EditorUtility.DisplayDialog("Status", response.statusCode.ToString(), "Ok");
+  EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
+});
+RestClient.Head("https://jsonplaceholder.typicode.com/posts").Then(response => {
+  EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
 })
 ```
 
-But we are going to create a class **"User"** and the HTTP requests to load **JSON** data easily:
+And we have a generic method to create any type of request:
+```csharp
+RestClient.Request(new RequestHelper { 
+  Uri = "https://jsonplaceholder.typicode.com/photos",
+  Method = "POST",
+  Timeout = 10000,
+  Headers = new Dictionary<string, string> {
+    { "Authorization", "Bearer JWT_token..." }
+  },
+  Body = newPost, //Content-Type: application/json
+  BodyString = "Use it instead of 'Body' if you want to use other tool to serialize the JSON",
+  SimpleForm = new Dictionary<string, string> {}, //Content-Type: application/x-www-form-urlencoded
+  FormSections = new List<IMultipartFormSection>() {}, //Content-Type: multipart/form-data
+  ChunkedTransfer = true,
+  IgnoreHttpException = true, //Prevent to catch http exceptions
+}).Then(response => {
+  EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
+});
 ```
+
+With all the methods we have the possibility to indicate the type of response, in the following example we're going to create a class and the **HTTP** requests to load **JSON** data easily:
+```csharp
 [Serializable]
 public class User
 {
@@ -92,20 +125,21 @@ public class User
 ```
 
 * **GET JSON**
-```
+```csharp
 var usersRoute = "https://jsonplaceholder.typicode.com/users"; 
 RestClient.Get<User>(usersRoute + "/1").Then(firstUser => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(firstUser, true), "Ok");
-})
+});
 ```
-* **GET Array**
-```
+* **GET Array (JsonHelper is an extension to manage arrays)**
+```csharp
 RestClient.GetArray<User>(usersRoute).Then(allUsers => {
   EditorUtility.DisplayDialog("JSON Array", JsonHelper.ArrayToJsonString<User>(allUsers, true), "Ok");
-})
+});
 ```
+
 Also we can create different classes for custom responses:
-```
+```csharp
 [Serializable]
 public class CustomResponse
 {
@@ -113,40 +147,76 @@ public class CustomResponse
 }
 ```
 * **POST**
-```
+```csharp
 RestClient.Post<CustomResponse>(usersRoute, newUser).Then(customResponse => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customResponse, true), "Ok");
-})
+});
 ```
 * **PUT**
-```
+```csharp
 RestClient.Put<CustomResponse>(usersRoute + "/1", updatedUser).Then(customResponse => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customResponse, true), "Ok");
-})
+});
 ```
 
 ## Custom HTTP Headers and Options 💥
 **HTTP Headers**, such as `Authorization`, can be set in the **DefaultRequestHeaders** object for all requests
-```
+```csharp
 RestClient.DefaultRequestHeaders["Authorization"] = "Bearer ...";
 ```
 
 Also we can add specific options and override default headers for a request
-```
-var requestOptions = new RequestHelper { 
-  url = "https://jsonplaceholder.typicode.com/photos",
-  headers = new Dictionary<string, string>{
+```csharp
+var currentRequest = new RequestHelper { 
+  Uri = "https://jsonplaceholder.typicode.com/photos",
+  Headers = new Dictionary<string, string> {
     { "Authorization", "Other token..." }
   }
 };
-RestClient.GetArray<Photo>(requestOptions).Then(response => {
-  EditorUtility.DisplayDialog("Header", requestOptions.GetHeader("Authorization"), "Ok");
-})
+RestClient.GetArray<Photo>(currentRequest).Then(response => {
+  EditorUtility.DisplayDialog("Header", currentRequest.GetHeader("Authorization"), "Ok");
+});
+
+currentRequest.UploadProgress; //To know the progress by uploading data to the server
+currentRequest.DownloadProgress; //To know the progress by downloading data from the server
+currentRequest.Abort(); //Abort the request manually
 ```
 
 And later we can clean the default headers for all requests
-```
+```csharp
 RestClient.CleanDefaultHeaders();
+```
+
+### Example
+- Unity
+```csharp
+[Serializable]
+public class ServerResponse {
+  public string id;
+  public string date; //DateTime is not supported by JsonUtility
+}
+[Serializable]
+public class User {
+  public string firstName;
+  public string lastName;
+}
+RestClient.Post<ServerResponse>("www.api.com/endpoint", new User {
+  firstName = "Juan David",
+  lastName = "Nicholls Cardona"
+}).Then(response => {
+  EditorUtility.DisplayDialog("ID: ", response.id, "Ok");
+  EditorUtility.DisplayDialog("Date: ", response.date, "Ok");
+});
+```
+- NodeJS as Backend (Using [Express](http://expressjs.com/es/starter/hello-world.html))
+```js
+router.post('/', function(req, res) {
+  console.log(req.body.firstName)
+  res.json({
+    id: 123,
+    date: new Date()
+  })
+});
 ```
 
 ## Collaborators 🥇
@@ -155,7 +225,7 @@ RestClient.CleanDefaultHeaders();
 [Diego Ossa](mailto:diegoossa@gmail.com) | [Juan Nicholls](mailto:jdnichollsc@hotmail.com) |
 
 ## Credits 👍
-* [Real Serious Games/C-Sharp-Promise](https://github.com/Real-Serious-Games/C-Sharp-Promise)
+* **Promises library for C#:** [Real Serious Games/C-Sharp-Promise](https://github.com/Real-Serious-Games/C-Sharp-Promise)
 
 ## Supporting 🍻
 I believe in Unicorns 🦄

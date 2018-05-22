@@ -14,16 +14,16 @@ namespace Proyecto26
             {
                 if (_runner == null)
                 {
-                    _runner = new GameObject("Static Corotuine RestClient").AddComponent<CoroutineHolder>();
+                    _runner = new GameObject("Static Coroutine RestClient").AddComponent<CoroutineHolder>();
                     Object.DontDestroyOnLoad(_runner);
                 }
                 return _runner;
             }
         }
 
-        public static void StartCoroutine(IEnumerator corotuine)
+        public static void StartCoroutine(IEnumerator coroutine)
         {
-            runner.StartCoroutine(corotuine);
+            runner.StartCoroutine(coroutine);
         }
     }
 }

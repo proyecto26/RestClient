@@ -13,27 +13,54 @@ namespace Proyecto26.Common.Extensions
         /// <returns>An UnityWebRequestAsyncOperation object.</returns>
         /// <param name="request">An UnityWebRequest object.</param>
         /// <param name="options">An options object.</param>
-        /// <param name="bodyJson">A plain object that is sent to the server with the request.</param>
-        public static IEnumerator SendWebRequest(this UnityWebRequest request, RequestHelper options, object bodyJson = null)
+        public static IEnumerator SendWebRequest(this UnityWebRequest request, RequestHelper options)
         {
-            if (bodyJson != null)
+            byte[] bodyRaw = null;
+            string contentType = "application/json";
+            if (options.Body != null || !string.IsNullOrEmpty(options.BodyString))
             {
-                byte[] bodyRaw = Encoding.UTF8.GetBytes(JsonUtility.ToJson(bodyJson).ToCharArray());
+                var bodyString = options.BodyString;
+                if (options.Body != null) {
+                    bodyString = JsonUtility.ToJson(options.Body);
+                }
+                bodyRaw = Encoding.UTF8.GetBytes(bodyString.ToCharArray());
+            }
+            else if (options.SimpleForm != null && options.SimpleForm.Count > 0)
+            {
+                bodyRaw = UnityWebRequest.SerializeSimpleForm(options.SimpleForm);
+                contentType = "application/x-www-form-urlencoded";
+            }
+            else if (options.FormSections != null && options.FormSections.Count > 0) 
+            {
+                byte[] boundary = UnityWebRequest.GenerateBoundary();
+                byte[] formSections = UnityWebRequest.SerializeFormSections(options.FormSections, boundary);
+                byte[] terminate = Encoding.UTF8.GetBytes(string.Concat("\r\n--", Encoding.UTF8.GetString(boundary), "--"));
+                bodyRaw = new byte[formSections.Length + terminate.Length];
+                System.Buffer.BlockCopy(formSections, 0, bodyRaw, 0, formSections.Length);
+                System.Buffer.BlockCopy(terminate, 0, bodyRaw, formSections.Length, terminate.Length);
+                contentType = string.Concat("multipart/form-data; boundary=", Encoding.UTF8.GetString(boundary));
+            }
+            if (bodyRaw != null) {
                 request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
+                request.uploadHandler.contentType = contentType;
             }
             request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Content-Type", contentType);
             foreach (var header in RestClient.DefaultRequestHeaders)
             {
                 request.SetRequestHeader(header.Key, header.Value);
             }
-            foreach (var header in options.headers)
+            foreach (var header in options.Headers)
             {
                 request.SetRequestHeader(header.Key, header.Value);
             }
-            if (options.timeout.HasValue)
+            if (options.Timeout.HasValue)
             {
-                request.timeout = options.timeout.Value;
+                request.timeout = options.Timeout.Value;
+            }
+            if (options.ChunkedTransfer.HasValue)
+            {
+                request.chunkedTransfer = options.ChunkedTransfer.Value;
             }
             options.request = request;
             yield return request.SendWebRequest();
@@ -48,12 +75,21 @@ namespace Proyecto26.Common.Extensions
         {
             return new ResponseHelper
             {
-                statusCode = request.responseCode,
-                data = request.downloadHandler.data,
-                text = request.downloadHandler.text,
-                headers = request.GetResponseHeaders(),
-                error = request.error
+                StatusCode = request.responseCode,
+                Data = request.downloadHandler.data,
+                Text = request.downloadHandler.text,
+                Headers = request.GetResponseHeaders(),
+                Error = request.error
             };
+        }
+
+        public static bool IsValidRequest(this UnityWebRequest request, RequestHelper options)
+        {
+            return request.isDone &&
+            !request.isNetworkError &&
+            (
+                !request.isHttpError || options.IgnoreHttpException
+            );
         }
     }
 }

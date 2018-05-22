@@ -56,7 +56,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HttpActions\HttpBase.cs" />
     <Compile Include="HttpActions\HttpDelete.cs" />
-    <Compile Include="HttpActions\HttpGet.cs" />
+    <Compile Include="HttpActions\HttpGetExtension.cs" />
     <Compile Include="Utils\JsonHelper.cs" />
     <Compile Include="Utils\ResponseHelper.cs" />
     <Compile Include="Utils\StaticCoroutine.cs" />

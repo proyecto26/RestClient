@@ -7,16 +7,36 @@ namespace Proyecto26
     [Serializable]
     public class ResponseHelper
     {
-        public long statusCode;
+        private long _statusCode;
+        public long StatusCode
+        {
+            get { return _statusCode; }
+            set { _statusCode = value; }
+        }
 
-        public byte[] data;
+        private byte[] _data;
+        public byte[] Data
+        {
+            get { return _data; }
+            set { _data = value; }
+        }
 
-        public string text;
+        private string _text;
+        public string Text
+        {
+            get { return _text; }
+            set { _text = value; }
+        }
 
-        public string error;
+        private string _error;
+        public string Error
+        {
+            get { return _error; }
+            set { _error = value; }
+        }
 
         private Dictionary<string, string> _headers;
-        public Dictionary<string, string> headers
+        public Dictionary<string, string> Headers
         {
             get
             {
