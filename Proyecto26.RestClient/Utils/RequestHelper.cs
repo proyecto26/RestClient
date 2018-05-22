@@ -115,6 +115,11 @@ namespace Proyecto26
         /// </summary>
         public UnityWebRequest request { private get; set; }
 
+        /// <summary>
+        /// Get the value of a header
+        /// </summary>
+        /// <returns>The string value of the header.</returns>
+        /// <param name="name">The name of the header.</param>
         public string GetHeader(string name)
         {
             string headerValue;
@@ -129,6 +134,9 @@ namespace Proyecto26
             return headerValue;
         }
 
+        /// <summary>
+        /// Abort the request manually
+        /// </summary>
         public void Abort() {
             if (this.request != null)
             {

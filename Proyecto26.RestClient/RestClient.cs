@@ -27,7 +27,7 @@ namespace Proyecto26
         #region Callbacks
 
         /// <summary>
-        /// Create an HTTP request
+        /// Create an HTTP request with the specified options and callback.
         /// </summary>
         /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
@@ -37,7 +37,7 @@ namespace Proyecto26
         }
 
         /// <summary>
-        /// Request the specified options and callback.
+        /// Create an HTTP request with the specified options and callback.
         /// </summary>
         /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
@@ -272,7 +272,7 @@ namespace Proyecto26
         }
 
         /// <summary>
-        /// Requests the headers that are returned from the server
+        /// Request the headers that are returned from the server
         /// </summary>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
@@ -282,7 +282,7 @@ namespace Proyecto26
         }
 
         /// <summary>
-        /// Requests the headers that are returned from the server
+        /// Request the headers that are returned from the server
         /// </summary>
         /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
