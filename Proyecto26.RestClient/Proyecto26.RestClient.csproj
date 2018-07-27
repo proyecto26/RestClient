@@ -48,7 +48,7 @@
       <HintPath>..\dlls\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="RSG.Promise">
-      <HintPath>..\packages\RSG.Promise.3.0.0\lib\net35\RSG.Promise.dll</HintPath>
+      <HintPath>..\packages\RSG.Promise.3.0.1\lib\net35\RSG.Promise.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
