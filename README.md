@@ -95,7 +95,7 @@ And we have a generic method to create any type of request:
 RestClient.Request(new RequestHelper { 
   Uri = "https://jsonplaceholder.typicode.com/photos",
   Method = "POST",
-  Timeout = 10000,
+  Timeout = 10,
   Headers = new Dictionary<string, string> {
     { "Authorization", "Bearer JWT_token..." }
   },
