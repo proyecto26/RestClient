@@ -104,7 +104,7 @@ RestClient.Request(new RequestHelper {
   SimpleForm = new Dictionary<string, string> {}, //Content-Type: application/x-www-form-urlencoded
   FormSections = new List<IMultipartFormSection>() {}, //Content-Type: multipart/form-data
   ChunkedTransfer = true,
-  IgnoreHttpException = true, //Prevent to catch http exceptions
+  IgnoreHttpException = true //Prevent to catch http exceptions
 }).Then(response => {
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
 });
@@ -188,7 +188,7 @@ RestClient.CleanDefaultHeaders();
 ```
 
 ### Example
-- Unity
+- Unity as Client
 ```csharp
 [Serializable]
 public class ServerResponse {
