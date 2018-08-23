@@ -44,7 +44,10 @@ namespace Proyecto26.Common.Extensions
                 request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
                 request.uploadHandler.contentType = contentType;
             }
-            request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+            if (options.DownloadHandler is DownloadHandler)
+                request.downloadHandler = options.DownloadHandler;
+            else
+                request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", contentType);
             foreach (var header in RestClient.DefaultRequestHeaders)
             {
