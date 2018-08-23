@@ -70,6 +70,13 @@ namespace Proyecto26
             set { _formSections = value; }
         }
 
+        private DownloadHandler _downloadHandler;
+        public DownloadHandler DownloadHandler 
+        { 
+            get { return _downloadHandler; }
+            set { _downloadHandler = value; }
+        }
+
         private Dictionary<string, string> _headers;
         public Dictionary<string, string> Headers 
         { 
