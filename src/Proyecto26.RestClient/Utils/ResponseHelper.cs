@@ -1,52 +1,66 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Networking;
 
 namespace Proyecto26
 {
     [Serializable]
     public class ResponseHelper
     {
-        private long _statusCode;
+        private UnityWebRequest request { get; set; }
+
+        public ResponseHelper(UnityWebRequest unityWebRequest)
+        {
+            request = unityWebRequest;
+        }
+
         public long StatusCode
         {
-            get { return _statusCode; }
-            set { _statusCode = value; }
+            get { return request.responseCode; }
         }
 
-        private byte[] _data;
         public byte[] Data
         {
-            get { return _data; }
-            set { _data = value; }
+            get {
+                byte[] _data;
+                try
+                {
+                    _data = request.downloadHandler.data;
+                }
+                catch (Exception)
+                {
+                    _data = null;
+                }
+                return _data;
+            }
         }
 
-        private string _text;
         public string Text
-        {
-            get { return _text; }
-            set { _text = value; }
-        }
-
-        private string _error;
-        public string Error
-        {
-            get { return _error; }
-            set { _error = value; }
-        }
-
-        private Dictionary<string, string> _headers;
-        public Dictionary<string, string> Headers
         {
             get
             {
-                if (_headers == null)
+                string _text;
+                try
                 {
-                    _headers = new Dictionary<string, string>();
+                    _text = request.downloadHandler.text;
                 }
-                return _headers;
+                catch (Exception)
+                {
+                    _text = string.Empty;
+                }
+                return _text;
             }
-            set { _headers = value; }
+        }
+
+        public string Error
+        {
+            get { return request.error; }
+        }
+
+        public Dictionary<string, string> Headers
+        {
+            get { return request.GetResponseHeaders(); }
         }
 
         public override string ToString()

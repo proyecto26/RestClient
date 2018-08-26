@@ -103,6 +103,7 @@ RestClient.Request(new RequestHelper {
   BodyString = "Use it instead of 'Body' if you want to use other tool to serialize the JSON",
   SimpleForm = new Dictionary<string, string> {}, //Content-Type: application/x-www-form-urlencoded
   FormSections = new List<IMultipartFormSection>() {}, //Content-Type: multipart/form-data
+  DownloadHandler = new DownloadHandlerFile(destPah), //Download large files
   ChunkedTransfer = true,
   IgnoreHttpException = true //Prevent to catch http exceptions
 }).Then(response => {

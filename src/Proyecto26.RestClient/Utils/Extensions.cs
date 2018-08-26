@@ -65,7 +65,7 @@ namespace Proyecto26.Common.Extensions
             {
                 request.chunkedTransfer = options.ChunkedTransfer.Value;
             }
-            options.request = request;
+            options.Request = request;
             yield return request.SendWebRequest();
         }
 
@@ -76,14 +76,7 @@ namespace Proyecto26.Common.Extensions
         /// <param name="request">An UnityWebRequest object.</param>
         public static ResponseHelper CreateWebResponse(this UnityWebRequest request)
         {
-            return new ResponseHelper
-            {
-                StatusCode = request.responseCode,
-                Data = request.downloadHandler.data,
-                Text = request.downloadHandler.text,
-                Headers = request.GetResponseHeaders(),
-                Error = request.error
-            };
+            return new ResponseHelper(request);
         }
 
         public static bool IsValidRequest(this UnityWebRequest request, RequestHelper options)

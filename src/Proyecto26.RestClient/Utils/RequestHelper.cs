@@ -96,9 +96,9 @@ namespace Proyecto26
             get 
             {
                 float progress = 0;
-                if(this.request != null)
+                if(this.Request != null)
                 {
-                    progress = this.request.uploadProgress;
+                    progress = this.Request.uploadProgress;
                 }
                 return progress;
             }
@@ -109,9 +109,9 @@ namespace Proyecto26
             get
             {
                 float progress = 0;
-                if (this.request != null)
+                if (this.Request != null)
                 {
-                    progress = this.request.downloadProgress;
+                    progress = this.Request.downloadProgress;
                 }
                 return progress;
             }
@@ -120,7 +120,7 @@ namespace Proyecto26
         /// <summary>
         /// Internal use
         /// </summary>
-        public UnityWebRequest request { private get; set; }
+        public UnityWebRequest Request { private get; set; }
 
         /// <summary>
         /// Get the value of a header
@@ -130,9 +130,9 @@ namespace Proyecto26
         public string GetHeader(string name)
         {
             string headerValue;
-            if (request != null)
+            if (this.Request != null)
             {
-                headerValue = request.GetRequestHeader(name);
+                headerValue = this.Request.GetRequestHeader(name);
             }
             else
             {
@@ -145,9 +145,16 @@ namespace Proyecto26
         /// Abort the request manually
         /// </summary>
         public void Abort() {
-            if (this.request != null)
+            if (this.Request != null)
             {
-                this.request.Abort();
+                try
+                {
+                    this.Request.Abort();
+                }
+                finally
+                {
+                    this.Request = null;
+                }
             }
         }
     }
