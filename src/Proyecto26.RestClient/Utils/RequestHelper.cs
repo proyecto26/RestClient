@@ -120,7 +120,7 @@ namespace Proyecto26
         /// <summary>
         /// Internal use
         /// </summary>
-        public UnityWebRequest Request { private get; set; }
+        internal UnityWebRequest Request { get; set; }
 
         /// <summary>
         /// Get the value of a header
