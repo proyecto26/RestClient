@@ -35,6 +35,13 @@ namespace Proyecto26
             set { _bodyString = value; }
         }
 
+        private byte[] _bodyRaw;
+        public byte[] BodyRaw
+        {
+            get { return _bodyRaw; }
+            set { _bodyRaw = value; }
+        }
+
         private int? _timeout;
         public int? Timeout
         {
