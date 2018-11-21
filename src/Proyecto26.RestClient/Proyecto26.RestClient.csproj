@@ -9,7 +9,7 @@
     <AssemblyName>Proyecto26.RestClient</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <PackageId>Proyecto26.RestClient</PackageId>
-    <PackageVersion>1.2.2</PackageVersion>
+    <PackageVersion>2.2.0</PackageVersion>
     <Authors>jdnichollsc</Authors>
     <PackageIconUrl>https://github.com/proyecto26/RestClient/blob/master/img/icono.png?raw=true</PackageIconUrl>
     <PackageLicenseUrl>https://github.com/proyecto26/RestClient/blob/master/LICENSE</PackageLicenseUrl>

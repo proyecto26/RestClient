@@ -15,7 +15,7 @@ namespace Proyecto26.Common.Extensions
         /// <param name="options">An options object.</param>
         public static IEnumerator SendWebRequest(this UnityWebRequest request, RequestHelper options)
         {
-            byte[] bodyRaw = null;
+            byte[] bodyRaw = options.BodyRaw;
             string contentType = "application/json";
             if (options.Body != null || !string.IsNullOrEmpty(options.BodyString))
             {
