@@ -233,6 +233,8 @@ router.post('/', function(req, res) {
 I believe in Unicorns 🦄
 Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
 
+Hey mate, any good review from the [Unity Store](https://assetstore.unity.com/packages/tools/network/rest-client-for-unity-102501) is also really appreciated!
+
 ## Happy coding 💯
 Made with ❤️
 
