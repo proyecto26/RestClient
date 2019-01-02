@@ -49,6 +49,14 @@ namespace Proyecto26
             set { _timeout = value; }
         }
 
+        private string _contentType = 
+"application/json";
+        public string ContentType
+        {
+            get { return _contentType; }
+            set { _contentType = value; }
+        }
+
         private bool? _chunkedTransfer;
         public bool? ChunkedTransfer
         {
