@@ -99,9 +99,9 @@ RestClient.Request(new RequestHelper {
   Headers = new Dictionary<string, string> {
     { "Authorization", "Bearer JWT_token..." }
   },
-  Body = newPost, //Serialize object using JsonUtility by default
-  BodyString = SerializeObject(newPost), // Use it instead of 'Body' to serialize objects to JSON string using other tools
-  BodyRaw = CompressToRawData(newPost), // Use it instead of 'Body' to send raw data directly
+  Body = newPhoto, //Serialize object using JsonUtility by default
+  BodyString = SerializeObject(newPhoto), // Use it instead of 'Body' to serialize objects to JSON string using other tools
+  BodyRaw = CompressToRawData(newPhoto), // Use it instead of 'Body' to send raw data directly
   SimpleForm = new Dictionary<string, string> {}, //Content-Type: application/x-www-form-urlencoded
   FormSections = new List<IMultipartFormSection>() {}, //Content-Type: multipart/form-data
   DownloadHandler = new DownloadHandlerFile(destPah), //Download large files
