@@ -16,8 +16,7 @@ namespace Proyecto26.Common.Extensions
         public static IEnumerator SendWebRequest(this UnityWebRequest request, RequestHelper options)
         {
             byte[] bodyRaw = options.BodyRaw;
-            string contentType = 
-options.ContentType;
+            string contentType = options.ContentType;
             if (options.Body != null || !string.IsNullOrEmpty(options.BodyString))
             {
                 var bodyString = options.BodyString;
