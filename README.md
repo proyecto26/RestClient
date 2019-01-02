@@ -106,6 +106,7 @@ RestClient.Request(new RequestHelper {
   FormSections = new List<IMultipartFormSection>() {}, //Content-Type: multipart/form-data
   DownloadHandler = new DownloadHandlerFile(destPah), //Download large files
   ChunkedTransfer = true,
+  ContentType = "application/json", //JSON is used by default 
   IgnoreHttpException = true //Prevent to catch http exceptions
 }).Then(response => {
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
