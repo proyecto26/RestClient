@@ -33,7 +33,7 @@ namespace Proyecto26
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         public static void Request(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
-            Request(options, (RequestException err, ResponseHelper res, string body) => callback(err, res));
+            Request(options, callback);
         }
 
         /// <summary>
@@ -270,7 +270,7 @@ namespace Proyecto26
         public static void Delete(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
             options.Method = UnityWebRequest.kHttpVerbDELETE;
-            Request(options, (RequestException err, ResponseHelper res, string body) => callback(err, res));
+            Request(options, callback);
         }
 
         /// <summary>
@@ -291,7 +291,7 @@ namespace Proyecto26
         public static void Head(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
             options.Method = UnityWebRequest.kHttpVerbHEAD;
-            Request(options, (RequestException err, ResponseHelper res, string body) => callback(err, res));
+            Request(options, callback);
         }
 
         #endregion
