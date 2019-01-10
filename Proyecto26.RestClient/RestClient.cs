@@ -33,7 +33,7 @@ namespace Proyecto26
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         public static void Request(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
-            Request(options, callback);
+            StaticCoroutine.StartCoroutine(HttpBase.DefaultUnityWebRequest(options, callback));
         }
 
         /// <summary>
