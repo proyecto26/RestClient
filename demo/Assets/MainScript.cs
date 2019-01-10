@@ -28,6 +28,7 @@ public class MainScript : MonoBehaviour {
 			// We can add specific options and override default headers for a request
 			requestOptions = new RequestHelper { 
 				Uri = basePath + "/photos",
+				EnableLogs = true,
 				Headers = new Dictionary<string, string> {
 					{ "Authorization", "Other token..." }
 				}
@@ -55,10 +56,16 @@ public class MainScript : MonoBehaviour {
 
 	public void Put(){
 
-		RestClient.Put<Post>(basePath + "/posts/1", new Post {
-			title = "My new title",
-			body = "My new message",
-			userId = 26
+		RestClient.Put<Post>(new RequestHelper {
+			Uri = basePath + "/posts/1",
+			Body = new Post {
+				title = "My new title",
+				body = "My new message",
+				userId = 26
+			},
+			EnableLogs = true,
+			Retries = 5,
+			RetrySecondsDelay = 1
 		}, (err, res, body) => {
 			if(err != null){
 				EditorUtility.DisplayDialog ("Error", err.Message, "Ok");
