@@ -28,7 +28,7 @@ public class MainScript : MonoBehaviour {
 			// We can add specific options and override default headers for a request
 			requestOptions = new RequestHelper { 
 				Uri = basePath + "/photos",
-				EnableLogs = true,
+				EnableDebug = true,
 				Headers = new Dictionary<string, string> {
 					{ "Authorization", "Other token..." }
 				}
@@ -63,9 +63,11 @@ public class MainScript : MonoBehaviour {
 				body = "My new message",
 				userId = 26
 			},
-			EnableLogs = true,
 			Retries = 5,
-			RetrySecondsDelay = 1
+			RetrySecondsDelay = 1,
+			RetryCallback = (err, retries) => {
+				Debug.Log(string.Format("Retry #{0} Status {1}\nError: {2}", retries, err.StatusCode, err));
+			}
 		}, (err, res, body) => {
 			if(err != null){
 				EditorUtility.DisplayDialog ("Error", err.Message, "Ok");
