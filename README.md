@@ -108,7 +108,9 @@ RestClient.Request(new RequestHelper {
   ContentType = "application/json", //JSON is used by default
   Retries = 3, //Number of retries
   RetrySecondsDelay = 2, //Seconds of delay to make a retry
-  ChunkedTransfer = true,
+  RetryCallback = (err, retries) => {}, //See the error before retrying the request
+  EnableDebug = true, //See logs of the requests for debug mode
+  ChunkedTransfer = false,
   IgnoreHttpException = true //Prevent to catch http exceptions
 }).Then(response => {
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
