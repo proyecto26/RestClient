@@ -56,6 +56,27 @@ namespace Proyecto26
             set { _contentType = value; }
         }
 
+        private int _retries;
+        public int Retries
+        {
+            get { return _retries; }
+            set { _retries = value; }
+        }
+
+        private float _retrySecondsDelay;
+        public float RetrySecondsDelay
+        {
+            get { return _retrySecondsDelay; }
+            set { _retrySecondsDelay = value; }
+        }
+
+        private bool _enableLogs;
+        public bool EnableLogs
+        {
+            get { return _enableLogs; }
+            set { _enableLogs = value; }
+        }
+
         private bool? _chunkedTransfer;
         public bool? ChunkedTransfer
         {

@@ -21,9 +21,9 @@ namespace Proyecto26
             }
         }
 
-        public static void StartCoroutine(IEnumerator coroutine)
+        public static Coroutine StartCoroutine(IEnumerator coroutine)
         {
-            runner.StartCoroutine(coroutine);
+            return runner.StartCoroutine(coroutine);
         }
     }
 }

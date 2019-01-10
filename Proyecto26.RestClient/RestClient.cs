@@ -33,7 +33,7 @@ namespace Proyecto26
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         public static void Request(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
-            StaticCoroutine.StartCoroutine(HttpBase.DefaultUnityWebRequest(options, callback));
+            Request(options, (RequestException err, ResponseHelper res, string body) => callback(err, res));
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Proyecto26
         /// <typeparam name="T">The element type of the response.</typeparam>
         public static void Request<T>(RequestHelper options, Action<RequestException, ResponseHelper, T> callback)
         {
-            StaticCoroutine.StartCoroutine(HttpBase.DefaultUnityWebRequest(options, callback));
+            StaticCoroutine.StartCoroutine(HttpBase.DefaultUnityWebRequest<T>(options, callback));
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Proyecto26
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the array.</typeparam>
-        public static void GetArray<T>(string url, Action<RequestException, T[]> callback)
+        public static void GetArray<T>(string url, Action<RequestException, ResponseHelper, T[]> callback)
         {
             GetArray<T>(new RequestHelper { Uri = url }, callback);
         }
@@ -108,9 +108,10 @@ namespace Proyecto26
         /// <param name="options">The options of the request.</param>
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         /// <typeparam name="T">The element type of the array.</typeparam>
-        public static void GetArray<T>(RequestHelper options, Action<RequestException, T[]> callback)
+        public static void GetArray<T>(RequestHelper options, Action<RequestException, ResponseHelper, T[]> callback)
         {
-            StaticCoroutine.StartCoroutine(HttpGetExtension.GetArrayUnityWebRequest<T>(options, callback));
+            options.Method = UnityWebRequest.kHttpVerbGET;
+            StaticCoroutine.StartCoroutine(HttpBase.DefaultUnityWebRequest<T>(options, callback));
         }
 
         /// <summary>
@@ -268,7 +269,8 @@ namespace Proyecto26
         /// <param name="callback">A callback function that is executed when the request is finished.</param>
         public static void Delete(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
-            StaticCoroutine.StartCoroutine(HttpDelete.DeleteUnityWebRequest(options, callback));
+            options.Method = UnityWebRequest.kHttpVerbDELETE;
+            Request(options, (RequestException err, ResponseHelper res, string body) => callback(err, res));
         }
 
         /// <summary>
@@ -289,7 +291,7 @@ namespace Proyecto26
         public static void Head(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
             options.Method = UnityWebRequest.kHttpVerbHEAD;
-            Request(options, callback);
+            Request(options, (RequestException err, ResponseHelper res, string body) => callback(err, res));
         }
 
         #endregion
