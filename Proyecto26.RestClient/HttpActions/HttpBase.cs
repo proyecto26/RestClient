@@ -11,6 +11,7 @@ namespace Proyecto26
     {
         public static IEnumerator CreateRequestAndRetry(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
+            var retries = 0;
             do
             {
                 using (var request = new UnityWebRequest(options.Uri, options.Method))
@@ -19,32 +20,38 @@ namespace Proyecto26
                     var response = request.CreateWebResponse();
                     if (request.IsValidRequest(options))
                     {
-                        DebugLog(options.EnableLogs, string.Format("Url: {0}\nMethod: {1}\nStatus: {2}\nResponse: {3}", options.Uri, options.Method, request.responseCode, response.Text), false);
+                        DebugLog(options.EnableDebug, string.Format("Url: {0}\nMethod: {1}\nStatus: {2}\nResponse: {3}", options.Uri, options.Method, request.responseCode, response.Text), false);
                         callback(null, response);
                         break;
                     }
-                    else if (options.Retries > 0)
+                    else if (!options.IsAborted && retries < options.Retries)
                     {
-                        options.Retries--;
                         yield return new WaitForSeconds(options.RetrySecondsDelay);
-                        DebugLog(options.EnableLogs, string.Format("Retry Request\nUrl: {0}\nMethod: {1}", options.Uri, options.Method), false);
+                        retries++;
+                        options.RetryCallback?.Invoke(CreateException(request), retries);
+                        DebugLog(options.EnableDebug, string.Format("Retry Request\nUrl: {0}\nMethod: {1}", options.Uri, options.Method), false);
                     }
                     else
                     {
-                        var message = request.error ?? request.downloadHandler.text;
-                        var err = new RequestException(message, request.isHttpError, request.isNetworkError, request.responseCode);
-                        DebugLog(options.EnableLogs, err, true);
+                        var err = CreateException(request);
+                        DebugLog(options.EnableDebug, err, true);
                         callback(err, response);
                         break;
                     }
                 }
             }
-            while (options.Retries >= 0);
+            while (retries <= options.Retries);
         }
 
-        private static void DebugLog(bool enabled, object message, bool isError)
+        private static RequestException CreateException(UnityWebRequest request)
         {
-            if (enabled)
+            var message = request.error ?? request.downloadHandler.text;
+            return new RequestException(message, request.isHttpError, request.isNetworkError, request.responseCode);
+        }
+
+        private static void DebugLog(bool debugEnabled, object message, bool isError)
+        {
+            if (debugEnabled)
             {
                 if (isError)
                     Debug.LogError(message);

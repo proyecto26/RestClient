@@ -70,11 +70,18 @@ namespace Proyecto26
             set { _retrySecondsDelay = value; }
         }
 
-        private bool _enableLogs;
-        public bool EnableLogs
+        private Action<RequestException, int> _retryCallback;
+        public Action<RequestException, int> RetryCallback
         {
-            get { return _enableLogs; }
-            set { _enableLogs = value; }
+            get { return _retryCallback; }
+            set { _retryCallback = value; }
+        }
+
+        private bool _enableDebug;
+        public bool EnableDebug
+        {
+            get { return _enableDebug; }
+            set { _enableDebug = value; }
         }
 
         private bool? _chunkedTransfer;
@@ -176,14 +183,22 @@ namespace Proyecto26
             return headerValue;
         }
 
+        private bool _isAborted;
+        public bool IsAborted
+        {
+            get { return _isAborted; }
+            set { _isAborted = value; }
+        }
+
         /// <summary>
         /// Abort the request manually
         /// </summary>
         public void Abort() {
-            if (this.Request != null)
+            if (this.Request != null && !this.IsAborted)
             {
                 try
                 {
+                    this.IsAborted = true;
                     this.Request.Abort();
                 }
                 finally
