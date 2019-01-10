@@ -105,7 +105,9 @@ RestClient.Request(new RequestHelper {
   SimpleForm = new Dictionary<string, string> {}, //Content-Type: application/x-www-form-urlencoded
   FormSections = new List<IMultipartFormSection>() {}, //Content-Type: multipart/form-data
   DownloadHandler = new DownloadHandlerFile(destPah), //Download large files
-  ContentType = "application/json", //JSON is used by default 
+  ContentType = "application/json", //JSON is used by default
+  Retries = 3, //Number of retries
+  RetrySecondsDelay = 2, //Seconds of delay to make a retry
   ChunkedTransfer = true,
   IgnoreHttpException = true //Prevent to catch http exceptions
 }).Then(response => {
@@ -223,9 +225,9 @@ router.post('/', function(req, res) {
 ```
 
 ## Collaborators 🥇
-[<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/2154886?v=3&s=117" width="117">](https://github.com/jdnichollsc) | [<img alt="diegoossa" src="https://avatars3.githubusercontent.com/u/3436237?v=3&s=117" width="117">](https://github.com/diegoossa) |
-:---: | :---: |
-[Juan Nicholls](mailto:jdnichollsc@hotmail.com) | [Diego Ossa](mailto:diegoossa@gmail.com) |
+[<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/2154886?v=3&s=117" width="117">](https://github.com/jdnichollsc) | [<img alt="diegoossa" src="https://avatars3.githubusercontent.com/u/3436237?v=3&s=117" width="117">](https://github.com/diegoossa) | [<img alt="nasdull" src="https://avatars3.githubusercontent.com/u/25492923?v=3&s=117" width="117">](https://github.com/nasdull) |
+:---: | :---: | :---: |
+[Juan Nicholls](mailto:jdnichollsc@hotmail.com) | [Diego Ossa](mailto:diegoossa@gmail.com) | [Nasdull](mailto:nasdull@hotmail.com) |
 
 ## Credits 👍
 * **Promises library for C#:** [Real Serious Games/C-Sharp-Promise](https://github.com/Real-Serious-Games/C-Sharp-Promise)
