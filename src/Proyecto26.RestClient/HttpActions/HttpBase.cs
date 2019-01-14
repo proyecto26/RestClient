@@ -150,7 +150,11 @@ namespace Proyecto26
                 request.chunkedTransfer = options.ChunkedTransfer.Value;
             }
             options.Request = request;
+#if UNITY_2017_2_OR_NEWER
             yield return request.SendWebRequest();
+#else
+            yield return request.Send();
+#endif
         }
 
     }

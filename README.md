@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.org/proyecto26/RestClient.svg?branch=master)](https://travis-ci.org/proyecto26/RestClient)
 
 # RestClient for Unity 🤘
-> Supported Unity versions 2017.2 or higher
 
 <img src="img/icono.png" width="150px" align="right" alt="Proyecto26.RestClient logo" />
 
