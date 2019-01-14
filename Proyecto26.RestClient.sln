@@ -22,4 +22,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		description = RestClient for Unity
+		version = 1.0
+	EndGlobalSection
 EndGlobal
