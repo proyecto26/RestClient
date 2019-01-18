@@ -43,7 +43,7 @@ RestClient.GetArray<Post>(api + "/posts").Then(response => {
 - Generic **REQUEST** method to create any http request
 - Based on **Promises** for a better asynchronous programming
 - Handle HTTP exceptions in a better way
-- Retry requests http easily
+- Retry HTTP requests easily
 - Open Source 🦄
 
 ## Supported platforms 📱 🖥 
