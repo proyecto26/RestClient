@@ -33,7 +33,20 @@ RestClient.GetArray<Post>(api + "/posts").Then(response => {
 }).Catch(err => EditorUtility.DisplayDialog ("Error", err.Message, "Ok"));
 ```
 
-## Supported platforms
+## Features
+- Works out of the box 🎉 
+- Supports **HTTPS/SSL**
+- Built on top of **UnityWebRequest** system
+- Includes JSON serialization with **JsonUtility** (Other tools are supported!)
+- Get **Arrays** Supported
+- Default **HTTP** Methods **(GET, POST, PUT, DELETE, HEAD)**
+- Generic **REQUEST** method to create any http request
+- Based on **Promises** for a better asynchronous programming
+- Handle HTTP exceptions in a better way
+- Retry requests http easily
+- Open Source 🦄
+
+## Supported platforms 📱 🖥 
 The [UnityWebRequest](https://docs.unity3d.com/Manual/UnityWebRequest.html) system supports most Unity platforms:
 
 * All versions of the Editor and Standalone players
