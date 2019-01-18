@@ -33,7 +33,7 @@ RestClient.GetArray<Post>(api + "/posts").Then(response => {
 }).Catch(err => EditorUtility.DisplayDialog ("Error", err.Message, "Ok"));
 ```
 
-## Features
+## Features 🎮
 - Works out of the box 🎉 
 - Supports **HTTPS/SSL**
 - Built on top of **UnityWebRequest** system
