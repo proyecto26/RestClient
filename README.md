@@ -4,6 +4,8 @@
 
 # RestClient for Unity 🤘
 
+![RestClient for Unity](img/rest-client_900x.png)
+
 <img src="img/icono.png" width="150px" align="right" alt="Proyecto26.RestClient logo" />
 
 This **HTTP/REST** Client is based on Promises to avoid the [Callback Hell](http://callbackhell.com/) ☠️ and the [Pyramid of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)) 💩 working with **Coroutines** in **Unity** 🎮, example:
