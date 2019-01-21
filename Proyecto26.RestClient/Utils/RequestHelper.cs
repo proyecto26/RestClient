@@ -49,7 +49,7 @@ namespace Proyecto26
             set { _timeout = value; }
         }
 
-        private string _contentType = "application/json";
+        private string _contentType;
         public string ContentType
         {
             get { return _contentType; }

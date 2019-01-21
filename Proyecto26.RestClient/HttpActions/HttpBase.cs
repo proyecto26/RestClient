@@ -110,7 +110,7 @@ namespace Proyecto26
         public static IEnumerator SendWebRequest(UnityWebRequest request, RequestHelper options)
         {
             byte[] bodyRaw = options.BodyRaw;
-            string contentType = options.ContentType;
+            string contentType = "application/json";
             if (options.Body != null || !string.IsNullOrEmpty(options.BodyString))
             {
                 var bodyString = options.BodyString;
@@ -135,6 +135,15 @@ namespace Proyecto26
                 System.Buffer.BlockCopy(terminate, 0, bodyRaw, formSections.Length, terminate.Length);
                 contentType = string.Concat("multipart/form-data; boundary=", Encoding.UTF8.GetString(boundary));
             }
+            else if (options.FormData is WWWForm)
+            {
+                //The Content-Type header will be copied from the formData parameter
+                contentType = string.Empty;
+            }
+            if (!string.IsNullOrEmpty(options.ContentType))
+            {
+                contentType = options.ContentType;
+            }
 #if UNITY_2018_1_OR_NEWER
             if (options.CertificateHandler is CertificateHandler)
                 request.certificateHandler = options.CertificateHandler;
@@ -150,7 +159,10 @@ namespace Proyecto26
                 request.downloadHandler = options.DownloadHandler;
             else
                 request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-            request.SetRequestHeader("Content-Type", contentType);
+            if (!string.IsNullOrEmpty(contentType))
+            {
+                request.SetRequestHeader("Content-Type", contentType);
+            }
             foreach (var header in RestClient.DefaultRequestHeaders)
             {
                 request.SetRequestHeader(header.Key, header.Value);
