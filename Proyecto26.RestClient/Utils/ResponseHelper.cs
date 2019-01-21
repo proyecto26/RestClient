@@ -8,16 +8,16 @@ namespace Proyecto26
     [Serializable]
     public class ResponseHelper
     {
-        private UnityWebRequest request { get; set; }
+        public UnityWebRequest Request { get; private set; }
 
-        public ResponseHelper(UnityWebRequest unityWebRequest)
+        public ResponseHelper(UnityWebRequest request)
         {
-            request = unityWebRequest;
+            Request = request;
         }
 
         public long StatusCode
         {
-            get { return request.responseCode; }
+            get { return Request.responseCode; }
         }
 
         public byte[] Data
@@ -26,7 +26,7 @@ namespace Proyecto26
                 byte[] _data;
                 try
                 {
-                    _data = request.downloadHandler.data;
+                    _data = Request.downloadHandler.data;
                 }
                 catch (Exception)
                 {
@@ -43,7 +43,7 @@ namespace Proyecto26
                 string _text;
                 try
                 {
-                    _text = request.downloadHandler.text;
+                    _text = Request.downloadHandler.text;
                 }
                 catch (Exception)
                 {
@@ -55,12 +55,12 @@ namespace Proyecto26
 
         public string Error
         {
-            get { return request.error; }
+            get { return Request.error; }
         }
 
         public Dictionary<string, string> Headers
         {
-            get { return request.GetResponseHeaders(); }
+            get { return Request.GetResponseHeaders(); }
         }
 
         public override string ToString()

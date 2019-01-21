@@ -14,7 +14,7 @@ namespace Proyecto26
             var retries = 0;
             do
             {
-                using (var request = new UnityWebRequest(options.Uri, options.Method))
+                using (var request = CreateRequest(options))
                 {
                     yield return SendWebRequest(request, options);
                     var response = request.CreateWebResponse();
@@ -41,6 +41,18 @@ namespace Proyecto26
                 }
             }
             while (retries <= options.Retries);
+        }
+
+        private static UnityWebRequest CreateRequest(RequestHelper options)
+        {
+            if (options.FormData is WWWForm && options.Method == UnityWebRequest.kHttpVerbPOST)
+            {
+                return UnityWebRequest.Post(options.Uri, options.FormData);
+            }
+            else
+            {
+                return new UnityWebRequest(options.Uri, options.Method);
+            }
         }
 
         private static RequestException CreateException(UnityWebRequest request)
@@ -123,6 +135,12 @@ namespace Proyecto26
                 System.Buffer.BlockCopy(terminate, 0, bodyRaw, formSections.Length, terminate.Length);
                 contentType = string.Concat("multipart/form-data; boundary=", Encoding.UTF8.GetString(boundary));
             }
+#if UNITY_2018_1_OR_NEWER
+            if (options.CertificateHandler is CertificateHandler)
+                request.certificateHandler = options.CertificateHandler;
+#endif
+            if (options.UploadHandler is UploadHandler)
+                request.uploadHandler = options.UploadHandler;
             if (bodyRaw != null)
             {
                 request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
@@ -148,6 +166,14 @@ namespace Proyecto26
             if (options.ChunkedTransfer.HasValue)
             {
                 request.chunkedTransfer = options.ChunkedTransfer.Value;
+            }
+            if (options.UseHttpContinue.HasValue)
+            {
+                request.useHttpContinue = options.UseHttpContinue.Value;
+            }
+            if (options.RedirectLimit.HasValue)
+            {
+                request.redirectLimit = options.RedirectLimit.Value;
             }
             options.Request = request;
 #if UNITY_2017_2_OR_NEWER

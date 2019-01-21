@@ -1,6 +1,6 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Proyecto26
@@ -91,11 +91,32 @@ namespace Proyecto26
             set { _chunkedTransfer = value; }
         }
 
+        private bool? _useHttpContinue;
+        public bool? UseHttpContinue
+        {
+            get { return _useHttpContinue; }
+            set { _useHttpContinue = value; }
+        }
+
+        private int? _redirectLimit;
+        public int? RedirectLimit
+        {
+            get { return _redirectLimit; }
+            set { _redirectLimit = value; }
+        }
+
         private bool _ignoreHttpException;
         public bool IgnoreHttpException
         {
             get { return _ignoreHttpException; }
             set { _ignoreHttpException = value; }
+        }
+
+        private WWWForm _formData;
+        public WWWForm FormData
+        {
+            get { return _formData; }
+            set { _formData = value; }
         }
 
         private Dictionary<string, string> _simpleForm;
@@ -110,6 +131,22 @@ namespace Proyecto26
         {
             get { return _formSections; }
             set { _formSections = value; }
+        }
+
+#if UNITY_2018_1_OR_NEWER
+        private CertificateHandler _certificateHandler;
+        public CertificateHandler CertificateHandler
+        {
+            get { return _certificateHandler; }
+            set { _certificateHandler = value; }
+        }
+#endif
+
+        private UploadHandler _uploadHandler;
+        public UploadHandler UploadHandler
+        {
+            get { return _uploadHandler; }
+            set { _uploadHandler = value; }
         }
 
         private DownloadHandler _downloadHandler;
@@ -146,6 +183,19 @@ namespace Proyecto26
             }
         }
 
+        public ulong UploadedBytes
+        {
+            get
+            {
+                ulong bytes = 0;
+                if (this.Request != null)
+                {
+                    bytes = this.Request.uploadedBytes;
+                }
+                return bytes;
+            }
+        }
+
         public float DownloadProgress
         {
             get
@@ -156,6 +206,19 @@ namespace Proyecto26
                     progress = this.Request.downloadProgress;
                 }
                 return progress;
+            }
+        }
+
+        public ulong DownloadedBytes
+        {
+            get
+            {
+                ulong bytes = 0;
+                if (this.Request != null)
+                {
+                    bytes = this.Request.downloadedBytes;
+                }
+                return bytes;
             }
         }
 
