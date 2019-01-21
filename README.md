@@ -104,6 +104,7 @@ RestClient.Head("https://jsonplaceholder.typicode.com/posts").Then(response => {
 });
 ```
 
+### Generic Request Method
 And we have a generic method to create any type of request:
 ```csharp
 RestClient.Request(new RequestHelper { 
@@ -127,15 +128,15 @@ RestClient.Request(new RequestHelper {
   RetrySecondsDelay = 2, //Seconds of delay to make a retry
   RetryCallback = (err, retries) => {}, //See the error before retrying the request
   EnableDebug = true, //See logs of the requests for debug mode
-  ChunkedTransfer = false,
   IgnoreHttpException = true, //Prevent to catch http exceptions
+  ChunkedTransfer = false,
   UseHttpContinue = true,
   RedirectLimit = 32
 }).Then(response => {
   //Get resources via downloadHandler to have more control!
-  Texture texture = ((DownloadHandlerTexture)response.Request.downloadHandler).texture
-  AudioClip audioClip = ((DownloadHandlerAudioClip)response.Request.downloadHandler).audioClip
-  AssetBundle assetBundle = ((DownloadHandlerAssetBundle)response.Request.downloadHandler).assetBundle
+  Texture texture = ((DownloadHandlerTexture)response.Request.downloadHandler).texture;
+  AudioClip audioClip = ((DownloadHandlerAudioClip)response.Request.downloadHandler).audioClip;
+  AssetBundle assetBundle = ((DownloadHandlerAssetBundle)response.Request.downloadHandler).assetBundle;
 
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
 });
