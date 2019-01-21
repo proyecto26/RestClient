@@ -114,10 +114,13 @@ RestClient.Request(new RequestHelper {
     { "Authorization", "Bearer JWT_token..." }
   },
   Body = newPhoto, //Serialize object using JsonUtility by default
-  BodyString = SerializeObject(newPhoto), // Use it instead of 'Body' to serialize objects to JSON string using other tools
-  BodyRaw = CompressToRawData(newPhoto), // Use it instead of 'Body' to send raw data directly
+  BodyString = SerializeObject(newPhoto), //Use it instead of 'Body' to serialize using other tools
+  BodyRaw = CompressToRawData(newPhoto), //Use it instead of 'Body' to send raw data directly
+  FormData = new WWWForm(), //Send files, etc with POST requests
   SimpleForm = new Dictionary<string, string> {}, //Content-Type: application/x-www-form-urlencoded
   FormSections = new List<IMultipartFormSection>() {}, //Content-Type: multipart/form-data
+  CertificateHandler = new CustomCertificateHandler(), //Included in the source code of this library
+  UploadHandler = new UploadHandlerRaw(bytes), //Send bytes directly if it's required
   DownloadHandler = new DownloadHandlerFile(destPah), //Download large files
   ContentType = "application/json", //JSON is used by default
   Retries = 3, //Number of retries
@@ -125,8 +128,15 @@ RestClient.Request(new RequestHelper {
   RetryCallback = (err, retries) => {}, //See the error before retrying the request
   EnableDebug = true, //See logs of the requests for debug mode
   ChunkedTransfer = false,
-  IgnoreHttpException = true //Prevent to catch http exceptions
+  IgnoreHttpException = true, //Prevent to catch http exceptions
+  UseHttpContinue = true,
+  RedirectLimit = 32
 }).Then(response => {
+  //Get resources via downloadHandler to have more control!
+  Texture texture = ((DownloadHandlerTexture)response.Request.downloadHandler).texture
+  AudioClip audioClip = ((DownloadHandlerAudioClip)response.Request.downloadHandler).audioClip
+  AssetBundle assetBundle = ((DownloadHandlerAssetBundle)response.Request.downloadHandler).assetBundle
+
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
 });
 ```
@@ -197,13 +207,18 @@ var currentRequest = new RequestHelper {
 RestClient.GetArray<Photo>(currentRequest).Then(response => {
   EditorUtility.DisplayDialog("Header", currentRequest.GetHeader("Authorization"), "Ok");
 });
+```
 
-currentRequest.UploadProgress; //To know the progress by uploading data to the server
-currentRequest.DownloadProgress; //To know the progress by downloading data from the server
+And we can know the status of the request and cancel it!
+```csharp
+currentRequest.UploadProgress; //The progress by uploading data to the server
+currentRequest.UploadedBytes; //The number of bytes of body data the system has uploaded
+currentRequest.DownloadProgress; //The progress by downloading data from the server
+currentRequest.DownloadedBytes; //The number of bytes of body data the system has downloaded
 currentRequest.Abort(); //Abort the request manually
 ```
 
-And later we can clean the default headers for all requests
+Later we can clean the default headers for all requests
 ```csharp
 RestClient.CleanDefaultHeaders();
 ```
