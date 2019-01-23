@@ -1,10 +1,17 @@
-﻿using RSG;
+﻿// Copyright (c) Proyecto 26.
+// Licensed under the MIT License.
+
+using RSG;
 using System;
 using UnityEngine.Networking;
 using System.Collections.Generic;
 
 namespace Proyecto26
 {
+    /// <summary>
+    /// RestClient for Unity
+    /// Version: 2.5.2
+    /// </summary>
     public static class RestClient
     {
         /// <summary>
