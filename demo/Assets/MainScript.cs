@@ -73,7 +73,7 @@ public class MainScript : MonoBehaviour {
 				EditorUtility.DisplayDialog ("Error", err.Message, "Ok");
 			}
 			else{
-				EditorUtility.DisplayDialog ("Success", JsonUtility.ToJson(body, true), "Ok");
+				EditorUtility.DisplayDialog ("Success", res.Text, "Ok");
 			}
 		});
 	}
