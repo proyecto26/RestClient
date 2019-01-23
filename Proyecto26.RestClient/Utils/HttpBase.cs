@@ -28,7 +28,10 @@ namespace Proyecto26
                     {
                         yield return new WaitForSeconds(options.RetrySecondsDelay);
                         retries++;
-                        options.RetryCallback?.Invoke(CreateException(request), retries);
+                        if(options.RetryCallback != null)
+                        {
+                            options.RetryCallback(CreateException(request), retries);
+                        }
                         DebugLog(options.EnableDebug, string.Format("Retry Request\nUrl: {0}\nMethod: {1}", options.Uri, options.Method), false);
                     }
                     else
