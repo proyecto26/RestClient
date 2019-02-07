@@ -273,4 +273,4 @@ Hey mate, any good review from the [Unity Store](https://assetstore.unity.com/pa
 ## Happy coding 💯
 Made with ❤️
 
-<img width="150px" src="http://phaser.azurewebsites.net/assets/nicholls.png" align="right">
+<img width="150px" src="https://avatars0.githubusercontent.com/u/28855608?s=200&v=4" align="right">
