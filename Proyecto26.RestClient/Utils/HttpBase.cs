@@ -9,6 +9,9 @@ namespace Proyecto26
 {
     public static class HttpBase
     {
+        private const string CONTENT_TYPE_HEADER = "Content-Type";
+        private const string CONTENT_TYPE_JSON = "application/json";
+
         public static IEnumerator CreateRequestAndRetry(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
             var retries = 0;
@@ -60,8 +63,7 @@ namespace Proyecto26
 
         private static RequestException CreateException(UnityWebRequest request)
         {
-            var message = request.error ?? request.downloadHandler.text;
-            return new RequestException(message, request.isHttpError, request.isNetworkError, request.responseCode);
+            return new RequestException(request.error, request.isHttpError, request.isNetworkError, request.responseCode, request.downloadHandler.text);
         }
 
         private static void DebugLog(bool debugEnabled, object message, bool isError)
@@ -113,7 +115,8 @@ namespace Proyecto26
         public static IEnumerator SendWebRequest(UnityWebRequest request, RequestHelper options)
         {
             byte[] bodyRaw = options.BodyRaw;
-            string contentType = "application/json";
+            string contentType = CONTENT_TYPE_JSON;
+            options.Headers.TryGetValue(CONTENT_TYPE_HEADER, out contentType);
             if (options.Body != null || !string.IsNullOrEmpty(options.BodyString))
             {
                 var bodyString = options.BodyString;
@@ -164,7 +167,7 @@ namespace Proyecto26
                 request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
             if (!string.IsNullOrEmpty(contentType))
             {
-                request.SetRequestHeader("Content-Type", contentType);
+                request.SetRequestHeader(CONTENT_TYPE_HEADER, contentType);
             }
             foreach (var header in RestClient.DefaultRequestHeaders)
             {
