@@ -115,8 +115,11 @@ namespace Proyecto26
         public static IEnumerator SendWebRequest(UnityWebRequest request, RequestHelper options)
         {
             byte[] bodyRaw = options.BodyRaw;
-            string contentType = CONTENT_TYPE_JSON;
-            options.Headers.TryGetValue(CONTENT_TYPE_HEADER, out contentType);
+            string contentType = string.Empty;
+            if (!options.Headers.TryGetValue(CONTENT_TYPE_HEADER, out contentType))
+            {
+                contentType = CONTENT_TYPE_JSON;
+            }
             if (options.Body != null || !string.IsNullOrEmpty(options.BodyString))
             {
                 var bodyString = options.BodyString;
