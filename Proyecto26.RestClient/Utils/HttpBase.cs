@@ -88,7 +88,12 @@ namespace Proyecto26
                 var body = default(TResponse);
                 if (err == null && !string.IsNullOrEmpty(res.Text))
                 {
-                    body = JsonUtility.FromJson<TResponse>(res.Text);
+                    try { 
+                        body = JsonUtility.FromJson<TResponse>(res.Text);
+                    }
+                    catch (Exception error) {
+                        DebugLog(options.EnableDebug, string.Format("Invalid JSON format\nError: {0}", error.Message), true);
+                    }
                 }
                 callback(err, res, body);
             });
@@ -100,7 +105,13 @@ namespace Proyecto26
                 var body = default(TResponse[]);
                 if (err == null && !string.IsNullOrEmpty(res.Text))
                 {
-                    body = JsonHelper.ArrayFromJson<TResponse>(res.Text);
+                    try { 
+                        body = JsonHelper.ArrayFromJson<TResponse>(res.Text);
+                    }
+                    catch (Exception error)
+                    {
+                        DebugLog(options.EnableDebug, string.Format("Invalid JSON format\nError: {0}", error.Message), true);
+                    }
                 }
                 callback(err, res, body);
             });
