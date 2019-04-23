@@ -67,14 +67,11 @@
     <Compile Include="Utils\RequestException.cs" />
     <Compile Include="Utils\HttpBase.cs" />
     <Compile Include="Utils\StaticCoroutine.cs" />
-    <Compile Include="Promises\RestClient.cs" />
     <Compile Include="RestClient.cs" />
+    <Compile Include="RestClientPromise.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Promises\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
