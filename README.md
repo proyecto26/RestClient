@@ -43,7 +43,7 @@ RestClient.GetArray<Post>(api + "/posts").Then(response => {
 - Get **Arrays** Supported
 - Default **HTTP** Methods **(GET, POST, PUT, DELETE, HEAD)**
 - Generic **REQUEST** method to create any http request
-- Based on **Promises** for a better asynchronous programming
+- Based on **Promises** for a better asynchronous programming. Learn about Promises [here](https://github.com/Real-Serious-Games/C-Sharp-Promise)!
 - Handle HTTP exceptions in a better way
 - Retry HTTP requests easily
 - Open Source 🦄
