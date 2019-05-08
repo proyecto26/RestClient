@@ -1,6 +1,10 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/969f6b9d04324af58382f7ee7a8faccd)](https://www.codacy.com/app/jdnichollsc/RestClient?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=proyecto26/RestClient&amp;utm_campaign=Badge_Grade)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg)](https://github.com/proyecto26/RestClient/graphs/commit-activity)
 [![BCH compliance](https://bettercodehub.com/edge/badge/proyecto26/RestClient?branch=master)](https://bettercodehub.com/)
 [![Build Status](https://travis-ci.org/proyecto26/RestClient.svg?branch=master)](https://travis-ci.org/proyecto26/RestClient)
+[![Twitter Follow][twitter-image]][twitter-url]
+
+[twitter-image]:https://img.shields.io/twitter/follow/jdnichollsc.svg?style=social&label=Follow%20me
+[twitter-url]:https://twitter.com/jdnichollsc
 
 # RestClient for Unity 🤘
 
