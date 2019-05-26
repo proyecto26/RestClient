@@ -1,6 +1,9 @@
-﻿using UnityEngine.Networking;
+﻿using System.Text;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.Networking;
 
-namespace Proyecto26.Common.Extensions
+namespace Proyecto26.Common
 {
     public static class Extensions
     {

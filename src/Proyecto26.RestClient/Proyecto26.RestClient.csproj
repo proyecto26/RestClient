@@ -69,6 +69,7 @@
     <Compile Include="Utils\StaticCoroutine.cs" />
     <Compile Include="RestClient.cs" />
     <Compile Include="RestClientPromise.cs" />
+    <Compile Include="Utils\Common.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
