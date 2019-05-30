@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/969f6b9d04324af58382f7ee7a8faccd)](https://app.codacy.com/app/jdnichollsc/RestClient?utm_source=github.com&utm_medium=referral&utm_content=proyecto26/RestClient&utm_campaign=Badge_Grade_Dashboard)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg)](https://github.com/proyecto26/RestClient/graphs/commit-activity)
 [![Build Status](https://travis-ci.org/proyecto26/RestClient.svg?branch=master)](https://travis-ci.org/proyecto26/RestClient)
