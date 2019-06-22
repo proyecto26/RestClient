@@ -137,7 +137,8 @@ RestClient.Request(new RequestHelper {
   IgnoreHttpException = true, //Prevent to catch http exceptions
   ChunkedTransfer = false,
   UseHttpContinue = true,
-  RedirectLimit = 32
+  RedirectLimit = 32,
+  DefaultContentType = false //Disable JSON content type by default
 }).Then(response => {
   //Get resources via downloadHandler to have more control!
   Texture texture = ((DownloadHandlerTexture)response.Request.downloadHandler).texture;
