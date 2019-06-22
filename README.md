@@ -156,7 +156,6 @@ var fileType = AudioType.OGGVORBIS;
 
 currentRequest = new RequestHelper {
   Uri = fileUrl,
-  DefaultContentType = true,
   DownloadHandler = new DownloadHandlerAudioClip(fileUrl, fileType)
 }; 
 
