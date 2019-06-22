@@ -161,18 +161,18 @@ currentRequest = new RequestHelper {
 }; 
 
 RestClient.Get(currentRequest, (err, res) => {
-	if (err == null){
-		if (res.Request.downloadHandler != null) {
-			AudioSource audio = GetComponent<AudioSource>();
-			audio.clip = ((DownloadHandlerAudioClip)res.Request.downloadHandler).audioClip;
-			audio.Play();
-		} else {
-			EditorUtility.DisplayDialog ("Error", "downloadHandler is empty :(", "Ok");
-		}
-	}
-	else {
-		EditorUtility.DisplayDialog ("Error", err.Message, "Ok");
-	}
+  if (err == null){
+    if (res.Request.downloadHandler != null) {
+      AudioSource audio = GetComponent<AudioSource>();
+      audio.clip = ((DownloadHandlerAudioClip)res.Request.downloadHandler).audioClip;
+      audio.Play();
+    } else {
+      EditorUtility.DisplayDialog ("Error", "downloadHandler is empty :(", "Ok");
+    }
+  }
+  else {
+    EditorUtility.DisplayDialog ("Error", err.Message, "Ok");
+  }
 });
 ```
 
