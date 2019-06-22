@@ -149,6 +149,33 @@ RestClient.Request(new RequestHelper {
 });
 ```
 
+- Example downloading an audio file:
+```
+var fileUrl = "https://raw.githubusercontent.com/IonDen/ion.sound/master/sounds/bell_ring.ogg";
+var fileType = AudioType.OGGVORBIS;
+
+currentRequest = new RequestHelper {
+	Uri = fileUrl,
+	DefaultContentType = true,
+	DownloadHandler = new DownloadHandlerAudioClip(fileUrl, fileType)
+}; 
+
+RestClient.Get(currentRequest, (err, res) => {
+	if (err == null){
+		if (res.Request.downloadHandler != null) {
+			AudioSource audio = GetComponent<AudioSource>();
+			audio.clip = ((DownloadHandlerAudioClip)res.Request.downloadHandler).audioClip;
+			audio.Play();
+		} else {
+			EditorUtility.DisplayDialog ("Error", "downloadHandler is empty :(", "Ok");
+		}
+	}
+	else {
+		EditorUtility.DisplayDialog ("Error", err.Message, "Ok");
+	}
+});
+```
+
 With all the methods we have the possibility to indicate the type of response, in the following example we're going to create a class and the **HTTP** requests to load **JSON** data easily:
 ```csharp
 [Serializable]
