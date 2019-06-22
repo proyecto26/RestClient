@@ -9,6 +9,9 @@ namespace Proyecto26
         /// </summary>
         public UnityWebRequest Request { private get; set; }
 
+        /// <summary>
+        /// Returns a floating-point value between 0.0 and 1.0, indicating the progress of uploading body data to the server.
+        /// </summary>
         public float UploadProgress
         {
             get
@@ -22,6 +25,9 @@ namespace Proyecto26
             }
         }
 
+        /// <summary>
+        /// Returns the number of bytes of body data the system has uploaded to the remote server. (Read Only)
+        /// </summary>
         public ulong UploadedBytes
         {
             get
@@ -35,6 +41,9 @@ namespace Proyecto26
             }
         }
 
+        /// <summary>
+        /// Returns a floating-point value between 0.0 and 1.0, indicating the progress of downloading body data from the server. (Read Only)
+        /// </summary>
         public float DownloadProgress
         {
             get
@@ -48,6 +57,9 @@ namespace Proyecto26
             }
         }
 
+        /// <summary>
+        /// Returns the number of bytes of body data the system has downloaded from the remote server. (Read Only)
+        /// </summary>
         public ulong DownloadedBytes
         {
             get
@@ -81,10 +93,27 @@ namespace Proyecto26
         }
 
         private bool _isAborted;
+        /// <summary>
+        /// Check if the request was aborted
+        /// </summary>
+        /// <value>A boolean to know if the request was aborted by the user</value>
         public bool IsAborted
         {
             get { return _isAborted; }
             set { _isAborted = value; }
+        }
+
+        
+        private bool _defaultContentType = true;
+
+        /// <summary>
+        /// Enable or Disable Content Type JSON by default
+        /// </summary>
+        /// <value>Check if application/json is enabled by default</value>
+        public bool DefaultContentType
+        {
+            get { return _defaultContentType; }
+            set { _defaultContentType = value; }
         }
 
         /// <summary>
