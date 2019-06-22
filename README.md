@@ -155,9 +155,9 @@ var fileUrl = "https://raw.githubusercontent.com/IonDen/ion.sound/master/sounds/
 var fileType = AudioType.OGGVORBIS;
 
 currentRequest = new RequestHelper {
-	Uri = fileUrl,
-	DefaultContentType = true,
-	DownloadHandler = new DownloadHandlerAudioClip(fileUrl, fileType)
+  Uri = fileUrl,
+  DefaultContentType = true,
+  DownloadHandler = new DownloadHandlerAudioClip(fileUrl, fileType)
 }; 
 
 RestClient.Get(currentRequest, (err, res) => {
