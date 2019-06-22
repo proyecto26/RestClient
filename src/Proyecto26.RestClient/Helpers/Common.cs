@@ -8,7 +8,7 @@ namespace Proyecto26.Common
     public static class Common
     {
         private const string CONTENT_TYPE_HEADER = "Content-Type";
-        private const string CONTENT_TYPE_JSON = "application/json";
+        private const string DEFAULT_CONTENT_TYPE = "application/json";
 
         private static string GetFormSectionsContentType(out byte[] bodyRaw, RequestHelper options)
         {
@@ -79,9 +79,9 @@ namespace Proyecto26.Common
         {
             byte[] bodyRaw = options.BodyRaw;
             string contentType = string.Empty;
-            if (!options.Headers.TryGetValue(CONTENT_TYPE_HEADER, out contentType))
+            if (!options.Headers.TryGetValue(CONTENT_TYPE_HEADER, out contentType) && options.DefaultContentType)
             {
-                contentType = CONTENT_TYPE_JSON;
+                contentType = DEFAULT_CONTENT_TYPE;
             }
             if (options.Body != null || !string.IsNullOrEmpty(options.BodyString))
             {
