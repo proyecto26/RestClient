@@ -154,24 +154,15 @@ RestClient.Request(new RequestHelper {
 var fileUrl = "https://raw.githubusercontent.com/IonDen/ion.sound/master/sounds/bell_ring.ogg";
 var fileType = AudioType.OGGVORBIS;
 
-currentRequest = new RequestHelper {
+RestClient.Get(new RequestHelper {
   Uri = fileUrl,
   DownloadHandler = new DownloadHandlerAudioClip(fileUrl, fileType)
-}; 
-
-RestClient.Get(currentRequest, (err, res) => {
-  if (err == null){
-    if (res.Request.downloadHandler != null) {
-      AudioSource audio = GetComponent<AudioSource>();
-      audio.clip = ((DownloadHandlerAudioClip)res.Request.downloadHandler).audioClip;
-      audio.Play();
-    } else {
-      EditorUtility.DisplayDialog ("Error", "downloadHandler is empty :(", "Ok");
-    }
-  }
-  else {
-    EditorUtility.DisplayDialog ("Error", err.Message, "Ok");
-  }
+}).Then(res => {
+  AudioSource audio = GetComponent<AudioSource>();
+  audio.clip = ((DownloadHandlerAudioClip)res.Request.downloadHandler).audioClip;
+  audio.Play();
+}).Catch(err => {
+  EditorUtility.DisplayDialog ("Error", err.Message, "Ok");
 });
 ```
 
