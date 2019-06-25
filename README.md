@@ -140,7 +140,7 @@ RestClient.Request(new RequestHelper {
   RedirectLimit = 32,
   DefaultContentType = false //Disable JSON content type by default
 }).Then(response => {
-  //Get resources via downloadHandler to have more control!
+  //Get resources via downloadHandler to get more control!
   Texture texture = ((DownloadHandlerTexture)response.Request.downloadHandler).texture;
   AudioClip audioClip = ((DownloadHandlerAudioClip)response.Request.downloadHandler).audioClip;
   AssetBundle assetBundle = ((DownloadHandlerAssetBundle)response.Request.downloadHandler).assetBundle;
