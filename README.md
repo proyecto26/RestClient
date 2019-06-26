@@ -60,7 +60,7 @@ The [UnityWebRequest](https://docs.unity3d.com/Manual/UnityWebRequest.html) syst
 * All versions of the Editor and Standalone players
 * WebGL
 * Mobile platforms: iOS, Android
-* Universal Windows Platform ([RSG.Promise_standard.dll](https://github.com/proyecto26/RestClient/releases) is required)
+* Universal Windows Platform
 * PS4 and PSVita
 * XboxOne
 * HoloLens
