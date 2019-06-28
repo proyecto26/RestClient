@@ -150,7 +150,7 @@ RestClient.Request(new RequestHelper {
 ```
 
 - Example downloading an audio file:
-```
+```csharp
 var fileUrl = "https://raw.githubusercontent.com/IonDen/ion.sound/master/sounds/bell_ring.ogg";
 var fileType = AudioType.OGGVORBIS;
 
