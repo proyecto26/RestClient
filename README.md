@@ -126,7 +126,7 @@ RestClient.Request(new RequestHelper {
   FormData = new WWWForm(), //Send files, etc with POST requests
   SimpleForm = new Dictionary<string, string> {}, //Content-Type: application/x-www-form-urlencoded
   FormSections = new List<IMultipartFormSection>() {}, //Content-Type: multipart/form-data
-  CertificateHandler = new CustomCertificateHandler(), //Included in the source code of this library
+  CertificateHandler = new CustomCertificateHandler(), //Create custom certificates
   UploadHandler = new UploadHandlerRaw(bytes), //Send bytes directly if it's required
   DownloadHandler = new DownloadHandlerFile(destPah), //Download large files
   ContentType = "application/json", //JSON is used by default
