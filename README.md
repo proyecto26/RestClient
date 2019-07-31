@@ -294,6 +294,9 @@ Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
 
 Hey mate, any good review from the [Unity Store](https://assetstore.unity.com/packages/tools/network/rest-client-for-unity-102501) is also really appreciated!
 
+## Security contact information 🚨
+To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
+
 ## Happy coding 💯
 Made with ❤️
 
