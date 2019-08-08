@@ -19,7 +19,7 @@ namespace Proyecto26
                     var response = request.CreateWebResponse();
                     if (request.IsValidRequest(options))
                     {
-                        DebugLog(options.EnableDebug, string.Format("Url: {0}\nMethod: {1}\nStatus: {2}\nResponse: {3}", options.Uri, options.Method, request.responseCode, response.Text), false);
+                        DebugLog(options.EnableDebug, string.Format("Url: {0}\nMethod: {1}\nStatus: {2}\nResponse: {3}", options.Uri, options.Method, request.responseCode, options.ParseResponseBody ? response.Text : "body not parsed"), false);
                         callback(null, response);
                         break;
                     }
@@ -29,13 +29,13 @@ namespace Proyecto26
                         retries++;
                         if(options.RetryCallback != null)
                         {
-                            options.RetryCallback(CreateException(request), retries);
+                            options.RetryCallback(CreateException(options, request), retries);
                         }
                         DebugLog(options.EnableDebug, string.Format("Retry Request\nUrl: {0}\nMethod: {1}", options.Uri, options.Method), false);
                     }
                     else
                     {
-                        var err = CreateException(request);
+                        var err = CreateException(options, request);
                         DebugLog(options.EnableDebug, err, true);
                         callback(err, response);
                         break;
@@ -57,9 +57,9 @@ namespace Proyecto26
             }
         }
 
-        private static RequestException CreateException(UnityWebRequest request)
+        private static RequestException CreateException(RequestHelper options, UnityWebRequest request)
         {
-            return new RequestException(request.error, request.isHttpError, request.isNetworkError, request.responseCode, request.downloadHandler.text);
+            return new RequestException(request.error, request.isHttpError, request.isNetworkError, request.responseCode, options.ParseResponseBody ? request.downloadHandler.text : "body not parsed");
         }
 
         private static void DebugLog(bool debugEnabled, object message, bool isError)
@@ -82,7 +82,7 @@ namespace Proyecto26
         {
             return CreateRequestAndRetry(options, (RequestException err, ResponseHelper res) => {
                 var body = default(TResponse);
-                if (err == null && !string.IsNullOrEmpty(res.Text))
+                if (err == null && res.Data != null && options.ParseResponseBody)
                 {
                     try { 
                         body = JsonUtility.FromJson<TResponse>(res.Text);
@@ -99,7 +99,7 @@ namespace Proyecto26
         {
             return CreateRequestAndRetry(options, (RequestException err, ResponseHelper res) => {
                 var body = default(TResponse[]);
-                if (err == null && !string.IsNullOrEmpty(res.Text))
+                if (err == null && res.Data != null && options.ParseResponseBody)
                 {
                     try { 
                         body = JsonHelper.ArrayFromJson<TResponse>(res.Text);

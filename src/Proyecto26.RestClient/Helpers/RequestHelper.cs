@@ -235,5 +235,15 @@ namespace Proyecto26
             }
             set { _headers = value; } 
         }
+
+        private bool _parseResponseBody = true;
+        /// <summary>
+        /// Whether to parse the response body as JSON or not. Note: parsing a large non-text file will have severe performance impact.
+        /// </summary>
+        public bool ParseResponseBody
+        {
+            get { return _parseResponseBody; }
+            set { _parseResponseBody = value; }
+        }
     }
 }
