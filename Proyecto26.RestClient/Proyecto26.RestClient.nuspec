@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>Proyecto26.RestClient</id>
-    <version>2.5.7</version>
+    <version>2.5.8</version>
     <title>RestClient for Unity</title>
     <authors>Juan David Nicholls Cardona</authors>
     <owners>jdnichollsc</owners>
@@ -11,7 +11,7 @@
     <iconUrl>https://github.com/proyecto26/RestClient/blob/master/img/icono.png?raw=true</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Simple HTTP and REST client for Unity based on Promises, also support Callbacks!</description>
-    <releaseNotes>Add ContentType, Retries, RetrySecondsDelay, EnableDebug and RetryCallback properties from RequestHelper class</releaseNotes>
+    <releaseNotes>Add ParseResponseBody option to fix severe frame rate drop when parsing large response</releaseNotes>
     <copyright>Copyright ©2019 Proyecto 26</copyright>
     <tags>Unity Promises Http Rest http-client HttpClient rest-client RestClient Request</tags>
     <dependencies>
