@@ -131,9 +131,12 @@ Missing tags for previous versions 🤷‍♂
 [2.5.4]: https://github.com/proyecto26/RestClient/compare/2.5.3...2.5.4
 [2.5.3]: https://github.com/proyecto26/RestClient/compare/2.5.1...2.5.3
 [2.5.2]: https://github.com/proyecto26/RestClient/compare/2.4.1...2.5.2
+[2.5.0]: https://github.com/proyecto26/RestClient/compare/afa0148...debd33e
+[2.4.2]: https://github.com/proyecto26/RestClient/compare/26d511e...afa0148
 [2.4.1]: https://github.com/proyecto26/RestClient/compare/2.4.0...26d511e
 [2.4.0]: https://github.com/proyecto26/RestClient/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/proyecto26/RestClient/compare/2.2.0...2.3.0
+[2.2.1]: https://github.com/proyecto26/RestClient/compare/2.2.0...86a7f55
 [2.2.0]: https://github.com/proyecto26/RestClient/compare/2.1.1...2.2.0
 [2.1.1]: https://github.com/proyecto26/RestClient/compare/2.1.0...2.1.1
 [2.1.1]: https://github.com/proyecto26/RestClient/compare/2.1.0...2.1.1
