@@ -6,10 +6,71 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.5.7] - 2019-06-28
+
+### Added
+- Add default content type option to be able to disable JSON by default
+
+## [2.5.5] - 2019-04-19
+
+### Added
+- Add try catch to prevent issues parsing JSON with JsonUtility
+
+## [2.5.4] - 2019-04-18
+
+### Fixed
+- Fix issue with the default content type as JSON
+
+## [2.5.3] - 2019-04-17
+
+### Fixed
+- Fix issue applying content type from headers and add new response property from exceptions
+
+## [2.5.2] - 2019-01-23
+
+### Added
+- Add the missing properties of the UnityWebRequest system
+- Add validations of the content-type to support WWWForm data
+
+## [2.5.0] - 2019-01-21
+
+### Added
+- Add more UnityWebRequest properties and modify access modifiers to have more control
+
+## [2.4.2] - 2019-01-14
+
+### Fixed
+- Support old versions of Unity
+
+## [2.4.1] - 2019-01-10
+
+### Fixed
+- Fix critical issue with a recursive function
+
+## [2.4.0] - 2019-01-10
+
+### Added
+- Add **EnableDebug** and **RetryCallback** properties from RequestHelper class to debug errors of the requests
+
+## [2.3.0] - 2019-01-09
+
+### Added
+- Add **Retries** and **RetrySecondsDelay** property from RequestHelper to retry the requests
+
+## [2.2.1] - 2019-01-02
+
+### Added
+- Add **ContentType** from **RequestHelper** class
+
+## [2.2.0] - 2018-11-20
+
+### Added
+- Add **BodyRaw** property to the **RequestHelper** class to send raw data (byte) to the server directly
+
 ## [2.1.1] - 2018-08-26
 
 ### Fixed
-- Fix exception when DownloadHandler is used to download large files
+- Fix exception when **DownloadHandler** is used to download large files
 
 ## [2.1.0] - 2018-08-23
 
@@ -60,3 +121,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **Supported Platforms:**
 - All Unity platforms.
+
+## [...1.0.1]
+Missing tags for previous versions 🤷‍♂
+
+[Unreleased]: https://github.com/proyecto26/RestClient/compare/2.5.7...HEAD
+[2.5.7]: https://github.com/proyecto26/RestClient/compare/2.5.5...2.5.7
+[2.5.5]: https://github.com/proyecto26/RestClient/compare/2.5.4...2.5.5
+[2.5.4]: https://github.com/proyecto26/RestClient/compare/2.5.3...2.5.4
+[2.5.3]: https://github.com/proyecto26/RestClient/compare/2.5.1...2.5.3
+[2.5.2]: https://github.com/proyecto26/RestClient/compare/2.4.1...2.5.2
+[2.4.1]: https://github.com/proyecto26/RestClient/compare/2.4.0...26d511e
+[2.4.0]: https://github.com/proyecto26/RestClient/compare/2.3.0...2.4.0
+[2.3.0]: https://github.com/proyecto26/RestClient/compare/2.2.0...2.3.0
+[2.2.0]: https://github.com/proyecto26/RestClient/compare/2.1.1...2.2.0
+[2.1.1]: https://github.com/proyecto26/RestClient/compare/2.1.0...2.1.1
+[2.1.1]: https://github.com/proyecto26/RestClient/compare/2.1.0...2.1.1
+[2.1.0]: https://github.com/proyecto26/RestClient/compare/2.0.1...2.1.0
+[2.0.1]: https://github.com/proyecto26/RestClient/compare/2.0.0...2.0.1
+[2.0.0]: https://github.com/proyecto26/RestClient/compare/1.2.2...2.0.0
+[1.2.2]: https://github.com/proyecto26/RestClient/compare/1.2.1...1.2.2
+[1.2.1]: https://github.com/proyecto26/RestClient/compare/1.2.0...1.2.1
+[1.2.0]: https://github.com/proyecto26/RestClient/compare/1.0.1...1.2.0
+[1.0.1]: https://github.com/proyecto26/RestClient/releases/tag/1.0.1
+[...1.0.1]: https://github.com/proyecto26/RestClient/compare/fe7c32e...1.0.1
