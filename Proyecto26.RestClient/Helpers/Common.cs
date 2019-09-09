@@ -38,13 +38,7 @@ namespace Proyecto26.Common
             if (options.DownloadHandler is DownloadHandler)
             {
                 request.downloadHandler = options.DownloadHandler;
-                if (options.DownloadHandler is DownloadHandlerFile
-                    || options.DownloadHandler is DownloadHandlerTexture
-                    || options.DownloadHandler is DownloadHandlerAssetBundle
-                    || options.DownloadHandler is DownloadHandlerAudioClip)
-                {
-                    options.ParseResponseBody = false;
-                }
+                options.ParseResponseBody = (options.DownloadHandler is DownloadHandlerBuffer);
             }
             else
                 request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
