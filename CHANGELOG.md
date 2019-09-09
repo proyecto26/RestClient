@@ -130,8 +130,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [...1.0.1]
 Missing tags for previous versions 🤷‍♂
 
-[Unreleased]: https://github.com/proyecto26/RestClient/compare/2.5.8...HEAD
-[2.5.8]: https://github.com/proyecto26/RestClient/compare/2.5.7...2.5.8
+[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.5.8...HEAD
+[2.5.8]: https://github.com/proyecto26/RestClient/compare/2.5.7...v2.5.8
 [2.5.7]: https://github.com/proyecto26/RestClient/compare/2.5.5...2.5.7
 [2.5.5]: https://github.com/proyecto26/RestClient/compare/2.5.4...2.5.5
 [2.5.4]: https://github.com/proyecto26/RestClient/compare/2.5.3...2.5.4
