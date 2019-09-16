@@ -174,6 +174,33 @@ namespace Proyecto26
         }
 
         /// <summary>
+        /// Load data from the server using a HTTP POST request.
+        /// </summary>
+        /// <returns>Returns a promise for an array of values.</returns>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="body">A plain object that is sent to the server with the request.</param>
+        /// <typeparam name="T">The element type of the array.</typeparam>
+        public static IPromise<T[]> PostArray<T>(string url, object body)
+        {
+            var promise = new Promise<T[]>();
+            PostArray<T>(new RequestHelper { Uri = url, Body = body }, promise.Promisify);
+            return promise;
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP POST request.
+        /// </summary>
+        /// <returns>Returns a promise for an array of values.</returns>
+        /// <param name="options">The options of the request.</param>
+        /// <typeparam name="T">The element type of the array.</typeparam>
+        public static IPromise<T[]> PostArray<T>(RequestHelper options)
+        {
+            var promise = new Promise<T[]>();
+            PostArray<T>(options, promise.Promisify);
+            return promise;
+        }
+
+        /// <summary>
         /// Load data from the server using a HTTP PUT request.
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
