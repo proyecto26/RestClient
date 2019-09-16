@@ -202,6 +202,18 @@ namespace Proyecto26
         }
 
         /// <summary>
+        /// Load a JSON array from the server using a HTTP POST request.
+        /// </summary>
+        /// <param name="options">The options of the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        /// <typeparam name="T">The element type of the array.</typeparam>
+        public static void PostArray<T>(RequestHelper options, Action<RequestException, ResponseHelper, T[]> callback)
+        {
+            options.Method = UnityWebRequest.kHttpVerbPOST;
+            StaticCoroutine.StartCoroutine(HttpBase.DefaultUnityWebRequest(options, callback));
+        }
+
+        /// <summary>
         /// Load data from the server using a HTTP PUT request.
         /// </summary>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
