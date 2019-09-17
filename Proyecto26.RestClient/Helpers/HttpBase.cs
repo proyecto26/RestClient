@@ -78,42 +78,47 @@ namespace Proyecto26
             return CreateRequestAndRetry(options, callback);
         }
 
-        private static void ParseBodyAndExecuteCallback<TResponse>(
-            RequestException err,
-            ResponseHelper res,
-            RequestHelper options,
-            Action<RequestException, ResponseHelper, TResponse> callback)
-        {
-            var body = default(TResponse);
-            try
-            {
-                if (err == null && res.Data != null && options.ParseResponseBody)
-                    body = JsonUtility.FromJson<TResponse>(res.Text);
-            }
-            catch (Exception error)
-            {
-                DebugLog(options.EnableDebug, string.Format("Invalid JSON format\nError: {0}", error.Message), true);
-                err = new RequestException(error.Message);
-            }
-            finally
-            {
-                callback(err, res, body);
-            }
-        }
-
         public static IEnumerator DefaultUnityWebRequest<TResponse>(RequestHelper options, Action<RequestException, ResponseHelper, TResponse> callback)
         {
             return CreateRequestAndRetry(options, (RequestException err, ResponseHelper res) => {
-                ParseBodyAndExecuteCallback(err, res, options, callback);
+                var body = default(TResponse);
+                try
+                {
+                    if (err == null && res.Data != null && options.ParseResponseBody)
+                        body = JsonUtility.FromJson<TResponse>(res.Text);
+                }
+                catch (Exception error)
+                {
+                    DebugLog(options.EnableDebug, string.Format("Invalid JSON format\nError: {0}", error.Message), true);
+                    err = new RequestException(error.Message);
+                }
+                finally
+                {
+                    callback(err, res, body);
+                }
             });
         }
 
         public static IEnumerator DefaultUnityWebRequest<TResponse>(RequestHelper options, Action<RequestException, ResponseHelper, TResponse[]> callback)
         {
-            return CreateRequestAndRetry(options, (RequestException err, ResponseHelper res) =>
-            {
-                ParseBodyAndExecuteCallback(err, res, options, callback);
+            return CreateRequestAndRetry(options, (RequestException err, ResponseHelper res) => {
+                var body = default(TResponse[]);
+                try
+                {
+                    if (err == null && res.Data != null && options.ParseResponseBody)
+                        body = JsonHelper.ArrayFromJson<TResponse>(res.Text);
+                }
+                catch (Exception error)
+                {
+                    DebugLog(options.EnableDebug, string.Format("Invalid JSON format\nError: {0}", error.Message), true);
+                    err = new RequestException(error.Message);
+                }
+                finally
+                {
+                    callback(err, res, body);
+                }
             });
         }
+
     }
 }
