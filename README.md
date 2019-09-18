@@ -118,6 +118,9 @@ RestClient.Request(new RequestHelper {
   Uri = "https://jsonplaceholder.typicode.com/photos",
   Method = "POST",
   Timeout = 10,
+  Params = new Dictionary<string, string> {
+    { "param1", "Query string param..." }
+  },
   Headers = new Dictionary<string, string> {
     { "Authorization", "Bearer JWT_token..." }
   },
@@ -217,18 +220,26 @@ RestClient.Put<CustomResponse>(usersRoute + "/1", updatedUser).Then(customRespon
 });
 ```
 
-## Custom HTTP Headers and Options 💥
+## Custom HTTP Headers, Params and Options 💥
 **HTTP Headers**, such as `Authorization`, can be set in the **DefaultRequestHeaders** object for all requests
 ```csharp
 RestClient.DefaultRequestHeaders["Authorization"] = "Bearer ...";
 ```
 
-Also we can add specific options and override default headers for a request
+**Query string params** can be set in the **DefaultRequestParams** object for all requests
+```csharp
+RestClient.DefaultRequestParams["param1"] = "Query string value...";
+```
+
+Also we can add specific options and override default headers and params for a request
 ```csharp
 var currentRequest = new RequestHelper { 
   Uri = "https://jsonplaceholder.typicode.com/photos",
   Headers = new Dictionary<string, string> {
     { "Authorization", "Other token..." }
+  },
+  Params = new Dictionary<string, string> {
+    { "param1", "Other value..." }
   }
 };
 RestClient.GetArray<Photo>(currentRequest).Then(response => {
@@ -245,9 +256,10 @@ currentRequest.DownloadedBytes; //The number of bytes of body data the system ha
 currentRequest.Abort(); //Abort the request manually
 ```
 
-Later we can clean the default headers for all requests
+Later we can clear the default headers and params for all requests
 ```csharp
-RestClient.CleanDefaultHeaders();
+RestClient.ClearDefaultHeaders();
+RestClient.ClearDefaultParams();
 ```
 
 ### Example
