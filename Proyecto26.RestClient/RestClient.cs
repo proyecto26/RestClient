@@ -16,9 +16,9 @@ namespace Proyecto26
         #region Common
 
         /// <summary>
-		/// Gets the version of the RestClient library.
-		/// </summary>
-		public static System.Version Version
+	/// Gets the version of the RestClient library.
+	/// </summary>
+	public static System.Version Version
         {
             get
             {
