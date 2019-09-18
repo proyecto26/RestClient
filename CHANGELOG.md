@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Supporting retrieving a JSON Array from a POST request by [@Coeur](https://github.com/Coeur) ([7cc54bb](https://github.com/proyecto26/RestClient/pull/97/commits/7cc54bbbace4d5207efbb0b82de3a5d71aafc080)).
+- Added Query string utilities.
+
 ## [2.5.9] - 2019-09-08
 
 ### Added
