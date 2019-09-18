@@ -1,9 +1,17 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/969f6b9d04324af58382f7ee7a8faccd)](https://www.codacy.com/app/jdnichollsc/RestClient?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=proyecto26/RestClient&amp;utm_campaign=Badge_Grade)
-[![BCH compliance](https://bettercodehub.com/edge/badge/proyecto26/RestClient?branch=master)](https://bettercodehub.com/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/969f6b9d04324af58382f7ee7a8faccd)](https://app.codacy.com/app/jdnichollsc/RestClient?utm_source=github.com&utm_medium=referral&utm_content=proyecto26/RestClient&utm_campaign=Badge_Grade_Dashboard)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg)](https://github.com/proyecto26/RestClient/graphs/commit-activity)
+[![Tidelift Subscription](https://tidelift.com/badges/package/nuget/Proyecto26.RestClient)](https://tidelift.com/subscription/pkg/nuget-proyecto26-restclient?utm_source=nuget-proyecto26-restclient&utm_medium=referral&utm_campaign=readme)
 [![Build Status](https://travis-ci.org/proyecto26/RestClient.svg?branch=master)](https://travis-ci.org/proyecto26/RestClient)
+[![Twitter Follow][twitter-image]][twitter-url]
+<!-- TODO: Refactor code [![BCH compliance](https://bettercodehub.com/edge/badge/proyecto26/RestClient?branch=master)](https://bettercodehub.com/)--> 
+
+[twitter-image]:https://img.shields.io/twitter/follow/jdnichollsc.svg?style=social&label=Follow%20me
+[twitter-url]:https://twitter.com/jdnichollsc
 
 # RestClient for Unity 🤘
-> Supported Unity versions 2017.2 or higher
+
+![RestClient for Unity](img/rest-client_900x.png)
 
 <img src="img/icono.png" width="150px" align="right" alt="Proyecto26.RestClient logo" />
 
@@ -34,7 +42,20 @@ RestClient.GetArray<Post>(api + "/posts").Then(response => {
 }).Catch(err => EditorUtility.DisplayDialog ("Error", err.Message, "Ok"));
 ```
 
-## Supported platforms
+## Features 🎮
+- Works out of the box 🎉 
+- Supports **HTTPS/SSL**
+- Built on top of **UnityWebRequest** system
+- Includes JSON serialization with **JsonUtility** (Other tools are supported!)
+- Get **Arrays** Supported
+- Default **HTTP** Methods **(GET, POST, PUT, DELETE, HEAD)**
+- Generic **REQUEST** method to create any http request
+- Based on **Promises** for a better asynchronous programming. Learn about Promises [here](https://github.com/Real-Serious-Games/C-Sharp-Promise)!
+- Handle HTTP exceptions in a better way
+- Retry HTTP requests easily
+- Open Source 🦄
+
+## Supported platforms 📱 🖥 
 The [UnityWebRequest](https://docs.unity3d.com/Manual/UnityWebRequest.html) system supports most Unity platforms:
 
 * All versions of the Editor and Standalone players
@@ -90,6 +111,7 @@ RestClient.Head("https://jsonplaceholder.typicode.com/posts").Then(response => {
 });
 ```
 
+### Generic Request Method
 And we have a generic method to create any type of request:
 ```csharp
 RestClient.Request(new RequestHelper { 
@@ -99,15 +121,50 @@ RestClient.Request(new RequestHelper {
   Headers = new Dictionary<string, string> {
     { "Authorization", "Bearer JWT_token..." }
   },
-  Body = newPost, //Content-Type: application/json
-  BodyString = "Use it instead of 'Body' if you want to use other tool to serialize the JSON",
+  Body = newPhoto, //Serialize object using JsonUtility by default
+  BodyString = SerializeObject(newPhoto), //Use it instead of 'Body' to serialize using other tools
+  BodyRaw = CompressToRawData(newPhoto), //Use it instead of 'Body' to send raw data directly
+  FormData = new WWWForm(), //Send files, etc with POST requests
   SimpleForm = new Dictionary<string, string> {}, //Content-Type: application/x-www-form-urlencoded
   FormSections = new List<IMultipartFormSection>() {}, //Content-Type: multipart/form-data
+  CertificateHandler = new CustomCertificateHandler(), //Create custom certificates
+  UploadHandler = new UploadHandlerRaw(bytes), //Send bytes directly if it's required
   DownloadHandler = new DownloadHandlerFile(destPah), //Download large files
-  ChunkedTransfer = true,
-  IgnoreHttpException = true //Prevent to catch http exceptions
+  ContentType = "application/json", //JSON is used by default
+  Retries = 3, //Number of retries
+  RetrySecondsDelay = 2, //Seconds of delay to make a retry
+  RetryCallback = (err, retries) => {}, //See the error before retrying the request
+  EnableDebug = true, //See logs of the requests for debug mode
+  IgnoreHttpException = true, //Prevent to catch http exceptions
+  ChunkedTransfer = false,
+  UseHttpContinue = true,
+  RedirectLimit = 32,
+  DefaultContentType = false, //Disable JSON content type by default
+  ParseResponseBody = false //Don't encode and parse downloaded data as JSON
 }).Then(response => {
+  //Get resources via downloadHandler to get more control!
+  Texture texture = ((DownloadHandlerTexture)response.Request.downloadHandler).texture;
+  AudioClip audioClip = ((DownloadHandlerAudioClip)response.Request.downloadHandler).audioClip;
+  AssetBundle assetBundle = ((DownloadHandlerAssetBundle)response.Request.downloadHandler).assetBundle;
+
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
+});
+```
+
+- Example downloading an audio file:
+```csharp
+var fileUrl = "https://raw.githubusercontent.com/IonDen/ion.sound/master/sounds/bell_ring.ogg";
+var fileType = AudioType.OGGVORBIS;
+
+RestClient.Get(new RequestHelper {
+  Uri = fileUrl,
+  DownloadHandler = new DownloadHandlerAudioClip(fileUrl, fileType)
+}).Then(res => {
+  AudioSource audio = GetComponent<AudioSource>();
+  audio.clip = ((DownloadHandlerAudioClip)res.Request.downloadHandler).audioClip;
+  audio.Play();
+}).Catch(err => {
+  EditorUtility.DisplayDialog ("Error", err.Message, "Ok");
 });
 ```
 
@@ -177,13 +234,18 @@ var currentRequest = new RequestHelper {
 RestClient.GetArray<Photo>(currentRequest).Then(response => {
   EditorUtility.DisplayDialog("Header", currentRequest.GetHeader("Authorization"), "Ok");
 });
+```
 
-currentRequest.UploadProgress; //To know the progress by uploading data to the server
-currentRequest.DownloadProgress; //To know the progress by downloading data from the server
+And we can know the status of the request and cancel it!
+```csharp
+currentRequest.UploadProgress; //The progress by uploading data to the server
+currentRequest.UploadedBytes; //The number of bytes of body data the system has uploaded
+currentRequest.DownloadProgress; //The progress by downloading data from the server
+currentRequest.DownloadedBytes; //The number of bytes of body data the system has downloaded
 currentRequest.Abort(); //Abort the request manually
 ```
 
-And later we can clean the default headers for all requests
+Later we can clean the default headers for all requests
 ```csharp
 RestClient.CleanDefaultHeaders();
 ```
@@ -221,9 +283,9 @@ router.post('/', function(req, res) {
 ```
 
 ## Collaborators 🥇
-[<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/3436237?v=3&s=117" width="117">](https://github.com/diegoossa) | [<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/2154886?v=3&s=117" width="117">](https://github.com/jdnichollsc) |
-:---: | :---: |
-[Diego Ossa](mailto:diegoossa@gmail.com) | [Juan Nicholls](mailto:jdnichollsc@hotmail.com) |
+[<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/2154886?v=3&s=117" width="117">](https://github.com/jdnichollsc) | [<img alt="diegoossa" src="https://avatars3.githubusercontent.com/u/3436237?v=3&s=117" width="117">](https://github.com/diegoossa) | [<img alt="nasdull" src="https://avatars3.githubusercontent.com/u/25492923?v=3&s=117" width="117">](https://github.com/nasdull) |
+:---: | :---: | :---: |
+[Juan Nicholls](mailto:jdnichollsc@hotmail.com) | [Diego Ossa](mailto:diegoossa@gmail.com) | [Nasdull](mailto:nasdull@hotmail.com) |
 
 ## Credits 👍
 * **Promises library for C#:** [Real Serious Games/C-Sharp-Promise](https://github.com/Real-Serious-Games/C-Sharp-Promise)
@@ -231,8 +293,14 @@ router.post('/', function(req, res) {
 ## Supporting 🍻
 I believe in Unicorns 🦄
 Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
+[Professionally supported Proyecto26.RestClient is coming soon](https://tidelift.com/subscription/pkg/nuget-proyecto26-restclient?utm_source=nuget-proyecto26-restclient&utm_medium=referral&utm_campaign=readme)
+
+Hey mate, any good review from the [Unity Store](https://assetstore.unity.com/packages/tools/network/rest-client-for-unity-102501) is also really appreciated!
+
+## Security contact information 🚨
+To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
 
 ## Happy coding 💯
 Made with ❤️
 
-<img width="150px" src="http://phaser.azurewebsites.net/assets/nicholls.png" align="right">
+<img width="150px" src="https://avatars0.githubusercontent.com/u/28855608?s=200&v=4" align="right">
