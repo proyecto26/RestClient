@@ -6,9 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.6.0] - 2019-09-19
+
 ### Added
 - Supporting retrieving a JSON Array from a POST request by [@Coeur](https://github.com/Coeur) ([7cc54bb](https://github.com/proyecto26/RestClient/pull/97/commits/7cc54bbbace4d5207efbb0b82de3a5d71aafc080)).
-- Added Query string utilities.
+- Added Query string utilities ([e2fc36b](https://github.com/proyecto26/RestClient/commit/e2fc36b83cf72b6b730f5a39bdecd10db370948c)).
 
 ## [2.5.9] - 2019-09-08
 
@@ -134,7 +136,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [...1.0.1]
 Missing tags for previous versions 🤷‍♂
 
-[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.5.9...HEAD
+[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.6.0...HEAD
+[2.6.0]: https://github.com/proyecto26/RestClient/compare/v2.5.9...v2.6.0
 [2.5.9]: https://github.com/proyecto26/RestClient/compare/2.5.7...v2.5.9
 [2.5.7]: https://github.com/proyecto26/RestClient/compare/2.5.5...2.5.7
 [2.5.5]: https://github.com/proyecto26/RestClient/compare/2.5.4...2.5.5
