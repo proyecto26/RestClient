@@ -19,7 +19,7 @@ namespace Proyecto26
                     var response = request.CreateWebResponse();
                     if (request.IsValidRequest(options))
                     {
-                        DebugLog(options.EnableDebug, string.Format("Url: {0}\nMethod: {1}\nStatus: {2}\nResponse: {3}", options.Uri, options.Method, request.responseCode, options.ParseResponseBody ? response.Text : "body not parsed"), false);
+                        DebugLog(options.EnableDebug, string.Format("RestClient - Response\nUrl: {0}\nMethod: {1}\nStatus: {2}\nResponse: {3}", options.Uri, options.Method, request.responseCode, options.ParseResponseBody ? response.Text : "body not parsed"), false);
                         callback(null, response);
                         break;
                     }
@@ -27,11 +27,11 @@ namespace Proyecto26
                     {
                         yield return new WaitForSeconds(options.RetrySecondsDelay);
                         retries++;
-                        if(options.RetryCallback != null)
+                        if (options.RetryCallback != null)
                         {
                             options.RetryCallback(CreateException(options, request), retries);
                         }
-                        DebugLog(options.EnableDebug, string.Format("Retry Request\nUrl: {0}\nMethod: {1}", options.Uri, options.Method), false);
+                        DebugLog(options.EnableDebug, string.Format("RestClient - Retry Request\nUrl: {0}\nMethod: {1}", options.Uri, options.Method), false);
                     }
                     else
                     {
@@ -47,13 +47,15 @@ namespace Proyecto26
 
         private static UnityWebRequest CreateRequest(RequestHelper options)
         {
+            var url = options.Uri.BuildUrl(options.Params);
+            DebugLog(options.EnableDebug, string.Format("RestClient - Request\nUrl: {0}", url), false);
             if (options.FormData is WWWForm && options.Method == UnityWebRequest.kHttpVerbPOST)
             {
-                return UnityWebRequest.Post(options.Uri, options.FormData);
+                return UnityWebRequest.Post(url, options.FormData);
             }
             else
             {
-                return new UnityWebRequest(options.Uri, options.Method);
+                return new UnityWebRequest(url, options.Method);
             }
         }
 
@@ -89,7 +91,7 @@ namespace Proyecto26
                 }
                 catch (Exception error)
                 {
-                    DebugLog(options.EnableDebug, string.Format("Invalid JSON format\nError: {0}", error.Message), true);
+                    DebugLog(options.EnableDebug, string.Format("RestClient - Invalid JSON format\nError: {0}", error.Message), true);
                     err = new RequestException(error.Message);
                 }
                 finally
@@ -110,7 +112,7 @@ namespace Proyecto26
                 }
                 catch (Exception error)
                 {
-                    DebugLog(options.EnableDebug, string.Format("Invalid JSON format\nError: {0}", error.Message), true);
+                    DebugLog(options.EnableDebug, string.Format("RestClient - Invalid JSON format\nError: {0}", error.Message), true);
                     err = new RequestException(error.Message);
                 }
                 finally

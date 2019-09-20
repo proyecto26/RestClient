@@ -9,14 +9,50 @@ namespace Proyecto26
 {
     /// <summary>
     /// RestClient for Unity
-    /// Version: 2.5.9
+    /// Version: 2.6.0
     /// </summary>
     public static partial class RestClient
     {
         #region Common
 
         /// <summary>
-        /// The default request headers.
+        /// Gets the version of the RestClient library.
+        /// </summary>
+        public static System.Version Version
+        {
+            get
+            {
+                return typeof(RestClient).Assembly.GetName().Version;
+            }
+        }
+
+        /// <summary>
+        /// Default query string params.
+        /// </summary>
+        private static Dictionary<string, string> _defaultRequestParams;
+        public static Dictionary<string, string> DefaultRequestParams
+        {
+            get
+            {
+                if (_defaultRequestParams == null)
+                {
+                    _defaultRequestParams = new Dictionary<string, string>();
+                }
+                return _defaultRequestParams;
+            }
+            set { _defaultRequestParams = value; }
+        }
+
+        /// <summary>
+        /// Clear default query string params.
+        /// </summary>
+        public static void ClearDefaultParams()
+        {
+            DefaultRequestParams.Clear();
+        }
+
+        /// <summary>
+        /// Default headers.
         /// </summary>
         private static Dictionary<string, string> _defaultRequestHeaders;
         public static Dictionary<string, string> DefaultRequestHeaders
@@ -33,9 +69,9 @@ namespace Proyecto26
         }
 
         /// <summary>
-        /// Cleans the default headers.
+        /// Clear default headers.
         /// </summary>
-        public static void CleanDefaultHeaders()
+        public static void ClearDefaultHeaders()
         {
             DefaultRequestHeaders.Clear();
         }
