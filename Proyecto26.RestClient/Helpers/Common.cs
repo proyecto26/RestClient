@@ -58,10 +58,12 @@ namespace Proyecto26.Common
             {
                 request.timeout = options.Timeout.Value;
             }
+#if !UNITY_2019_3_OR_NEWER
             if (options.ChunkedTransfer.HasValue)
             {
                 request.chunkedTransfer = options.ChunkedTransfer.Value;
             }
+#endif
             if (options.UseHttpContinue.HasValue)
             {
                 request.useHttpContinue = options.UseHttpContinue.Value;
