@@ -117,6 +117,7 @@ namespace Proyecto26
             set { _enableDebug = value; }
         }
 
+#if !UNITY_2019_3_OR_NEWER
         private bool? _chunkedTransfer;
         /// <summary>
         /// Indicates whether the UnityWebRequest system should employ the HTTP/1.1 chunked-transfer encoding method.
@@ -126,6 +127,7 @@ namespace Proyecto26
             get { return _chunkedTransfer; }
             set { _chunkedTransfer = value; }
         }
+#endif
 
         private bool? _useHttpContinue = true;
         /// <summary>
