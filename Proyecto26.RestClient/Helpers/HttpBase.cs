@@ -23,7 +23,7 @@ namespace Proyecto26
                         callback(null, response);
                         break;
                     }
-                    else if (!options.IsAborted && retries < options.Retries)
+                    else if (!options.IsAborted && retries < options.Retries && request.isNetworkError)
                     {
                         yield return new WaitForSeconds(options.RetrySecondsDelay);
                         retries++;
