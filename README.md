@@ -306,7 +306,6 @@ router.post('/', function(req, res) {
 ## Supporting 🍻
 I believe in Unicorns 🦄
 Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
-[Professionally supported Proyecto26.RestClient is coming soon](https://tidelift.com/subscription/pkg/nuget-proyecto26-restclient?utm_source=nuget-proyecto26-restclient&utm_medium=referral&utm_campaign=readme)
 
 Any good review from the [Unity Store](https://assetstore.unity.com/packages/tools/network/rest-client-for-unity-102501) is also really appreciated!
 
