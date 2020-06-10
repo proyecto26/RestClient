@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.6.1] - 2020-06-10
+
+### Fixed
+- Only retry when there is a network error by [@aang521](https://github.com/aang521) ([e8b6706](https://github.com/proyecto26/RestClient/commit/e8b670615c60f3925c75589c98717ec156bb64ab)).
+- Fix new obsoletion warning in unity 2019.3 by [@extrawurst](https://github.com/extrawurst) ([6b8e92d](https://github.com/proyecto26/RestClient/commit/6b8e92df571119372400f768452148f2d59e71ee)).
+
 ## [2.6.0] - 2019-09-19
 
 ### Added
@@ -136,7 +142,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [...1.0.1]
 Missing tags for previous versions 🤷‍♂
 
-[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.6.0...HEAD
+[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.6.1...HEAD
+[2.6.1]: https://github.com/proyecto26/RestClient/compare/v2.6.0...v2.6.1
 [2.6.0]: https://github.com/proyecto26/RestClient/compare/v2.5.9...v2.6.0
 [2.5.9]: https://github.com/proyecto26/RestClient/compare/2.5.7...v2.5.9
 [2.5.7]: https://github.com/proyecto26/RestClient/compare/2.5.5...2.5.7
