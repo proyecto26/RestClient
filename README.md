@@ -305,9 +305,11 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 [![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/0)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/0)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/1)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/1)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/2)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/2)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/3)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/3)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/4)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/4)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/5)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/5)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/6)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/6)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/7)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/7)
 
 ### Collaborators
+<!-- COLLABORATORS-LIST:START - Do not remove or modify this section -->
 [<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/2154886?v=3&s=117" width="117">](https://github.com/jdnichollsc) | [<img alt="diegoossa" src="https://avatars3.githubusercontent.com/u/3436237?v=3&s=117" width="117">](https://github.com/diegoossa) | [<img alt="nasdull" src="https://avatars3.githubusercontent.com/u/25492923?v=3&s=117" width="117">](https://github.com/nasdull) |
 :---: | :---: | :---: |
 [Juan Nicholls](mailto:jdnichollsc@hotmail.com) | [Diego Ossa](mailto:diegoossa@gmail.com) | [Nasdull](mailto:nasdull@hotmail.com) |
+<!-- COLLABORATORS-LIST:END -->
 
 ## Credits 👍
 * **Promises library for C#:** [Real Serious Games/C-Sharp-Promise](https://github.com/Real-Serious-Games/C-Sharp-Promise)
