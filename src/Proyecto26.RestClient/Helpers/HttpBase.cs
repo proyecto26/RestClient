@@ -23,15 +23,15 @@ namespace Proyecto26
                         callback(null, response);
                         break;
                     }
-                    else if (!options.IsAborted && retries < options.Retries && request.isNetworkError)
+                    else if (!options.IsAborted && retries < options.Retries && (!options.RetryCallbackOnlyOnNetworkErrors || request.isNetworkError))
                     {
-                        yield return new WaitForSeconds(options.RetrySecondsDelay);
-                        retries++;
                         if (options.RetryCallback != null)
                         {
                             options.RetryCallback(CreateException(options, request), retries);
                         }
                         DebugLog(options.EnableDebug, string.Format("RestClient - Retry Request\nUrl: {0}\nMethod: {1}", options.Uri, options.Method), false);
+                        yield return new WaitForSeconds(options.RetrySecondsDelay);
+                        retries++;
                     }
                     else
                     {
@@ -61,7 +61,7 @@ namespace Proyecto26
 
         private static RequestException CreateException(RequestHelper options, UnityWebRequest request)
         {
-            return new RequestException(request.error, request.isHttpError, request.isNetworkError, request.responseCode, options.ParseResponseBody ? request.downloadHandler.text : "body not parsed");
+            return new RequestException(options, request.error, request.isHttpError, request.isNetworkError, request.responseCode, options.ParseResponseBody ? request.downloadHandler.text : "body not parsed");
         }
 
         private static void DebugLog(bool debugEnabled, object message, bool isError)
