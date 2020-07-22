@@ -9,7 +9,7 @@ namespace Proyecto26
 {
     /// <summary>
     /// RestClient for Unity
-    /// Version: 2.6.1
+    /// Version: 2.6.2
     /// </summary>
     public static partial class RestClient
     {
