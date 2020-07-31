@@ -152,6 +152,9 @@ RestClient.Request(new RequestHelper {
   AssetBundle assetBundle = ((DownloadHandlerAssetBundle)response.Request.downloadHandler).assetBundle;
 
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
+}).Catch(err => {
+  var error = err as RequestException;
+  EditorUtility.DisplayDialog("Error Response", error.Response, "Ok");
 });
 ```
 
