@@ -138,6 +138,7 @@ RestClient.Request(new RequestHelper {
   Retries = 3, //Number of retries
   RetrySecondsDelay = 2, //Seconds of delay to make a retry
   RetryCallback = (err, retries) => {}, //See the error before retrying the request
+  ProgressCallback = (percent) => {}, //Reports progress of the request from 0 to 1
   EnableDebug = true, //See logs of the requests for debug mode
   IgnoreHttpException = true, //Prevent to catch http exceptions
   ChunkedTransfer = false,
@@ -258,6 +259,14 @@ currentRequest.UploadedBytes; //The number of bytes of body data the system has 
 currentRequest.DownloadProgress; //The progress by downloading data from the server
 currentRequest.DownloadedBytes; //The number of bytes of body data the system has downloaded
 currentRequest.Abort(); //Abort the request manually
+```
+
+Additionally we can run a callback function whenever a progress change happens!
+```csharp
+RestClient.Get(new RequestHelper {
+  Uri = "https://jsonplaceholder.typicode.com/users", 
+  ProgressCallback = percent => Debug.Log(percent)
+});
 ```
 
 Later we can clear the default headers and params for all requests

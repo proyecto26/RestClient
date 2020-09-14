@@ -106,7 +106,18 @@ namespace Proyecto26
             get { return _retryCallback; }
             set { _retryCallback = value; }
         }
+        
+        private Action<float> _progressCallback;
 
+        /// <summary>
+        /// A callback executed everytime the requests progress changes (From 0 to 1)
+        /// </summary>
+        public Action<float> ProgressCallback
+        {
+            get { return _progressCallback; }
+            set { _progressCallback = value; }
+        }
+        
         private bool _enableDebug;
         /// <summary>
         /// Enable logs of the requests for debug mode
