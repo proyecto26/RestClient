@@ -15,7 +15,7 @@ namespace Proyecto26
             {
                 using (var request = CreateRequest(options))
                 {
-                    var sendRequest  = request.SendWebRequestWithOptions(options);
+                    var sendRequest = request.SendWebRequestWithOptions(options);
                     if (options.ProgressCallback == null)
                     {
                         yield return sendRequest;
