@@ -22,6 +22,8 @@ namespace Proyecto26
                     }
                     else
                     {
+                        options.ProgressCallback(0);
+                        
                         while (!sendRequest.isDone)
                         {
                             options.ProgressCallback(sendRequest.progress);
