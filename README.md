@@ -76,10 +76,18 @@ Do you want to see this beautiful package in action? Download the demo [here](ht
 
 ## Installation 👨‍💻
 
-### Unity package
+### Unity Package Manager
+*Requires Unity 2018.1+*
+
+1. Open Unity
+2. Open Package Manager Window
+3. Click Add Package From Git URL
+4. Enter URL: ```https://github.com/proyecto26/RestClient.git#upm```
+
+### Unity Package
 Download and install the **.unitypackage** file of the latest release published [here](https://github.com/proyecto26/RestClient/releases).
 
-### Nuget package
+### NuGet Package
 Other option is download this package from **NuGet** with **Visual Studio** or using the **nuget-cli**, a **[NuGet.config](https://github.com/proyecto26/RestClient/blob/master/demo/NuGet.config)** file is required at the root of your **Unity Project**, for example:
 
 ```xml
