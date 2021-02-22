@@ -15,24 +15,7 @@ namespace Proyecto26
             {
                 using (var request = CreateRequest(options))
                 {
-                    var sendRequest = request.SendWebRequestWithOptions(options);
-                    if (options.ProgressCallback == null)
-                    {
-                        yield return sendRequest;
-                    }
-                    else
-                    {
-                        options.ProgressCallback(0);
-                        
-                        while (!sendRequest.isDone)
-                        {
-                            options.ProgressCallback(sendRequest.progress);
-                            yield return null;
-                        }
-
-                        options.ProgressCallback(1);
-                    }
-                    
+                    yield return request.SendWebRequestWithOptions(options);
                     var response = request.CreateWebResponse();
                     if (request.IsValidRequest(options))
                     {
@@ -40,7 +23,7 @@ namespace Proyecto26
                         callback(null, response);
                         break;
                     }
-                    else if (!options.IsAborted && retries < options.Retries && request.isNetworkError)
+                    else if (!options.IsAborted && retries < options.Retries && (request.result == UnityWebRequest.Result.ConnectionError))
                     {
                         yield return new WaitForSeconds(options.RetrySecondsDelay);
                         retries++;
@@ -78,7 +61,10 @@ namespace Proyecto26
 
         private static RequestException CreateException(RequestHelper options, UnityWebRequest request)
         {
-            return new RequestException(request.error, request.isHttpError, request.isNetworkError, request.responseCode, options.ParseResponseBody ? request.downloadHandler.text : "body not parsed");
+            bool IsNetworkError = (request.result == UnityWebRequest.Result.ConnectionError);
+            bool IsHttpError = (request.result == UnityWebRequest.Result.ProtocolError);
+
+            return new RequestException(request.error, IsHttpError, IsNetworkError, request.responseCode, options.ParseResponseBody ? request.downloadHandler.text : "body not parsed");
         }
 
         private static void DebugLog(bool debugEnabled, object message, bool isError)
