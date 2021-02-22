@@ -10,12 +10,19 @@ namespace Proyecto26
     {
         public static IEnumerator CreateRequestAndRetry(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
+
             var retries = 0;
             do
             {
                 using (var request = CreateRequest(options))
                 {
-                    var sendRequest = request.SendWebRequestWithOptions(options); yield return request.SendWebRequestWithOptions(options);
+                    bool IsNetworkError;
+#if UNITY_2020_2_OR_NEWER
+                    IsNetworkError = (request.result == UnityWebRequest.Result.ConnectionError);
+#else
+                    IsNetworkError = request.isNetworkError;
+#endif
+                    var sendRequest = request.SendWebRequestWithOptions(options);
                     if (options.ProgressCallback == null)
                     {
                         yield return sendRequest;
@@ -39,7 +46,7 @@ namespace Proyecto26
                         callback(null, response);
                         break;
                     }
-                    else if (!options.IsAborted && retries < options.Retries && (request.result == UnityWebRequest.Result.ConnectionError))
+                    else if (!options.IsAborted && retries < options.Retries && (IsNetworkError))
                     {
                         yield return new WaitForSeconds(options.RetrySecondsDelay);
                         retries++;
@@ -77,8 +84,15 @@ namespace Proyecto26
 
         private static RequestException CreateException(RequestHelper options, UnityWebRequest request)
         {
-            bool IsNetworkError = (request.result == UnityWebRequest.Result.ConnectionError);
-            bool IsHttpError = (request.result == UnityWebRequest.Result.ProtocolError);
+            bool IsNetworkError;
+            bool IsHttpError;
+#if UNITY_2020_2_OR_NEWER
+            IsNetworkError = (request.result == UnityWebRequest.Result.ConnectionError);
+            IsHttpError = (request.result == UnityWebRequest.Result.ProtocolError);
+#else
+            IsNetworkError = request.isNetworkError;
+            IsHttpError = request.isHttpError;
+#endif
 
             return new RequestException(request.error, IsHttpError, IsNetworkError, request.responseCode, options.ParseResponseBody ? request.downloadHandler.text : "body not parsed");
         }
