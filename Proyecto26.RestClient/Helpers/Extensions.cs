@@ -25,11 +25,21 @@ namespace Proyecto26.Common
         /// <returns>A boolean that indicates if the request is valid.</returns>
         public static bool IsValidRequest(this UnityWebRequest request, RequestHelper options)
         {
+            bool IsNetworkError;
+            bool IsHttpError;
+#if UNITY_2020_2_OR_NEWER
+            IsNetworkError = (request.result == UnityWebRequest.Result.ConnectionError);
+            IsHttpError = (request.result == UnityWebRequest.Result.ProtocolError);
+#else
+            IsNetworkError = request.isNetworkError;
+            IsHttpError = request.isHttpError;
+#endif
             return request.isDone &&
-            !request.isNetworkError &&
+            !IsNetworkError &&
             (
-                !request.isHttpError || options.IgnoreHttpException
+                !IsHttpError || options.IgnoreHttpException
             );
+
         }
 
         /// <summary>
