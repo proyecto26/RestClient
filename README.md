@@ -139,6 +139,7 @@ RestClient.Request(new RequestHelper {
   RetrySecondsDelay = 2, //Seconds of delay to make a retry
   RetryCallbackOnlyOnNetworkErrors = true, //Invoke RetryCallack only when the retry is provoked by a network error
   RetryCallback = (err, retries) => {}, //See the error before retrying the request
+  ProgressCallback = (percent) => {}, //Reports progress of the request from 0 to 1
   EnableDebug = true, //See logs of the requests for debug mode
   IgnoreHttpException = true, //Prevent to catch http exceptions
   ChunkedTransfer = false,
@@ -153,6 +154,9 @@ RestClient.Request(new RequestHelper {
   AssetBundle assetBundle = ((DownloadHandlerAssetBundle)response.Request.downloadHandler).assetBundle;
 
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
+}).Catch(err => {
+  var error = err as RequestException;
+  EditorUtility.DisplayDialog("Error Response", error.Response, "Ok");
 });
 ```
 
@@ -258,6 +262,14 @@ currentRequest.DownloadedBytes; //The number of bytes of body data the system ha
 currentRequest.Abort(); //Abort the request manually
 ```
 
+Additionally we can run a callback function whenever a progress change happens!
+```csharp
+RestClient.Get(new RequestHelper {
+  Uri = "https://jsonplaceholder.typicode.com/users", 
+  ProgressCallback = percent => Debug.Log(percent)
+});
+```
+
 Later we can clear the default headers and params for all requests
 ```csharp
 RestClient.ClearDefaultHeaders();
@@ -296,6 +308,14 @@ router.post('/', function(req, res) {
 });
 ```
 
+## Credits 👍
+* **Promises library for C#:** [Real Serious Games/C-Sharp-Promise](https://github.com/Real-Serious-Games/C-Sharp-Promise)
+
+## Contributing ✨
+When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.  
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated** ❤️.  
+You can learn more about how you can contribute to this project in the [contribution guide](https://github.com/proyecto26/RestClient/blob/develop/CONTRIBUTING.md).
+
 ## Contributors ✨
 Please do contribute! Issues and pull requests are welcome.
 
@@ -312,9 +332,6 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 [Juan Nicholls](mailto:jdnichollsc@hotmail.com) | [Diego Ossa](mailto:diegoossa@gmail.com) | [Nasdull](mailto:nasdull@hotmail.com) |
 <!-- COLLABORATORS-LIST:END -->
 
-## Credits 👍
-* **Promises library for C#:** [Real Serious Games/C-Sharp-Promise](https://github.com/Real-Serious-Games/C-Sharp-Promise)
-
 ## Supporting 🍻
 I believe in Unicorns 🦄
 Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
@@ -329,6 +346,9 @@ The maintainers of RestClient for Unity and thousands of other packages are work
 
 ## Security contact information 🚨
 To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
+
+## License ⚖️
+This repository is available under the [MIT License](https://github.com/proyecto26/RestClient/blob/develop/LICENSE).
 
 ## Happy coding 💯
 Made with ❤️
