@@ -137,6 +137,7 @@ RestClient.Request(new RequestHelper {
   ContentType = "application/json", //JSON is used by default
   Retries = 3, //Number of retries
   RetrySecondsDelay = 2, //Seconds of delay to make a retry
+  RetryCallbackOnlyOnNetworkErrors = true, //Invoke RetryCallack only when the retry is provoked by a network error
   RetryCallback = (err, retries) => {}, //See the error before retrying the request
   ProgressCallback = (percent) => {}, //Reports progress of the request from 0 to 1
   EnableDebug = true, //See logs of the requests for debug mode
