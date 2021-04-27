@@ -30,7 +30,9 @@
     "email": "jdnichollsc@hotmail.com",
     "url": "https://github.com/proyecto26/RestClient"
   },
-  "dependencies": {},
+  "dependencies": {
+    "com.rsg.promise": "3.0.1"
+  },
   "samples": [
   {
       "displayName": "Sample",
