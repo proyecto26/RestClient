@@ -81,8 +81,10 @@ Do you want to see this beautiful package in action? Download the demo [here](ht
 
 1. Open Unity
 2. Open Package Manager Window
-3. Click Add Package From Git URL
-4. Enter URL: ```https://github.com/proyecto26/RestClient.git?path=src/Unity/Package#develop```
+3. Add C# Promise: ```https://github.com/RoryDungan/C-Sharp-Promise-UPM.git```
+4. Add RestClient: ```https://github.com/proyecto26/RestClient.git?path=src/Unity/Package#develop```
+
+NOTE: RestClient package depends on C# Promise and will not work without it.
 
 ### Unity Package
 Download and install the **.unitypackage** file of the latest release published [here](https://github.com/proyecto26/RestClient/releases).
