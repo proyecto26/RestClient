@@ -79,6 +79,15 @@ Do you want to see this beautiful package in action? Download the demo [here](ht
 ### Unity package
 Download and install the **.unitypackage** file of the latest release published [here](https://github.com/proyecto26/RestClient/releases).
 
+### UPM
+Make sure you had installed [this package](https://openupm.com/packages/com.rsg.promise/) or at least have it in your openupm scope registry. Then install using this URL from Package Manager: 
+
+```
+https://github.com/tonygiang/RestClient.git?path=/src/Proyecto26.RestClient
+```
+
+This URL is specific to this fork of RestClient. You can expect a more permanent solution for RestClient on OpenUPM.com in the future.
+
 ### Nuget package
 Other option is download this package from **NuGet** with **Visual Studio** or using the **nuget-cli**, a **[NuGet.config](https://github.com/proyecto26/RestClient/blob/master/demo/NuGet.config)** file is required at the root of your **Unity Project**, for example:
 
