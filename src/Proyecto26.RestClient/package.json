@@ -4,7 +4,7 @@
   "displayName": "RestClient for Unity",
   "description": "Simple HTTP and REST client for Unity based on Promises, also support Callbacks!",
   "unity": "2017.1",
-  "unityRelease": "5",
+  "unityRelease": "5f1",
   "dependencies": {
     "com.rsg.promise": "3.0.1"
   },
