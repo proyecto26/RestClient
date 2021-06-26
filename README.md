@@ -336,7 +336,11 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 I believe in Unicorns 🦄
 Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
 
-Any good review from the [Unity Store](https://assetstore.unity.com/packages/tools/network/rest-client-for-unity-102501) is also really appreciated!
+Donate **Ethereum**, **ADA**, **BNB**, **SHIBA**, **USDT**, **DOGE**:
+
+![Wallet address](https://user-images.githubusercontent.com/2154886/123501719-84bf1900-d60c-11eb-882c-98a499cea323.png)
+
+Please let us know your contributions! 🙏
 
 ## Enterprise 💼
 
