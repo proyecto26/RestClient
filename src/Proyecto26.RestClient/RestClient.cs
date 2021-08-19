@@ -343,6 +343,75 @@ namespace Proyecto26
         }
 
         /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="body">A plain object that is sent to the server with the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        public static void Patch(string url, object body, Action<RequestException, ResponseHelper> callback)
+        {
+            Patch(new RequestHelper { Uri = url, Body = body }, callback);
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        public static void Patch(string url, string bodyString, Action<RequestException, ResponseHelper> callback)
+        {
+            Patch(new RequestHelper { Uri = url, BodyString = bodyString }, callback);
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <param name="options">The options of the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        public static void Patch(RequestHelper options, Action<RequestException, ResponseHelper> callback)
+        {
+            options.Method = "PATCH";
+            Request(options, callback);
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="body">A plain object that is sent to the server with the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        /// <typeparam name="T">The element type of the response.</typeparam>
+        public static void Patch<T>(string url, object body, Action<RequestException, ResponseHelper, T> callback)
+        {
+            Patch<T>(new RequestHelper { Uri = url, Body = body }, callback);
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        /// <typeparam name="T">The element type of the response.</typeparam>
+        public static void Patch<T>(string url, string bodyString, Action<RequestException, ResponseHelper, T> callback)
+        {
+            Patch<T>(new RequestHelper { Uri = url, BodyString = bodyString }, callback);
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <param name="options">The options of the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        /// <typeparam name="T">The element type of the response.</typeparam>
+        public static void Patch<T>(RequestHelper options, Action<RequestException, ResponseHelper, T> callback)
+        {
+            options.Method = "PATCH";
+            Request(options, callback);
+        }
+
+        /// <summary>
         /// Delete the specified resource identified by the URI.
         /// </summary>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
