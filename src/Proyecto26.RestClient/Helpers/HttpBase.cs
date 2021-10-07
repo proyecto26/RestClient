@@ -8,6 +8,8 @@ namespace Proyecto26
 {
     public static class HttpBase
     {
+        public static int HTTP_NO_CONTENT = 204;
+
         public static IEnumerator CreateRequestAndRetry(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
 
@@ -118,7 +120,7 @@ namespace Proyecto26
                 var body = default(TResponse);
                 try
                 {
-                    if (err == null && res.Data != null && options.ParseResponseBody)
+                    if (err == null && res.StatusCode != HTTP_NO_CONTENT && res.Data != null && options.ParseResponseBody)
                         body = JsonUtility.FromJson<TResponse>(res.Text);
                 }
                 catch (Exception error)
@@ -139,7 +141,7 @@ namespace Proyecto26
                 var body = default(TResponse[]);
                 try
                 {
-                    if (err == null && res.Data != null && options.ParseResponseBody)
+                    if (err == null && res.StatusCode != HTTP_NO_CONTENT && res.Data != null && options.ParseResponseBody)
                         body = JsonHelper.ArrayFromJson<TResponse>(res.Text);
                 }
                 catch (Exception error)
