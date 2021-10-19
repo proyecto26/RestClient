@@ -55,6 +55,7 @@ RestClient.GetArray<Post>(api + "/posts").Then(response => {
 - Handle HTTP exceptions in a better way
 - Retry HTTP requests easily
 - Open Source 🦄
+- Utility to work during scene transition
 
 ## Supported platforms 📱 🖥 
 The [UnityWebRequest](https://docs.unity3d.com/Manual/UnityWebRequest.html) system supports most Unity platforms:
@@ -109,6 +110,13 @@ RestClient.Delete("https://jsonplaceholder.typicode.com/posts/1").Then(response 
 });
 RestClient.Head("https://jsonplaceholder.typicode.com/posts").Then(response => {
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
+});
+```
+
+## Handling during scene transition
+```csharp
+ExecuteOnMainThread.RunOnMainThread.Enqueue(() => {
+  //Any API call using RestClient
 });
 ```
 
