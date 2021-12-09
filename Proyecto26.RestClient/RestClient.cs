@@ -9,7 +9,6 @@ namespace Proyecto26
 {
     /// <summary>
     /// RestClient for Unity
-    /// Version: 2.6.2
     /// </summary>
     public static partial class RestClient
     {
@@ -22,7 +21,7 @@ namespace Proyecto26
         {
             get
             {
-                return typeof(RestClient).Assembly.GetName().Version;
+                return Version.Parse("2.6.2");
             }
         }
 
