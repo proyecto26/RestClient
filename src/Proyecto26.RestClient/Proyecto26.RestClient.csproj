@@ -71,6 +71,7 @@
     <Compile Include="RestClientPromise.cs" />
     <Compile Include="Helpers\Common.cs" />
     <Compile Include="Helpers\RequestHelperExtension.cs" />
+    <Compile Include="Helpers\ExecuteOnMainThread.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
