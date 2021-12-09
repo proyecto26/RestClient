@@ -8,7 +8,7 @@ namespace Proyecto26
 {
     public static class HttpBase
     {
-        public static int HTTP_NO_CONTENT = 204;
+        private const int HTTP_NO_CONTENT = 204;
 
         public static IEnumerator CreateRequestAndRetry(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
