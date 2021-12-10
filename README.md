@@ -316,7 +316,8 @@ router.post('/', function(req, res) {
 ```
 
 ## Credits 👍
-* **Promises library for C#:** [Real Serious Games/C-Sharp-Promise](https://github.com/Real-Serious-Games/C-Sharp-Promise)
+* **C-Sharp-Promise:** [Promises library for C# for management of asynchronous operations.](https://github.com/Real-Serious-Games/C-Sharp-Promise)
+* **MyAPI:** [A template to create awesome APIs easily ⚡️](https://github.com/proyecto26/MyAPI)
 
 ## Contributing ✨
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.  
