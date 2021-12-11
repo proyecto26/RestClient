@@ -9,16 +9,19 @@
     <AssemblyName>Proyecto26.RestClient</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <PackageId>Proyecto26.RestClient</PackageId>
-    <PackageVersion>2.4.2</PackageVersion>
+    <PackageVersion>2.6.2</PackageVersion>
     <Authors>jdnichollsc</Authors>
     <PackageIconUrl>https://github.com/proyecto26/RestClient/blob/master/img/icono.png?raw=true</PackageIconUrl>
     <PackageLicenseUrl>https://github.com/proyecto26/RestClient/blob/master/LICENSE</PackageLicenseUrl>
     <Owners>Juan David Nicholls Cardona</Owners>
     <PackageProjectUrl>https://github.com/proyecto26/RestClient</PackageProjectUrl>
     <PackageReleaseNotes>Include:
-- Add ContentType property from the RequestHelper class to modify the content type of the request
-- Add Retries and RetrySecondsDelay properties from RequestHelper class to retry a request
-- Add EnableDebug and RetryCallback properties from RequestHelper class to debug the requests</PackageReleaseNotes>
+- Add a progress reporting callback
+- Add support for PATCH verb
+- Add solution to make network call on main thread
+- Changes to use RetryCallback to handle token expiration
+- Handle HTTP NO CONTENT status code (204) to prevent null reference exceptions
+- Removing Depricated APIs</PackageReleaseNotes>
     <Summary>Simple HTTP and REST client for Unity based on Promises, also support Callbacks!</Summary>
     <PackageTags>unity,promises,http,rest,http-client,httpclient,rest-client,restclient</PackageTags>
     <Title>Proyecto26.RestClient</Title>
