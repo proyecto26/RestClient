@@ -4,11 +4,16 @@
   "displayName": "RestClient for Unity",
   "description": "Simple HTTP and REST client for Unity based on Promises, also support Callbacks!",
   "unity": "2017.1",
-  "unityRelease": "5",
+  "unityRelease": "5f1",
   "dependencies": {
     "com.rsg.promise": "3.0.1"
- },
- "keywords": [
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/proyecto26/RestClient.git"
+  },
+  "keywords": [
     "Promises",
     "Http",
     "Rest",
@@ -28,5 +33,12 @@
     "name": "Proyecto 26",
     "email": "jdnichollsc@hotmail.com",
     "url": "https://github.com/proyecto26/RestClient"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "Demo",
+      "description": "Demo for RestClient",
+      "path": "demo"
+    }
+  ]
 }
