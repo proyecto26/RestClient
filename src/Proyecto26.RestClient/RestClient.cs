@@ -14,6 +14,7 @@ namespace Proyecto26
     {
         #region Common
 
+        private static System.Version _version;
         /// <summary>
         /// Gets the version of the RestClient library.
         /// </summary>
@@ -21,14 +22,17 @@ namespace Proyecto26
         {
             get
             {
-                return Version.Parse("2.6.2");
+                if (_version == null) {
+                    _version = new System.Version("2.6.2");
+                }
+                return _version;
             }
         }
 
+        private static Dictionary<string, string> _defaultRequestParams;
         /// <summary>
         /// Default query string params.
         /// </summary>
-        private static Dictionary<string, string> _defaultRequestParams;
         public static Dictionary<string, string> DefaultRequestParams
         {
             get

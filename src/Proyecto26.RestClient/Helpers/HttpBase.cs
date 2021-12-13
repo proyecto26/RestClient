@@ -98,7 +98,7 @@ namespace Proyecto26
             return new RequestException(options, request.error, IsHttpError, IsNetworkError, request.responseCode, options.ParseResponseBody ? request.downloadHandler.text : "body not parsed");
         }
 
-        private static void DebugLog(bool debugEnabled, object message, bool isError)
+        public static void DebugLog(bool debugEnabled, object message, bool isError)
         {
             if (debugEnabled)
             {
