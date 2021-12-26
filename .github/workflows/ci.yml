@@ -37,6 +37,8 @@ jobs:
         if [[ -d "Sample/Packages" ]]; then
           git rm -rf Sample/Packages
           git rm Sample/Packages.meta --ignore-unmatch
+          git rm Sample/packages.config
+          git rm Sample/packages.config.meta --ignore-unmatch
         fi
         if [[ -d "Properties" ]]; then
           git rm -rf Properties
