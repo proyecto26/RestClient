@@ -1,5 +1,8 @@
+#if NET_40
 using System;
+using System.Collections;
 using System.Collections.Concurrent;
+#endif
 using UnityEngine;
 
 namespace Proyecto26.Helper
@@ -18,6 +21,23 @@ namespace Proyecto26.Helper
     /// </example>
     public class ExecuteOnMainThread : MonoBehaviour
     {
+        private static ExecuteOnMainThread _instance;
+        public static ExecuteOnMainThread Instance { get { return _instance; } }
+
+        void Awake()
+        {
+            if (_instance != null && _instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                _instance = this;
+                DontDestroyOnLoad(this.gameObject);
+            }
+        }
+
+#if NET_40
         /// <summary>
         /// Store all instance of Action's and try to invoke them
         /// </summary>
@@ -30,11 +50,16 @@ namespace Proyecto26.Helper
         {
             if (!RunOnMainThread.IsEmpty)
             {
-                while (RunOnMainThread.TryDequeue(out var action))
+                Action action;
+                while (RunOnMainThread.TryDequeue(out action))
                 {
-                    action?.Invoke();
+                    if (action != null) {
+                        action.Invoke();
+                        action = null;
+                    }
                 }
             }
         }
+#endif
     }
 }
