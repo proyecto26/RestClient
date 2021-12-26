@@ -41,6 +41,8 @@ jobs:
           git rm Proyecto26.RestClient.csproj.meta --ignore-unmatch
           git rm Proyecto26.RestClient.nuspec
           git rm Proyecto26.RestClient.nuspec.meta --ignore-unmatch
+          git rm packages.config
+          git rm packages.config.meta --ignore-unmatch
         fi
         git commit -am "fix: src => root"
         echo "********************** ROOT **********************"
