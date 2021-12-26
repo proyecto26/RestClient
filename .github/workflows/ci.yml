@@ -34,6 +34,10 @@ jobs:
         git commit -m "create release folder"
         git subtree split -P "$UPM_ROOT" -b upm                     # create the upm branch
         git checkout upm                                            # checkout the branch
+        if [[ -d "Sample/Packages" ]]; then
+          git rm -rf Sample/Packages
+          git rm Sample/Packages.meta --ignore-unmatch
+        fi
         if [[ -d "Properties" ]]; then
           git rm -rf Properties
           git rm Properties.meta --ignore-unmatch
