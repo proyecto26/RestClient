@@ -36,8 +36,11 @@ jobs:
         git checkout upm                                            # checkout the branch
         if [[ -d "Properties" ]]; then
           git rm -rf Properties
+          git rm Properties.meta --ignore-unmatch
           git rm Proyecto26.RestClient.csproj
+          git rm Proyecto26.RestClient.csproj.meta --ignore-unmatch
           git rm Proyecto26.RestClient.nuspec
+          git rm Proyecto26.RestClient.nuspec.meta --ignore-unmatch
         fi
         git commit -am "fix: src => root"
         echo "********************** ROOT **********************"
