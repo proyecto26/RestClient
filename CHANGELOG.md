@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add a progress reporting callback by [@lyze237](https://github.com/lyze237) ([#153](https://github.com/proyecto26/RestClient/pull/153)).
 - Add support for **PATCH** verb by [@neegool](https://github.com/neegool) ([#185](https://github.com/proyecto26/RestClient/pull/185)).
 - Add solution to make network call on main thread by [@maifeeulasad](https://github.com/maifeeulasad) ([#190](https://github.com/proyecto26/RestClient/pull/190)).
-- Add support for UPM package ([#198](https://github.com/proyecto26/RestClient/pull/198)).
+- Add support for UPM package by [@benukhanov](https://github.com/benukhanov), [@tonygiang](https://github.com/tonygiang) and [@Hermesiss](https://github.com/Hermesiss) ([#198](https://github.com/proyecto26/RestClient/pull/198)).
 
 ### Changed
 - Changes to use **RetryCallback** to handle token expiration by [@fegabe](https://github.com/fegabe) ([#142](https://github.com/proyecto26/RestClient/pull/142)).
