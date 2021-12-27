@@ -36,9 +36,9 @@
   },
   "samples": [
     {
-      "displayName": "Demo",
-      "description": "Demo for RestClient",
-      "path": "demo"
+      "displayName": "Sample",
+      "description": "RestClient Sample",
+      "path": "Sample"
     }
   ]
 }

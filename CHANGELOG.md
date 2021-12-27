@@ -6,6 +6,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.6.2] - 2021-12-26
+
+### Added
+- Add a progress reporting callback by [@lyze237](https://github.com/lyze237) ([#153](https://github.com/proyecto26/RestClient/pull/153)).
+- Add support for **PATCH** verb by [@neegool](https://github.com/neegool) ([#185](https://github.com/proyecto26/RestClient/pull/185)).
+- Add solution to make network call on main thread by [@maifeeulasad](https://github.com/maifeeulasad) ([#190](https://github.com/proyecto26/RestClient/pull/190)).
+- Add support for UPM package by [@benukhanov](https://github.com/benukhanov), [@tonygiang](https://github.com/tonygiang) and [@Hermesiss](https://github.com/Hermesiss) ([#198](https://github.com/proyecto26/RestClient/pull/198)).
+
+### Changed
+- Changes to use **RetryCallback** to handle token expiration by [@fegabe](https://github.com/fegabe) ([#142](https://github.com/proyecto26/RestClient/pull/142)).
+
+### Fixed
+- Handle HTTP NO CONTENT status code (204) to prevent null reference exceptions by [@L-Naej](https://github.com/L-Naej) and [@StevenGarberg](https://github.com/StevenGarberg) ([#188](https://github.com/proyecto26/RestClient/pull/188)).
+
+### Removed
+- Removing Depricated APIs by [@Drazail](https://github.com/Drazail) ([#164](https://github.com/proyecto26/RestClient/pull/164)).
+
 ## [2.6.1] - 2020-06-10
 
 ### Fixed
@@ -142,7 +159,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [...1.0.1]
 Missing tags for previous versions 🤷‍♂
 
-[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.6.1...HEAD
+[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.6.2...HEAD
+[2.6.2]: https://github.com/proyecto26/RestClient/compare/v2.6.1...v2.6.2
 [2.6.1]: https://github.com/proyecto26/RestClient/compare/v2.6.0...v2.6.1
 [2.6.0]: https://github.com/proyecto26/RestClient/compare/v2.5.9...v2.6.0
 [2.5.9]: https://github.com/proyecto26/RestClient/compare/2.5.7...v2.5.9

@@ -54,10 +54,10 @@ namespace Proyecto26
             DefaultRequestParams.Clear();
         }
 
+        private static Dictionary<string, string> _defaultRequestHeaders;
         /// <summary>
         /// Default headers.
         /// </summary>
-        private static Dictionary<string, string> _defaultRequestHeaders;
         public static Dictionary<string, string> DefaultRequestHeaders
         {
             get
