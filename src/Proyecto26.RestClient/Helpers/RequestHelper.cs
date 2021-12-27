@@ -97,6 +97,16 @@ namespace Proyecto26
             set { _retrySecondsDelay = value; }
         }
 
+        private bool _retryCallbackOnlyOnNetworkErrors = true;
+        /// <summary>
+        /// Invoke RetryCallack only when the retry is provoked by a network error. (Default: true).
+        /// </summary>
+        public bool RetryCallbackOnlyOnNetworkErrors
+        {
+            get { return _retryCallbackOnlyOnNetworkErrors; }
+            set { _retryCallbackOnlyOnNetworkErrors = value; }
+        }
+
         private Action<RequestException, int> _retryCallback;
         /// <summary>
         /// A callback executed before to retry a request
@@ -106,7 +116,18 @@ namespace Proyecto26
             get { return _retryCallback; }
             set { _retryCallback = value; }
         }
+        
+        private Action<float> _progressCallback;
 
+        /// <summary>
+        /// A callback executed everytime the requests progress changes (From 0 to 1)
+        /// </summary>
+        public Action<float> ProgressCallback
+        {
+            get { return _progressCallback; }
+            set { _progressCallback = value; }
+        }
+        
         private bool _enableDebug;
         /// <summary>
         /// Enable logs of the requests for debug mode

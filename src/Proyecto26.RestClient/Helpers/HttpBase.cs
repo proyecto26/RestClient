@@ -8,14 +8,39 @@ namespace Proyecto26
 {
     public static class HttpBase
     {
+        private const int HTTP_NO_CONTENT = 204;
+
         public static IEnumerator CreateRequestAndRetry(RequestHelper options, Action<RequestException, ResponseHelper> callback)
         {
+
             var retries = 0;
             do
             {
                 using (var request = CreateRequest(options))
                 {
-                    yield return request.SendWebRequestWithOptions(options);
+                    bool IsNetworkError;
+#if UNITY_2020_2_OR_NEWER
+                    IsNetworkError = (request.result == UnityWebRequest.Result.ConnectionError);
+#else
+                    IsNetworkError = request.isNetworkError;
+#endif
+                    var sendRequest = request.SendWebRequestWithOptions(options);
+                    if (options.ProgressCallback == null)
+                    {
+                        yield return sendRequest;
+                    }
+                    else
+                    {
+                        options.ProgressCallback(0);
+
+                        while (!sendRequest.isDone)
+                        {
+                            options.ProgressCallback(sendRequest.progress);
+                            yield return null;
+                        }
+
+                        options.ProgressCallback(1);
+                    }
                     var response = request.CreateWebResponse();
                     if (request.IsValidRequest(options))
                     {
@@ -23,14 +48,14 @@ namespace Proyecto26
                         callback(null, response);
                         break;
                     }
-                    else if (!options.IsAborted && retries < options.Retries && request.isNetworkError)
+                    else if (!options.IsAborted && retries < options.Retries && (!options.RetryCallbackOnlyOnNetworkErrors || IsNetworkError))
                     {
-                        yield return new WaitForSeconds(options.RetrySecondsDelay);
-                        retries++;
                         if (options.RetryCallback != null)
                         {
                             options.RetryCallback(CreateException(options, request), retries);
                         }
+                        yield return new WaitForSeconds(options.RetrySecondsDelay);
+                        retries++;
                         DebugLog(options.EnableDebug, string.Format("RestClient - Retry Request\nUrl: {0}\nMethod: {1}", options.Uri, options.Method), false);
                     }
                     else
@@ -61,10 +86,19 @@ namespace Proyecto26
 
         private static RequestException CreateException(RequestHelper options, UnityWebRequest request)
         {
-            return new RequestException(request.error, request.isHttpError, request.isNetworkError, request.responseCode, options.ParseResponseBody ? request.downloadHandler.text : "body not parsed");
+            bool IsNetworkError;
+            bool IsHttpError;
+#if UNITY_2020_2_OR_NEWER
+            IsNetworkError = (request.result == UnityWebRequest.Result.ConnectionError);
+            IsHttpError = (request.result == UnityWebRequest.Result.ProtocolError);
+#else
+            IsNetworkError = request.isNetworkError;
+            IsHttpError = request.isHttpError;
+#endif
+            return new RequestException(options, request.error, IsHttpError, IsNetworkError, request.responseCode, options.ParseResponseBody ? request.downloadHandler.text : "body not parsed");
         }
 
-        private static void DebugLog(bool debugEnabled, object message, bool isError)
+        public static void DebugLog(bool debugEnabled, object message, bool isError)
         {
             if (debugEnabled)
             {
@@ -86,7 +120,7 @@ namespace Proyecto26
                 var body = default(TResponse);
                 try
                 {
-                    if (err == null && res.Data != null && options.ParseResponseBody)
+                    if (err == null && res.StatusCode != HTTP_NO_CONTENT && res.Data != null && options.ParseResponseBody)
                         body = JsonUtility.FromJson<TResponse>(res.Text);
                 }
                 catch (Exception error)
@@ -107,7 +141,7 @@ namespace Proyecto26
                 var body = default(TResponse[]);
                 try
                 {
-                    if (err == null && res.Data != null && options.ParseResponseBody)
+                    if (err == null && res.StatusCode != HTTP_NO_CONTENT && res.Data != null && options.ParseResponseBody)
                         body = JsonHelper.ArrayFromJson<TResponse>(res.Text);
                 }
                 catch (Exception error)

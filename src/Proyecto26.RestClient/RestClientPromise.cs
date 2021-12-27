@@ -282,6 +282,77 @@ namespace Proyecto26
         }
 
         /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="body">A plain object that is sent to the server with the request.</param>
+        public static IPromise<ResponseHelper> Patch(string url, object body)
+        {
+            return Patch(new RequestHelper { Uri = url, Body = body });
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        public static IPromise<ResponseHelper> Patch(string url, string bodyString)
+        {
+            return Patch(new RequestHelper { Uri = url, BodyString = bodyString });
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
+        /// <param name="options">The options of the request.</param>
+        public static IPromise<ResponseHelper> Patch(RequestHelper options)
+        {
+            var promise = new Promise<ResponseHelper>();
+            Patch(options, promise.Promisify);
+            return promise;
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <returns>Returns a promise for a value of a specified type.</returns>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="body">A plain object that is sent to the server with the request.</param>
+        /// <typeparam name="T">The element type of the response.</typeparam>
+        public static IPromise<T> Patch<T>(string url, object body)
+        {
+            return Patch<T>(new RequestHelper { Uri = url, Body = body });
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <returns>Returns a promise for a value of a specified type.</returns>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        /// <typeparam name="T">The element type of the response.</typeparam>
+        public static IPromise<T> Patch<T>(string url, string bodyString)
+        {
+            return Patch<T>(new RequestHelper { Uri = url, BodyString = bodyString });
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <returns>Returns a promise for a value of a specified type.</returns>
+        /// <param name="options">The options of the request.</param>
+        /// <typeparam name="T">The element type of the response.</typeparam>
+        public static IPromise<T> Patch<T>(RequestHelper options)
+        {
+            var promise = new Promise<T>();
+            Patch<T>(options, promise.Promisify);
+            return promise;
+        }
+
+        /// <summary>
         /// Delete the specified resource identified by the URI.
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>

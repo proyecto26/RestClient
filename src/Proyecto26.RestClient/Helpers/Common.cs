@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -78,10 +77,10 @@ namespace Proyecto26.Common
         /// <summary>
         /// Send the web request to the server
         /// </summary>
-        /// <returns>An UnityWebRequestAsyncOperation object.</returns>
+        /// <returns>An AsyncOperation object.</returns>
         /// <param name="request">An UnityWebRequest object.</param>
         /// <param name="options">An options object.</param>
-        public static IEnumerator SendWebRequestWithOptions(this UnityWebRequest request, RequestHelper options)
+        public static AsyncOperation SendWebRequestWithOptions(this UnityWebRequest request, RequestHelper options)
         {
             byte[] bodyRaw = options.BodyRaw;
             string contentType = string.Empty;
@@ -119,9 +118,9 @@ namespace Proyecto26.Common
 
             ConfigureWebRequestWithOptions(request, bodyRaw, contentType, options);
 #if UNITY_2017_2_OR_NEWER
-            yield return request.SendWebRequest();
+            return request.SendWebRequest();
 #else
-            yield return request.Send();
+            return request.Send();
 #endif
         }
     }

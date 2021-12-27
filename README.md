@@ -1,6 +1,5 @@
 [![Made with Unity](https://img.shields.io/badge/Made%20with-Unity-57b9d3.svg?style=flat&logo=unity)](https://assetstore.unity.com/publishers/32542)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/969f6b9d04324af58382f7ee7a8faccd)](https://app.codacy.com/app/jdnichollsc/RestClient?utm_source=github.com&utm_medium=referral&utm_content=proyecto26/RestClient&utm_campaign=Badge_Grade_Dashboard)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg)](https://github.com/proyecto26/RestClient/graphs/commit-activity)
 [![Tidelift Subscription](https://tidelift.com/badges/package/nuget/Proyecto26.RestClient)](https://tidelift.com/subscription/pkg/nuget-proyecto26-restclient?utm_source=nuget-proyecto26-restclient&utm_medium=referral&utm_campaign=readme)
 [![Build Status](https://travis-ci.org/proyecto26/RestClient.svg?branch=master)](https://travis-ci.org/proyecto26/RestClient)
@@ -55,6 +54,7 @@ RestClient.GetArray<Post>(api + "/posts").Then(response => {
 - Handle HTTP exceptions in a better way
 - Retry HTTP requests easily
 - Open Source 🦄
+- Utility to work during scene transition
 
 ## Supported platforms 📱 🖥 
 The [UnityWebRequest](https://docs.unity3d.com/Manual/UnityWebRequest.html) system supports most Unity platforms:
@@ -79,7 +79,10 @@ Do you want to see this beautiful package in action? Download the demo [here](ht
 ### Unity package
 Download and install the **.unitypackage** file of the latest release published [here](https://github.com/proyecto26/RestClient/releases).
 
-### Nuget package
+### UPM package
+Make sure you had installed [C# Promise package](https://openupm.com/packages/com.rsg.promise/) or at least have it in your [openupm scope registry](https://openupm.com/). Then install **RestClient package** using this URL from **Package Manager**: `https://github.com/proyecto26/RestClient.git#upm`
+
+### NuGet package
 Other option is download this package from **NuGet** with **Visual Studio** or using the **nuget-cli**, a **[NuGet.config](https://github.com/proyecto26/RestClient/blob/master/demo/NuGet.config)** file is required at the root of your **Unity Project**, for example:
 
 ```xml
@@ -112,6 +115,13 @@ RestClient.Head("https://jsonplaceholder.typicode.com/posts").Then(response => {
 });
 ```
 
+## Handling during scene transition
+```csharp
+ExecuteOnMainThread.RunOnMainThread.Enqueue(() => {
+  //Any API call using RestClient
+});
+```
+
 ### Generic Request Method
 And we have a generic method to create any type of request:
 ```csharp
@@ -137,7 +147,9 @@ RestClient.Request(new RequestHelper {
   ContentType = "application/json", //JSON is used by default
   Retries = 3, //Number of retries
   RetrySecondsDelay = 2, //Seconds of delay to make a retry
+  RetryCallbackOnlyOnNetworkErrors = true, //Invoke RetryCallack only when the retry is provoked by a network error
   RetryCallback = (err, retries) => {}, //See the error before retrying the request
+  ProgressCallback = (percent) => {}, //Reports progress of the request from 0 to 1
   EnableDebug = true, //See logs of the requests for debug mode
   IgnoreHttpException = true, //Prevent to catch http exceptions
   ChunkedTransfer = false,
@@ -152,6 +164,9 @@ RestClient.Request(new RequestHelper {
   AssetBundle assetBundle = ((DownloadHandlerAssetBundle)response.Request.downloadHandler).assetBundle;
 
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
+}).Catch(err => {
+  var error = err as RequestException;
+  EditorUtility.DisplayDialog("Error Response", error.Response, "Ok");
 });
 ```
 
@@ -257,6 +272,14 @@ currentRequest.DownloadedBytes; //The number of bytes of body data the system ha
 currentRequest.Abort(); //Abort the request manually
 ```
 
+Additionally we can run a callback function whenever a progress change happens!
+```csharp
+RestClient.Get(new RequestHelper {
+  Uri = "https://jsonplaceholder.typicode.com/users", 
+  ProgressCallback = percent => Debug.Log(percent)
+});
+```
+
 Later we can clear the default headers and params for all requests
 ```csharp
 RestClient.ClearDefaultHeaders();
@@ -295,19 +318,42 @@ router.post('/', function(req, res) {
 });
 ```
 
-## Collaborators 🥇
+## Credits 👍
+* **C-Sharp-Promise:** [Promises library for C# for management of asynchronous operations.](https://github.com/Real-Serious-Games/C-Sharp-Promise)
+* **MyAPI:** [A template to create awesome APIs easily ⚡️](https://github.com/proyecto26/MyAPI)
+
+## Contributing ✨
+When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.  
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated** ❤️.  
+You can learn more about how you can contribute to this project in the [contribution guide](https://github.com/proyecto26/RestClient/blob/develop/CONTRIBUTING.md).
+
+## Contributors ✨
+Please do contribute! Issues and pull requests are welcome.
+
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+
+[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/0)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/0)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/1)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/1)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/2)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/2)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/3)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/3)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/4)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/4)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/5)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/5)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/6)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/6)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/7)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/7)
+
+### Collaborators
+<!-- COLLABORATORS-LIST:START - Do not remove or modify this section -->
 [<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/2154886?v=3&s=117" width="117">](https://github.com/jdnichollsc) | [<img alt="diegoossa" src="https://avatars3.githubusercontent.com/u/3436237?v=3&s=117" width="117">](https://github.com/diegoossa) | [<img alt="nasdull" src="https://avatars3.githubusercontent.com/u/25492923?v=3&s=117" width="117">](https://github.com/nasdull) |
 :---: | :---: | :---: |
 [Juan Nicholls](mailto:jdnichollsc@hotmail.com) | [Diego Ossa](mailto:diegoossa@gmail.com) | [Nasdull](mailto:nasdull@hotmail.com) |
-
-## Credits 👍
-* **Promises library for C#:** [Real Serious Games/C-Sharp-Promise](https://github.com/Real-Serious-Games/C-Sharp-Promise)
+<!-- COLLABORATORS-LIST:END -->
 
 ## Supporting 🍻
 I believe in Unicorns 🦄
 Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
 
-Any good review from the [Unity Store](https://assetstore.unity.com/packages/tools/network/rest-client-for-unity-102501) is also really appreciated!
+Donate **Ethereum**, **ADA**, **BNB**, **SHIBA**, **USDT**, **DOGE**:
+
+![Wallet address](https://user-images.githubusercontent.com/2154886/123501719-84bf1900-d60c-11eb-882c-98a499cea323.png)
+
+> Wallet address: 0x3F9fA8021B43ACe578C2352861Cf335449F33427
+
+Please let us know your contributions! 🙏
 
 ## Enterprise 💼
 
@@ -317,6 +363,9 @@ The maintainers of RestClient for Unity and thousands of other packages are work
 
 ## Security contact information 🚨
 To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
+
+## License ⚖️
+This repository is available under the [MIT License](https://github.com/proyecto26/RestClient/blob/develop/LICENSE).
 
 ## Happy coding 💯
 Made with ❤️

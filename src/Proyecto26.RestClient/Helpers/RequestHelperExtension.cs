@@ -1,4 +1,5 @@
-﻿using UnityEngine.Networking;
+﻿using System;
+using UnityEngine.Networking;
 
 namespace Proyecto26
 {
@@ -121,12 +122,17 @@ namespace Proyecto26
         /// </summary>
         public void Abort()
         {
-            if (this.Request != null && !this.IsAborted)
+            if (!this.IsAborted && this.Request != null)
             {
                 try
                 {
                     this.IsAborted = true;
-                    this.Request.Abort();
+                    if (!this.Request.isDone) {
+                        this.Request.Abort();
+                    }
+                }
+                catch (Exception error) {
+                    HttpBase.DebugLog(this.EnableDebug, error.Message, true);
                 }
                 finally
                 {

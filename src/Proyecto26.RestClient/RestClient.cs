@@ -9,12 +9,12 @@ namespace Proyecto26
 {
     /// <summary>
     /// RestClient for Unity
-    /// Version: 2.6.1
     /// </summary>
     public static partial class RestClient
     {
         #region Common
 
+        private static System.Version _version;
         /// <summary>
         /// Gets the version of the RestClient library.
         /// </summary>
@@ -22,14 +22,17 @@ namespace Proyecto26
         {
             get
             {
-                return typeof(RestClient).Assembly.GetName().Version;
+                if (_version == null) {
+                    _version = new System.Version("2.6.2");
+                }
+                return _version;
             }
         }
 
+        private static Dictionary<string, string> _defaultRequestParams;
         /// <summary>
         /// Default query string params.
         /// </summary>
-        private static Dictionary<string, string> _defaultRequestParams;
         public static Dictionary<string, string> DefaultRequestParams
         {
             get
@@ -51,10 +54,10 @@ namespace Proyecto26
             DefaultRequestParams.Clear();
         }
 
+        private static Dictionary<string, string> _defaultRequestHeaders;
         /// <summary>
         /// Default headers.
         /// </summary>
-        private static Dictionary<string, string> _defaultRequestHeaders;
         public static Dictionary<string, string> DefaultRequestHeaders
         {
             get
@@ -339,6 +342,75 @@ namespace Proyecto26
         public static void Put<T>(RequestHelper options, Action<RequestException, ResponseHelper, T> callback)
         {
             options.Method = UnityWebRequest.kHttpVerbPUT;
+            Request(options, callback);
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="body">A plain object that is sent to the server with the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        public static void Patch(string url, object body, Action<RequestException, ResponseHelper> callback)
+        {
+            Patch(new RequestHelper { Uri = url, Body = body }, callback);
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        public static void Patch(string url, string bodyString, Action<RequestException, ResponseHelper> callback)
+        {
+            Patch(new RequestHelper { Uri = url, BodyString = bodyString }, callback);
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <param name="options">The options of the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        public static void Patch(RequestHelper options, Action<RequestException, ResponseHelper> callback)
+        {
+            options.Method = "PATCH";
+            Request(options, callback);
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="body">A plain object that is sent to the server with the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        /// <typeparam name="T">The element type of the response.</typeparam>
+        public static void Patch<T>(string url, object body, Action<RequestException, ResponseHelper, T> callback)
+        {
+            Patch<T>(new RequestHelper { Uri = url, Body = body }, callback);
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        /// <typeparam name="T">The element type of the response.</typeparam>
+        public static void Patch<T>(string url, string bodyString, Action<RequestException, ResponseHelper, T> callback)
+        {
+            Patch<T>(new RequestHelper { Uri = url, BodyString = bodyString }, callback);
+        }
+
+        /// <summary>
+        /// Load data from the server using a HTTP PATCH request.
+        /// </summary>
+        /// <param name="options">The options of the request.</param>
+        /// <param name="callback">A callback function that is executed when the request is finished.</param>
+        /// <typeparam name="T">The element type of the response.</typeparam>
+        public static void Patch<T>(RequestHelper options, Action<RequestException, ResponseHelper, T> callback)
+        {
+            options.Method = "PATCH";
             Request(options, callback);
         }
 

@@ -1,8 +1,16 @@
 ﻿using System;
+
 namespace Proyecto26
 {
     public class RequestException : Exception
     {
+        private RequestHelper _request;
+        public RequestHelper Request
+        {
+            get { return _request; }
+            private set { _request = value; }
+        }
+
         private bool _isHttpError;
         public bool IsHttpError
         {
@@ -42,9 +50,8 @@ namespace Proyecto26
 
         public RequestException(string message): base(message) { }
 
-        public RequestException(string format, params object[] args): base(string.Format(format, args)) { }
-
-        public RequestException(string message, bool isHttpError, bool isNetworkError, long statusCode, string response) : base(message) {
+        public RequestException(RequestHelper request, string message, bool isHttpError, bool isNetworkError, long statusCode, string response) : base(message) {
+            _request = request;
             _isHttpError = isHttpError;
             _isNetworkError = isNetworkError;
             _statusCode = statusCode;
