@@ -76,7 +76,6 @@ jobs:
         ls
         git config --global user.name 'github-bot'
         git config --global user.email 'github-bot@users.noreply.github.com'
-        git commit -am "create release folder"
         git subtree split -P "$NUGET_ROOT" -b nuget                     # create the nuget branch
         git checkout nuget                                              # checkout the branch
         git commit -am "fix: src => root"
