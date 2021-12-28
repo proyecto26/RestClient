@@ -3,7 +3,6 @@ on:
   push:
     branches:
     - master
-    - release
 jobs:
   split-upm:
     name: split upm branch
@@ -57,3 +56,32 @@ jobs:
       env:
         PKG_ROOT: src/Proyecto26.RestClient
         UPM_ROOT: Release
+        
+  split-nuget:
+    name: split nuget branch
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: split nuget branch
+      run: |
+        git branch -d nuget &> /dev/null || echo nuget branch not found # recreate the nuget branch each time
+        git mv LICENSE $NUGET_ROOT
+        git mv README.md $NUGET_ROOT
+        git mv SECURITY.md $NUGET_ROOT
+        git mv CHANGELOG.md $NUGET_ROOT
+        git mv CONTRIBUTING.md $NUGET_ROOT
+        echo "********************** ROOT **********************"
+        ls
+        git config --global user.name 'github-bot'
+        git config --global user.email 'github-bot@users.noreply.github.com'
+        git commit -am "create release folder"
+        git subtree split -P "$NUGET_ROOT" -b nuget                     # create the nuget branch
+        git checkout nuget                                              # checkout the branch
+        git commit -am "fix: src => root"
+        echo "********************** ROOT **********************"
+        ls
+        git push -u origin nuget --force                                # commit the branch
+      env:
+        NUGET_ROOT: src
