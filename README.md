@@ -11,9 +11,9 @@
 
 # RestClient for Unity 🤘
 
-![RestClient for Unity](img/rest-client_900x.png)
+![RestClient for Unity](https://github.com/proyecto26/RestClient/blob/master/img/rest-client_900x.png?raw=true)
 
-<img src="img/icono.png" width="150px" align="right" alt="Proyecto26.RestClient logo" />
+<img src="https://github.com/proyecto26/RestClient/blob/master/img/icono.png?raw=true" width="150px" align="right" alt="Proyecto26.RestClient logo" />
 
 This **HTTP/REST** Client is based on Promises to avoid the [Callback Hell](http://callbackhell.com/) ☠️ and the [Pyramid of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)) 💩 working with **Coroutines** in **Unity** 🎮, example:
 
@@ -71,8 +71,8 @@ The [UnityWebRequest](https://docs.unity3d.com/Manual/UnityWebRequest.html) syst
 ## Demo ⏯
 Do you want to see this beautiful package in action? Download the demo [here](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/proyecto26/RestClient/tree/master/demo)
 
-![Unity configuration](img/unity_demo.png)
-![Demo](img/demo.png)
+![Unity configuration](https://github.com/proyecto26/RestClient/blob/master/img/unity_demo.png?raw=true)
+![Demo](https://github.com/proyecto26/RestClient/blob/master/img/demo.png?raw=true)
 
 ## Installation 👨‍💻
 
