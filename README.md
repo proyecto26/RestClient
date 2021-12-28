@@ -11,9 +11,9 @@
 
 # RestClient for Unity 🤘
 
-![RestClient for Unity](img/rest-client_900x.png)
+![RestClient for Unity](https://github.com/proyecto26/RestClient/blob/master/img/rest-client_900x.png?raw=true)
 
-<img src="img/icono.png" width="150px" align="right" alt="Proyecto26.RestClient logo" />
+<img src="https://github.com/proyecto26/RestClient/blob/master/img/icono.png?raw=true" width="150px" align="right" alt="Proyecto26.RestClient logo" />
 
 This **HTTP/REST** Client is based on Promises to avoid the [Callback Hell](http://callbackhell.com/) ☠️ and the [Pyramid of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)) 💩 working with **Coroutines** in **Unity** 🎮, example:
 
@@ -44,17 +44,17 @@ RestClient.GetArray<Post>(api + "/posts").Then(response => {
 
 ## Features 🎮
 - Works out of the box 🎉 
+- Make **HTTP** requests from Unity
 - Supports **HTTPS/SSL**
-- Built on top of **UnityWebRequest** system
-- Includes JSON serialization with **JsonUtility** (Other tools are supported!)
-- Get **Arrays** Supported
-- Default **HTTP** Methods **(GET, POST, PUT, DELETE, HEAD)**
+- Built on top of **[UnityWebRequest](https://docs.unity3d.com/ScriptReference/Networking.UnityWebRequest.html)** system
+- Transform request and response data (**JSON** serialization with **[JsonUtility](https://docs.unity3d.com/ScriptReference/JsonUtility.html)** or other tools)
+- Automatic transforms for **JSON Arrays**.
+- Supports default **HTTP** Methods **(GET, POST, PUT, DELETE, HEAD, PATCH)**
 - Generic **REQUEST** method to create any http request
 - Based on **Promises** for a better asynchronous programming. Learn about Promises [here](https://github.com/Real-Serious-Games/C-Sharp-Promise)!
-- Handle HTTP exceptions in a better way
-- Retry HTTP requests easily
-- Open Source 🦄
 - Utility to work during scene transition
+- Handle HTTP exceptions and retry requests easily
+- Open Source 🦄
 
 ## Supported platforms 📱 🖥 
 The [UnityWebRequest](https://docs.unity3d.com/Manual/UnityWebRequest.html) system supports most Unity platforms:
@@ -71,8 +71,8 @@ The [UnityWebRequest](https://docs.unity3d.com/Manual/UnityWebRequest.html) syst
 ## Demo ⏯
 Do you want to see this beautiful package in action? Download the demo [here](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/proyecto26/RestClient/tree/master/demo)
 
-![Unity configuration](img/unity_demo.png)
-![Demo](img/demo.png)
+![Unity configuration](https://github.com/proyecto26/RestClient/blob/master/img/unity_demo.png?raw=true)
+![Demo](https://github.com/proyecto26/RestClient/blob/master/img/demo.png?raw=true)
 
 ## Installation 👨‍💻
 
