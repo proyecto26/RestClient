@@ -106,7 +106,6 @@ namespace Proyecto26
 
         
         private bool _defaultContentType = true;
-
         /// <summary>
         /// Enable or Disable Content Type JSON by default
         /// </summary>
@@ -115,6 +114,17 @@ namespace Proyecto26
         {
             get { return _defaultContentType; }
             set { _defaultContentType = value; }
+        }
+
+        private bool _editorCoroutine = false;
+        /// <summary>
+        /// Enable to starts en editor coroutine instead
+        /// </summary>
+        /// <value>A boolean to know if the request is working on Editor without running the game</value>
+        public bool EditorCoroutine
+        {
+            get { return _editorCoroutine; }
+            set { _editorCoroutine = value; }
         }
 
         /// <summary>

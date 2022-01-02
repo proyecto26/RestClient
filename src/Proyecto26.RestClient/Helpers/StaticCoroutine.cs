@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+#if UNITY_EDITOR
+using Unity.EditorCoroutines.Editor;
+#endif
 
 namespace Proyecto26
 {
@@ -24,6 +27,19 @@ namespace Proyecto26
         public static Coroutine StartCoroutine(IEnumerator coroutine)
         {
             return Runner.StartCoroutine(coroutine);
+        }
+
+        public static void Start(bool useEditor, IEnumerator coroutine)
+        {
+#if UNITY_EDITOR
+            if (useEditor)
+            {
+                EditorCoroutineUtility.StartCoroutineOwnerless(coroutine);
+                return;
+            }
+#endif
+            StartCoroutine(coroutine);
+            return;
         }
     }
 }
