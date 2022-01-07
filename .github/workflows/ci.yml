@@ -17,8 +17,8 @@ jobs:
         git branch -d upm &> /dev/null || echo upm branch not found # recreate the upm branch each time
         git mv "$PKG_ROOT" "src/$UPM_ROOT"
         git mv "src/$UPM_ROOT" .
-        git mv demo/Assets demo/Sample
-        git mv demo/Sample $UPM_ROOT
+        git mv demo/Assets demo/Samples~
+        git mv demo/Samples~ $UPM_ROOT
         git mv doc Docs
         git mv Docs $UPM_ROOT
         git mv LICENSE $UPM_ROOT
@@ -34,11 +34,11 @@ jobs:
         git commit -m "create release folder"
         git subtree split -P "$UPM_ROOT" -b upm                     # create the upm branch
         git checkout upm                                            # checkout the branch
-        if [[ -d "Sample/Packages" ]]; then
-          git rm -rf Sample/Packages
-          git rm Sample/Packages.meta --ignore-unmatch
-          git rm Sample/packages.config
-          git rm Sample/packages.config.meta --ignore-unmatch
+        if [[ -d "Samples~/Packages" ]]; then
+          git rm -rf Samples~/Packages
+          git rm Samples~/Packages.meta --ignore-unmatch
+          git rm Samples~/packages.config
+          git rm Samples~/packages.config.meta --ignore-unmatch
         fi
         if [[ -d "Properties" ]]; then
           git rm -rf Properties
