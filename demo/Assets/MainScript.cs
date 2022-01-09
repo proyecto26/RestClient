@@ -45,7 +45,7 @@ public class MainScript : MonoBehaviour {
 			this.LogMessage("Header", requestOptions.GetHeader("Authorization"));
 
 			// And later we can clean the default headers for all requests
-			RestClient.CleanDefaultHeaders();
+			RestClient.ClearDefaultHeaders();
 
 		}).Catch(err => this.LogMessage ("Error", err.Message));
 	}
