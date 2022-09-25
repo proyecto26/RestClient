@@ -16,7 +16,7 @@ namespace Proyecto26
         public static Promise<ResponseHelper> Request(RequestHelper options)
         {
             var deferred = Promise.NewDeferred<ResponseHelper>();
-            Request(options, GetCallback(deferred));
+            Request(options, GetCallback(options, deferred));
             return deferred.Promise;
         }
 
@@ -29,7 +29,7 @@ namespace Proyecto26
         public static Promise<T> Request<T>(RequestHelper options)
         {
             var deferred = Promise.NewDeferred<T>();
-            Request<T>(options, GetCallback(deferred));
+            Request<T>(options, GetCallback(options, deferred));
             return deferred.Promise;
         }
 
@@ -51,7 +51,7 @@ namespace Proyecto26
         public static Promise<ResponseHelper> Get(RequestHelper options)
         {
             var deferred = Promise.NewDeferred<ResponseHelper>();
-            Get(options, GetCallback(deferred));
+            Get(options, GetCallback(options, deferred));
             return deferred.Promise;
         }
 
@@ -75,7 +75,7 @@ namespace Proyecto26
         public static Promise<T> Get<T>(RequestHelper options)
         {
             var deferred = Promise.NewDeferred<T>();
-            Get<T>(options, GetCallback(deferred));
+            Get<T>(options, GetCallback(options, deferred));
             return deferred.Promise;
         }
 
@@ -99,7 +99,7 @@ namespace Proyecto26
         public static Promise<T[]> GetArray<T>(RequestHelper options)
         {
             var deferred = Promise.NewDeferred<T[]>();
-            GetArray<T>(options, GetCallback(deferred));
+            GetArray<T>(options, GetCallback(options, deferred));
             return deferred.Promise;
         }
 
@@ -133,7 +133,7 @@ namespace Proyecto26
         public static Promise<ResponseHelper> Post(RequestHelper options)
         {
             var deferred = Promise.NewDeferred<ResponseHelper>();
-            Post(options, GetCallback(deferred));
+            Post(options, GetCallback(options, deferred));
             return deferred.Promise;
         }
 
@@ -170,7 +170,7 @@ namespace Proyecto26
         public static Promise<T> Post<T>(RequestHelper options)
         {
             var deferred = Promise.NewDeferred<T>();
-            Post<T>(options, GetCallback(deferred));
+            Post<T>(options, GetCallback(options, deferred));
             return deferred.Promise;
         }
 
@@ -207,7 +207,7 @@ namespace Proyecto26
         public static Promise<T[]> PostArray<T>(RequestHelper options)
         {
             var deferred = Promise.NewDeferred<T[]>();
-            PostArray<T>(options, GetCallback(deferred));
+            PostArray<T>(options, GetCallback(options, deferred));
             return deferred.Promise;
         }
 
@@ -241,7 +241,7 @@ namespace Proyecto26
         public static Promise<ResponseHelper> Put(RequestHelper options)
         {
             var deferred = Promise.NewDeferred<ResponseHelper>();
-            Put(options, GetCallback(deferred));
+            Put(options, GetCallback(options, deferred));
             return deferred.Promise;
         }
 
@@ -278,7 +278,7 @@ namespace Proyecto26
         public static Promise<T> Put<T>(RequestHelper options)
         {
             var deferred = Promise.NewDeferred<T>();
-            Put<T>(options, GetCallback(deferred));
+            Put<T>(options, GetCallback(options, deferred));
             return deferred.Promise;
         }
 
@@ -312,7 +312,7 @@ namespace Proyecto26
         public static Promise<ResponseHelper> Patch(RequestHelper options)
         {
             var deferred = Promise.NewDeferred<ResponseHelper>();
-            Patch(options, GetCallback(deferred));
+            Patch(options, GetCallback(options, deferred));
             return deferred.Promise;
         }
 
@@ -349,7 +349,7 @@ namespace Proyecto26
         public static Promise<T> Patch<T>(RequestHelper options)
         {
             var deferred = Promise.NewDeferred<T>();
-            Patch<T>(options, GetCallback(deferred));
+            Patch<T>(options, GetCallback(options, deferred));
             return deferred.Promise;
         }
 
@@ -371,7 +371,7 @@ namespace Proyecto26
         public static Promise<ResponseHelper> Delete(RequestHelper options)
         {
             var deferred = Promise.NewDeferred<ResponseHelper>();
-            Delete(options, GetCallback(deferred));
+            Delete(options, GetCallback(options, deferred));
             return deferred.Promise;
         }
 
@@ -393,7 +393,7 @@ namespace Proyecto26
         public static Promise<ResponseHelper> Head(RequestHelper options)
         {
             var deferred = Promise.NewDeferred<ResponseHelper>();
-            Head(options, GetCallback(deferred));
+            Head(options, GetCallback(options, deferred));
             return deferred.Promise;
         }
 
@@ -401,16 +401,18 @@ namespace Proyecto26
 
     #region Helpers
 
-        private static Action<RequestException, ResponseHelper> GetCallback(Promise<ResponseHelper>.Deferred deferred)
+        private static Action<RequestException, ResponseHelper> GetCallback(RequestHelper options, Promise<ResponseHelper>.Deferred deferred)
         {
+            options.ProgressCallback += deferred.ReportProgress;
             return (RequestException error, ResponseHelper response) =>
             {
                 if (error != null) { deferred.Reject(error); } else { deferred.Resolve(response); }
             };
         }
 
-        private static Action<RequestException, ResponseHelper, T> GetCallback<T>(Promise<T>.Deferred deferred)
+        private static Action<RequestException, ResponseHelper, T> GetCallback<T>(RequestHelper options, Promise<T>.Deferred deferred)
         {
+            options.ProgressCallback += deferred.ReportProgress;
             return (RequestException error, ResponseHelper response, T body) =>
             {
                 if (error != null && response != null)
