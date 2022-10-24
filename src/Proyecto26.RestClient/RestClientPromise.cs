@@ -381,7 +381,7 @@ namespace Proyecto26
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         public static IPromise<ResponseHelper> Head(string url)
         {
-            return Delete(new RequestHelper { Uri = url });
+            return Head(new RequestHelper { Uri = url });
         }
 
         /// <summary>
