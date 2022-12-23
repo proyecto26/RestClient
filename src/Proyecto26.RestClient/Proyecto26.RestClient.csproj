@@ -53,12 +53,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="ProtoPromise, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProtoPromise.2.3.0\lib\net35\Release\ProtoPromise.dll</HintPath>
+    <Reference Include="ProtoPromise, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProtoPromise.2.4.0\lib\net35\Release\ProtoPromise.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ProtoPromiseUnityHelpers, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProtoPromiseUnityHelpers.2.3.0\lib\net35\Release\ProtoPromiseUnityHelpers.dll</HintPath>
+    <Reference Include="ProtoPromiseUnityHelpers, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProtoPromiseUnityHelpers.2.4.0\lib\net35\Release\ProtoPromiseUnityHelpers.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine">
