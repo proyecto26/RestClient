@@ -21,8 +21,8 @@
     <copyright>Copyright ©2019 Proyecto 26</copyright>
     <tags>Unity Promises Http Rest http-client HttpClient rest-client RestClient Request API Requests APIs JSON Networking</tags>
     <dependencies>
-      <dependency id="ProtoPromise" version="2.4.0" />
-      <dependency id="ProtoPromiseUnityHelpers" version="2.4.0" />
+      <dependency id="ProtoPromise" version="2.4.1" />
+      <dependency id="ProtoPromiseUnityHelpers" version="2.4.1" />
     </dependencies>
   </metadata>
 </package>
