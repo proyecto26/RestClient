@@ -6,7 +6,7 @@
   "unity": "2017.1",
   "unityRelease": "5f1",
   "dependencies": {
-    "com.timcassell.protopromise": "2.4.1"
+    "com.timcassell.protopromise": "2.5.0"
   },
   "license": "MIT",
   "repository": {
