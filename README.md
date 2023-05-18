@@ -31,15 +31,22 @@ RestClient.GetArray<Post>(api + "/posts", (err, res) => {
 But working with **Promises** we can improve our code, yay! 👏
 
 ```csharp
-RestClient.GetArray<Post>(api + "/posts").Then(response => {
-  EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJson<Post>(response, true), "Ok");
-  return RestClient.GetArray<Todo>(api + "/todos");
-}).Then(response => {
-  EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJson<Todo>(response, true), "Ok");
-  return RestClient.GetArray<User>(api + "/users");
-}).Then(response => {
-  EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJson<User>(response, true), "Ok");
-}).Catch(err => EditorUtility.DisplayDialog ("Error", err.Message, "Ok"));
+RestClient.GetArray<Post>(api + "/posts")
+    .Then(response =>
+    {
+        EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJson<Post>(response, true), "Ok");
+        return RestClient.GetArray<Todo>(api + "/todos");
+    })
+    .Then(response =>
+    {
+        EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJson<Todo>(response, true), "Ok");
+        return RestClient.GetArray<User>(api + "/users");
+    })
+    .Then(response => {
+        EditorUtility.DisplayDialog ("Success", JsonHelper.ArrayToJson<User>(response, true), "Ok");
+    })
+    .Catch((RequestException err) => EditorUtility.DisplayDialog ("Error", err.Message, "Ok"))
+    .Forget();
 ```
 
 ## Features 🎮
@@ -51,7 +58,7 @@ RestClient.GetArray<Post>(api + "/posts").Then(response => {
 - Automatic transforms for **JSON Arrays**.
 - Supports default **HTTP** Methods **(GET, POST, PUT, DELETE, HEAD, PATCH)**
 - Generic **REQUEST** method to create any http request
-- Based on **Promises** for a better asynchronous programming. Learn about Promises [here](https://github.com/Real-Serious-Games/C-Sharp-Promise)!
+- Based on **Promises** for a better asynchronous programming. Learn about Promises [here](https://github.com/timcassell/ProtoPromise)!
 - Utility to work during scene transition
 - Handle HTTP exceptions and retry requests easily
 - Open Source 🦄
@@ -80,7 +87,7 @@ Do you want to see this beautiful package in action? Download the demo [here](ht
 Download and install the **.unitypackage** file of the latest release published [here](https://github.com/proyecto26/RestClient/releases).
 
 ### UPM package
-Make sure you had installed [C# Promise package](https://openupm.com/packages/com.rsg.promise/) or at least have it in your [openupm scope registry](https://openupm.com/). Then install **RestClient package** using this URL from **Package Manager**: `https://github.com/proyecto26/RestClient.git#upm`
+Make sure you had installed [ProtoPromise package](https://openupm.com/packages/com.timcassell.protopromise/) or at least have it in your [openupm scope registry](https://openupm.com/). Then install **RestClient package** using this URL from **Package Manager**: `https://github.com/proyecto26/RestClient.git#upm`
 
 ### NuGet package
 Other option is download this package from **NuGet** with **Visual Studio** or using the **nuget-cli**, a **[NuGet.config](https://github.com/proyecto26/RestClient/blob/master/demo/NuGet.config)** file is required at the root of your **Unity Project**, for example:
@@ -100,19 +107,19 @@ The default methods **(GET, POST, PUT, DELETE, HEAD)** are:
 ```csharp
 RestClient.Get("https://jsonplaceholder.typicode.com/posts/1").Then(response => {
   EditorUtility.DisplayDialog("Response", response.Text, "Ok");
-});
+}).Forget();
 RestClient.Post("https://jsonplaceholder.typicode.com/posts", newPost).Then(response => {
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
-});
+}).Forget();
 RestClient.Put("https://jsonplaceholder.typicode.com/posts/1", updatedPost).Then(response => {
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
-});
+}).Forget();
 RestClient.Delete("https://jsonplaceholder.typicode.com/posts/1").Then(response => {
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
-});
+}).Forget();
 RestClient.Head("https://jsonplaceholder.typicode.com/posts").Then(response => {
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
-});
+}).Forget();
 ```
 
 ## Handling during scene transition
@@ -164,10 +171,10 @@ RestClient.Request(new RequestHelper {
   AssetBundle assetBundle = ((DownloadHandlerAssetBundle)response.Request.downloadHandler).assetBundle;
 
   EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "Ok");
-}).Catch(err => {
+}).Catch((RequestException err) => {
   var error = err as RequestException;
   EditorUtility.DisplayDialog("Error Response", error.Response, "Ok");
-});
+}).Forget();
 ```
 
 - Example downloading an audio file:
@@ -182,9 +189,9 @@ RestClient.Get(new RequestHelper {
   AudioSource audio = GetComponent<AudioSource>();
   audio.clip = ((DownloadHandlerAudioClip)res.Request.downloadHandler).audioClip;
   audio.Play();
-}).Catch(err => {
+}).Catch((RequestException err) => {
   EditorUtility.DisplayDialog ("Error", err.Message, "Ok");
-});
+}).Forget();
 ```
 
 With all the methods we have the possibility to indicate the type of response, in the following example we're going to create a class and the **HTTP** requests to load **JSON** data easily:
@@ -206,13 +213,13 @@ public class User
 var usersRoute = "https://jsonplaceholder.typicode.com/users"; 
 RestClient.Get<User>(usersRoute + "/1").Then(firstUser => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(firstUser, true), "Ok");
-});
+}).Forget();
 ```
 * **GET Array (JsonHelper is an extension to manage arrays)**
 ```csharp
 RestClient.GetArray<User>(usersRoute).Then(allUsers => {
   EditorUtility.DisplayDialog("JSON Array", JsonHelper.ArrayToJsonString<User>(allUsers, true), "Ok");
-});
+}).Forget();
 ```
 
 Also we can create different classes for custom responses:
@@ -227,13 +234,13 @@ public class CustomResponse
 ```csharp
 RestClient.Post<CustomResponse>(usersRoute, newUser).Then(customResponse => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customResponse, true), "Ok");
-});
+}).Forget();
 ```
 * **PUT**
 ```csharp
 RestClient.Put<CustomResponse>(usersRoute + "/1", updatedUser).Then(customResponse => {
   EditorUtility.DisplayDialog("JSON", JsonUtility.ToJson(customResponse, true), "Ok");
-});
+}).Forget();
 ```
 
 ## Custom HTTP Headers, Params and Options 💥
@@ -260,7 +267,7 @@ var currentRequest = new RequestHelper {
 };
 RestClient.GetArray<Photo>(currentRequest).Then(response => {
   EditorUtility.DisplayDialog("Header", currentRequest.GetHeader("Authorization"), "Ok");
-});
+}).Forget();
 ```
 
 And we can know the status of the request and cancel it!
@@ -305,7 +312,7 @@ RestClient.Post<ServerResponse>("www.api.com/endpoint", new User {
 }).Then(response => {
   EditorUtility.DisplayDialog("ID: ", response.id, "Ok");
   EditorUtility.DisplayDialog("Date: ", response.date, "Ok");
-});
+}).Forget();
 ```
 - NodeJS as Backend (Using [Express](http://expressjs.com/es/starter/hello-world.html))
 ```js
@@ -319,6 +326,7 @@ router.post('/', function(req, res) {
 ```
 
 ## Credits 👍
+* **ProtoPromise** [Robust and efficient library for management of asynchronous operations.](https://github.com/timcassell/ProtoPromise)
 * **C-Sharp-Promise:** [Promises library for C# for management of asynchronous operations.](https://github.com/Real-Serious-Games/C-Sharp-Promise)
 * **MyAPI:** [A template to create awesome APIs easily ⚡️](https://github.com/proyecto26/MyAPI)
 

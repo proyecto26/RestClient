@@ -1,5 +1,5 @@
 ﻿using Proto.Promises;
-using System;
+using UnityEngine.Networking;
 
 namespace Proyecto26
 {
@@ -13,11 +13,10 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="options">The options of the request.</param>
-        public static Promise<ResponseHelper> Request(RequestHelper options)
+        /// <param name="cancelationToken">The token used to abort the request.</param>
+        public static Promise<ResponseHelper> Request(RequestHelper options, CancelationToken cancelationToken = default(CancelationToken))
         {
-            var deferred = Promise.NewDeferred<ResponseHelper>();
-            Request(options, GetCallback(options, deferred));
-            return deferred.Promise;
+            return HttpBase.CreateRequestAndRetryAsync(options, cancelationToken);
         }
 
         /// <summary>
@@ -25,12 +24,11 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="options">The options of the request.</param>
+        /// <param name="cancelationToken">The token used to abort the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static Promise<T> Request<T>(RequestHelper options)
+        public static Promise<T> Request<T>(RequestHelper options, CancelationToken cancelationToken = default(CancelationToken))
         {
-            var deferred = Promise.NewDeferred<T>();
-            Request<T>(options, GetCallback(options, deferred));
-            return deferred.Promise;
+            return HttpBase.DefaultUnityWebRequestAsync<T>(options, cancelationToken);
         }
 
         /// <summary>
@@ -38,7 +36,8 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
-        public static Promise<ResponseHelper> Get(string url)
+        /// <param name="cancelationToken">The token used to abort the request.</param>
+        public static Promise<ResponseHelper> Get(string url, CancelationToken cancelationToken = default(CancelationToken))
         {
             return Get(new RequestHelper { Uri = url });
         }
@@ -48,11 +47,11 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="options">The options of the request.</param>
-        public static Promise<ResponseHelper> Get(RequestHelper options)
+        /// <param name="cancelationToken">The token used to abort the request.</param>
+        public static Promise<ResponseHelper> Get(RequestHelper options, CancelationToken cancelationToken = default(CancelationToken))
         {
-            var deferred = Promise.NewDeferred<ResponseHelper>();
-            Get(options, GetCallback(options, deferred));
-            return deferred.Promise;
+            options.Method = UnityWebRequest.kHttpVerbGET;
+            return HttpBase.CreateRequestAndRetryAsync(options, cancelationToken);
         }
 
         /// <summary>
@@ -61,7 +60,7 @@ namespace Proyecto26
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static Promise<T> Get<T>(string url)
+        public static Promise<T> Get<T>(string url, CancelationToken cancelationToken = default(CancelationToken))
         {
             return Get<T>(new RequestHelper { Uri = url });
         }
@@ -71,12 +70,12 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="options">The options of the request.</param>
+        /// <param name="cancelationToken">The token used to abort the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static Promise<T> Get<T>(RequestHelper options)
+        public static Promise<T> Get<T>(RequestHelper options, CancelationToken cancelationToken = default(CancelationToken))
         {
-            var deferred = Promise.NewDeferred<T>();
-            Get<T>(options, GetCallback(options, deferred));
-            return deferred.Promise;
+            options.Method = UnityWebRequest.kHttpVerbGET;
+            return HttpBase.DefaultUnityWebRequestAsync<T>(options, cancelationToken);
         }
 
         /// <summary>
@@ -84,8 +83,9 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for an array of values.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
+        /// <param name="cancelationToken">The token used to abort the request.</param>
         /// <typeparam name="T">The element type of the array.</typeparam>
-        public static Promise<T[]> GetArray<T>(string url)
+        public static Promise<T[]> GetArray<T>(string url, CancelationToken cancelationToken = default(CancelationToken))
         {
             return GetArray<T>(new RequestHelper { Uri = url });
         }
@@ -95,12 +95,12 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for an array of values.</returns>
         /// <param name="options">The options of the request.</param>
+        /// <param name="cancelationToken">The token used to abort the request.</param>
         /// <typeparam name="T">The element type of the array.</typeparam>
-        public static Promise<T[]> GetArray<T>(RequestHelper options)
+        public static Promise<T[]> GetArray<T>(RequestHelper options, CancelationToken cancelationToken = default(CancelationToken))
         {
-            var deferred = Promise.NewDeferred<T[]>();
-            GetArray<T>(options, GetCallback(options, deferred));
-            return deferred.Promise;
+            options.Method = UnityWebRequest.kHttpVerbGET;
+            return HttpBase.DefaultUnityWebRequestArrayAsync<T>(options, cancelationToken);
         }
 
         /// <summary>
@@ -109,7 +109,8 @@ namespace Proyecto26
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="body">A plain object that is sent to the server with the request.</param>
-        public static Promise<ResponseHelper> Post(string url, object body)
+        /// <param name="cancelationToken">The token used to abort the request.</param>
+        public static Promise<ResponseHelper> Post(string url, object body, CancelationToken cancelationToken = default(CancelationToken))
         {
             return Post(new RequestHelper { Uri = url, Body = body });
         }
@@ -120,7 +121,8 @@ namespace Proyecto26
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="bodyString">A string that is sent to the server with the request.</param>
-        public static Promise<ResponseHelper> Post(string url, string bodyString)
+        /// <param name="cancelationToken">The token used to abort the request.</param>
+        public static Promise<ResponseHelper> Post(string url, string bodyString, CancelationToken cancelationToken = default(CancelationToken))
         {
             return Post(new RequestHelper { Uri = url, BodyString = bodyString });
         }
@@ -130,11 +132,11 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="options">The options of the request.</param>
-        public static Promise<ResponseHelper> Post(RequestHelper options)
+        /// <param name="cancelationToken">The token used to abort the request.</param>
+        public static Promise<ResponseHelper> Post(RequestHelper options, CancelationToken cancelationToken = default(CancelationToken))
         {
-            var deferred = Promise.NewDeferred<ResponseHelper>();
-            Post(options, GetCallback(options, deferred));
-            return deferred.Promise;
+            options.Method = UnityWebRequest.kHttpVerbPOST;
+            return HttpBase.CreateRequestAndRetryAsync(options, cancelationToken);
         }
 
         /// <summary>
@@ -143,8 +145,9 @@ namespace Proyecto26
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="body">A plain object that is sent to the server with the request.</param>
+        /// <param name="cancelationToken">The token used to abort the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static Promise<T> Post<T>(string url, object body)
+        public static Promise<T> Post<T>(string url, object body, CancelationToken cancelationToken = default(CancelationToken))
         {
             return Post<T>(new RequestHelper { Uri = url, Body = body });
         }
@@ -155,8 +158,9 @@ namespace Proyecto26
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        /// <param name="cancelationToken">The token used to abort the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static Promise<T> Post<T>(string url, string bodyString)
+        public static Promise<T> Post<T>(string url, string bodyString, CancelationToken cancelationToken = default(CancelationToken))
         {
             return Post<T>(new RequestHelper { Uri = url, BodyString = bodyString });
         }
@@ -166,12 +170,12 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="options">The options of the request.</param>
+        /// <param name="cancelationToken">The token used to abort the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static Promise<T> Post<T>(RequestHelper options)
+        public static Promise<T> Post<T>(RequestHelper options, CancelationToken cancelationToken = default(CancelationToken))
         {
-            var deferred = Promise.NewDeferred<T>();
-            Post<T>(options, GetCallback(options, deferred));
-            return deferred.Promise;
+            options.Method = UnityWebRequest.kHttpVerbPOST;
+            return HttpBase.DefaultUnityWebRequestAsync<T>(options, cancelationToken);
         }
 
         /// <summary>
@@ -180,8 +184,9 @@ namespace Proyecto26
         /// <returns>Returns a promise for an array of values.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="body">A plain object that is sent to the server with the request.</param>
+        /// <param name="cancelationToken">The token used to abort the request.</param>
         /// <typeparam name="T">The element type of the array.</typeparam>
-        public static Promise<T[]> PostArray<T>(string url, object body)
+        public static Promise<T[]> PostArray<T>(string url, object body, CancelationToken cancelationToken = default(CancelationToken))
         {
             return PostArray<T>(new RequestHelper { Uri = url, Body = body });
         }
@@ -192,8 +197,9 @@ namespace Proyecto26
         /// <returns>Returns a promise for an array of values.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        /// <param name="cancelationToken">The token used to abort the request.</param>
         /// <typeparam name="T">The element type of the array.</typeparam>
-        public static Promise<T[]> PostArray<T>(string url, string bodyString)
+        public static Promise<T[]> PostArray<T>(string url, string bodyString, CancelationToken cancelationToken = default(CancelationToken))
         {
             return PostArray<T>(new RequestHelper { Uri = url, BodyString = bodyString });
         }
@@ -203,12 +209,12 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for an array of values.</returns>
         /// <param name="options">The options of the request.</param>
+        /// <param name="cancelationToken">The token used to abort the request.</param>
         /// <typeparam name="T">The element type of the array.</typeparam>
-        public static Promise<T[]> PostArray<T>(RequestHelper options)
+        public static Promise<T[]> PostArray<T>(RequestHelper options, CancelationToken cancelationToken = default(CancelationToken))
         {
-            var deferred = Promise.NewDeferred<T[]>();
-            PostArray<T>(options, GetCallback(options, deferred));
-            return deferred.Promise;
+            options.Method = UnityWebRequest.kHttpVerbPOST;
+            return HttpBase.DefaultUnityWebRequestArrayAsync<T>(options, cancelationToken);
         }
 
         /// <summary>
@@ -217,7 +223,8 @@ namespace Proyecto26
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="body">A plain object that is sent to the server with the request.</param>
-        public static Promise<ResponseHelper> Put(string url, object body)
+        /// <param name="cancelationToken">The token used to abort the request.</param>
+        public static Promise<ResponseHelper> Put(string url, object body, CancelationToken cancelationToken = default(CancelationToken))
         {
             return Put(new RequestHelper { Uri = url, Body = body });
         }
@@ -228,7 +235,8 @@ namespace Proyecto26
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="bodyString">A string that is sent to the server with the request.</param>
-        public static Promise<ResponseHelper> Put(string url, string bodyString)
+        /// <param name="cancelationToken">The token used to abort the request.</param>
+        public static Promise<ResponseHelper> Put(string url, string bodyString, CancelationToken cancelationToken = default(CancelationToken))
         {
             return Put(new RequestHelper { Uri = url, BodyString = bodyString });
         }
@@ -238,11 +246,11 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="options">The options of the request.</param>
-        public static Promise<ResponseHelper> Put(RequestHelper options)
+        /// <param name="cancelationToken">The token used to abort the request.</param>
+        public static Promise<ResponseHelper> Put(RequestHelper options, CancelationToken cancelationToken = default(CancelationToken))
         {
-            var deferred = Promise.NewDeferred<ResponseHelper>();
-            Put(options, GetCallback(options, deferred));
-            return deferred.Promise;
+            options.Method = UnityWebRequest.kHttpVerbPUT;
+            return HttpBase.CreateRequestAndRetryAsync(options, cancelationToken);
         }
 
         /// <summary>
@@ -251,8 +259,9 @@ namespace Proyecto26
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="body">A plain object that is sent to the server with the request.</param>
+        /// <param name="cancelationToken">The token used to abort the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static Promise<T> Put<T>(string url, object body)
+        public static Promise<T> Put<T>(string url, object body, CancelationToken cancelationToken = default(CancelationToken))
         {
             return Put<T>(new RequestHelper { Uri = url, Body = body });
         }
@@ -263,8 +272,9 @@ namespace Proyecto26
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        /// <param name="cancelationToken">The token used to abort the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static Promise<T> Put<T>(string url, string bodyString)
+        public static Promise<T> Put<T>(string url, string bodyString, CancelationToken cancelationToken = default(CancelationToken))
         {
             return Put<T>(new RequestHelper { Uri = url, BodyString = bodyString });
         }
@@ -274,12 +284,12 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="options">The options of the request.</param>
+        /// <param name="cancelationToken">The token used to abort the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static Promise<T> Put<T>(RequestHelper options)
+        public static Promise<T> Put<T>(RequestHelper options, CancelationToken cancelationToken = default(CancelationToken))
         {
-            var deferred = Promise.NewDeferred<T>();
-            Put<T>(options, GetCallback(options, deferred));
-            return deferred.Promise;
+            options.Method = UnityWebRequest.kHttpVerbPUT;
+            return HttpBase.DefaultUnityWebRequestAsync<T>(options, cancelationToken);
         }
 
         /// <summary>
@@ -288,7 +298,8 @@ namespace Proyecto26
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="body">A plain object that is sent to the server with the request.</param>
-        public static Promise<ResponseHelper> Patch(string url, object body)
+        /// <param name="cancelationToken">The token used to abort the request.</param>
+        public static Promise<ResponseHelper> Patch(string url, object body, CancelationToken cancelationToken = default(CancelationToken))
         {
             return Patch(new RequestHelper { Uri = url, Body = body });
         }
@@ -299,7 +310,8 @@ namespace Proyecto26
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="bodyString">A string that is sent to the server with the request.</param>
-        public static Promise<ResponseHelper> Patch(string url, string bodyString)
+        /// <param name="cancelationToken">The token used to abort the request.</param>
+        public static Promise<ResponseHelper> Patch(string url, string bodyString, CancelationToken cancelationToken = default(CancelationToken))
         {
             return Patch(new RequestHelper { Uri = url, BodyString = bodyString });
         }
@@ -309,11 +321,11 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="options">The options of the request.</param>
-        public static Promise<ResponseHelper> Patch(RequestHelper options)
+        /// <param name="cancelationToken">The token used to abort the request.</param>
+        public static Promise<ResponseHelper> Patch(RequestHelper options, CancelationToken cancelationToken = default(CancelationToken))
         {
-            var deferred = Promise.NewDeferred<ResponseHelper>();
-            Patch(options, GetCallback(options, deferred));
-            return deferred.Promise;
+            options.Method = "PATCH";
+            return HttpBase.CreateRequestAndRetryAsync(options, cancelationToken);
         }
 
         /// <summary>
@@ -322,8 +334,9 @@ namespace Proyecto26
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="body">A plain object that is sent to the server with the request.</param>
+        /// <param name="cancelationToken">The token used to abort the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static Promise<T> Patch<T>(string url, object body)
+        public static Promise<T> Patch<T>(string url, object body, CancelationToken cancelationToken = default(CancelationToken))
         {
             return Patch<T>(new RequestHelper { Uri = url, Body = body });
         }
@@ -334,8 +347,9 @@ namespace Proyecto26
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
         /// <param name="bodyString">A string that is sent to the server with the request.</param>
+        /// <param name="cancelationToken">The token used to abort the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static Promise<T> Patch<T>(string url, string bodyString)
+        public static Promise<T> Patch<T>(string url, string bodyString, CancelationToken cancelationToken = default(CancelationToken))
         {
             return Patch<T>(new RequestHelper { Uri = url, BodyString = bodyString });
         }
@@ -345,12 +359,12 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of a specified type.</returns>
         /// <param name="options">The options of the request.</param>
+        /// <param name="cancelationToken">The token used to abort the request.</param>
         /// <typeparam name="T">The element type of the response.</typeparam>
-        public static Promise<T> Patch<T>(RequestHelper options)
+        public static Promise<T> Patch<T>(RequestHelper options, CancelationToken cancelationToken = default(CancelationToken))
         {
-            var deferred = Promise.NewDeferred<T>();
-            Patch<T>(options, GetCallback(options, deferred));
-            return deferred.Promise;
+            options.Method = "PATCH";
+            return HttpBase.DefaultUnityWebRequestAsync<T>(options, cancelationToken);
         }
 
         /// <summary>
@@ -358,7 +372,8 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
-        public static Promise<ResponseHelper> Delete(string url)
+        /// <param name="cancelationToken">The token used to abort the request.</param>
+        public static Promise<ResponseHelper> Delete(string url, CancelationToken cancelationToken = default(CancelationToken))
         {
             return Delete(new RequestHelper { Uri = url });
         }
@@ -368,11 +383,11 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="options">The options of the request.</param>
-        public static Promise<ResponseHelper> Delete(RequestHelper options)
+        /// <param name="cancelationToken">The token used to abort the request.</param>
+        public static Promise<ResponseHelper> Delete(RequestHelper options, CancelationToken cancelationToken = default(CancelationToken))
         {
-            var deferred = Promise.NewDeferred<ResponseHelper>();
-            Delete(options, GetCallback(options, deferred));
-            return deferred.Promise;
+            options.Method = UnityWebRequest.kHttpVerbDELETE;
+            return HttpBase.CreateRequestAndRetryAsync(options, cancelationToken);
         }
 
         /// <summary>
@@ -380,7 +395,8 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="url">A string containing the URL to which the request is sent.</param>
-        public static Promise<ResponseHelper> Head(string url)
+        /// <param name="cancelationToken">The token used to abort the request.</param>
+        public static Promise<ResponseHelper> Head(string url, CancelationToken cancelationToken = default(CancelationToken))
         {
             return Head(new RequestHelper { Uri = url });
         }
@@ -390,37 +406,11 @@ namespace Proyecto26
         /// </summary>
         /// <returns>Returns a promise for a value of type ResponseHelper.</returns>
         /// <param name="options">The options of the request.</param>
-        public static Promise<ResponseHelper> Head(RequestHelper options)
+        /// <param name="cancelationToken">The token used to abort the request.</param>
+        public static Promise<ResponseHelper> Head(RequestHelper options, CancelationToken cancelationToken = default(CancelationToken))
         {
-            var deferred = Promise.NewDeferred<ResponseHelper>();
-            Head(options, GetCallback(options, deferred));
-            return deferred.Promise;
-        }
-
-    #endregion
-
-    #region Helpers
-
-        private static Action<RequestException, ResponseHelper> GetCallback(RequestHelper options, Promise<ResponseHelper>.Deferred deferred)
-        {
-            options.ProgressCallback += deferred.ReportProgress;
-            return (RequestException error, ResponseHelper response) =>
-            {
-                if (error != null) { deferred.Reject(error); } else { deferred.Resolve(response); }
-            };
-        }
-
-        private static Action<RequestException, ResponseHelper, T> GetCallback<T>(RequestHelper options, Promise<T>.Deferred deferred)
-        {
-            options.ProgressCallback += deferred.ReportProgress;
-            return (RequestException error, ResponseHelper response, T body) =>
-            {
-                if (error != null && response != null)
-                {
-                    error.ServerMessage = response.Error ?? error.Message;
-                }
-                if (error != null) { deferred.Reject(error); } else { deferred.Resolve(body); }
-            };
+            options.Method = UnityWebRequest.kHttpVerbHEAD;
+            return HttpBase.CreateRequestAndRetryAsync(options, cancelationToken);
         }
 
     #endregion

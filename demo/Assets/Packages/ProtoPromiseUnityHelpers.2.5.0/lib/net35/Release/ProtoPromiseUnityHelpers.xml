@@ -1,0 +1,528 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ProtoPromiseUnityHelpers</name>
+    </assembly>
+    <members>
+        <member name="T:Proto.Promises.PromiseYielder">
+            <summary>
+            Yielder used to wait for a yield instruction to complete in the form of a Promise, using Unity's coroutines.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.WaitFor(System.Object,UnityEngine.MonoBehaviour,Proto.Promises.CancelationToken)">
+            <summary>
+            Returns a <see cref="T:Proto.Promises.Promise"/> that will resolve after the <paramref name="yieldInstruction"/> has completed.
+            </summary>
+            <param name="yieldInstruction">The yield instruction to wait for.</param>
+            <param name="runner">The <see cref="T:UnityEngine.MonoBehaviour"/> instance on which the <paramref name="yieldInstruction"/> will be ran.</param>
+            <param name="cancelationToken">The <see cref="T:Proto.Promises.CancelationToken"/> used to stop the internal wait and cancel the promise.</param>
+            <remarks>
+            If <paramref name="runner"/> is provided, the coroutine will be ran on it, otherwise it will be ran on the singleton PromiseYielder instance.
+            </remarks>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.WaitOneFrame(UnityEngine.MonoBehaviour)">
+            <summary>
+            Returns a <see cref="T:Proto.Promises.Promise"/> that will resolve after 1 frame.
+            </summary>
+            <param name="runner">The <see cref="T:UnityEngine.MonoBehaviour"/> instance on which the wait will be ran.</param>
+            <remarks>
+            If <paramref name="runner"/> is provided, the coroutine will be ran on it, otherwise it will be ran on the singleton PromiseYielder instance.
+            </remarks>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.WaitOneFrame">
+            <summary>
+            Returns a <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitOneFrameAwaiter"/> that will complete after 1 frame.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.WaitForFrames(System.UInt32)">
+            <summary>
+            Returns a <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitFramesInstruction"/> that will complete after the specified number of frames have passed.
+            </summary>
+            <param name="frames">How many frames to wait for.</param>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.WaitForTime(System.TimeSpan)">
+            <summary>
+            Returns a <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitTimeInstruction"/> that will complete after the specified timespan has passed, using scaled time.
+            </summary>
+            <param name="time">How much time to wait for.</param>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.WaitForRealTime(System.TimeSpan)">
+            <summary>
+            Returns a <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitRealTimeInstruction"/> that will complete after the specified timespan has passed, using unscaled, real time.
+            </summary>
+            <param name="time">How much time to wait for.</param>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.WaitUntil(System.Func{System.Boolean})">
+            <summary>
+            Returns a <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitUntilInstruction"/> that will complete when the supplied delegate returns true.
+            </summary>
+            <param name="predicate">The function that will be ran to determine if the wait should complete.</param>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.WaitUntil``1(``0,System.Func{``0,System.Boolean})">
+            <summary>
+            Returns a <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitUntilInstruction`1"/> that will complete when the supplied delegate returns true.
+            </summary>
+            <param name="captureValue">The value that will be passed to the delegate.</param>
+            <param name="predicate">The function that will be ran to determine if the wait should complete.</param>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.WaitWhile(System.Func{System.Boolean})">
+            <summary>
+            Returns a <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitWhileInstruction"/> that will complete when the supplied delegate returns false.
+            </summary>
+            <param name="predicate">The function that will be ran to determine if the wait should complete.</param>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.WaitWhile``1(``0,System.Func{``0,System.Boolean})">
+            <summary>
+            Returns a <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitWhileInstruction`1"/> that will complete when the supplied delegate returns false.
+            </summary>
+            <param name="captureValue">The value that will be passed to the delegate.</param>
+            <param name="predicate">The function that will be ran to determine if the wait should complete.</param>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.WaitForAsyncOperation(UnityEngine.AsyncOperation)">
+            <summary>
+            Returns a <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitAsyncOperationInstruction"/> that will complete when the <paramref name="asyncOperation"/> is complete.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.WaitForEndOfFrame">
+            <summary>
+            Returns a <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitOnceAwaiter"/> that will complete at the next end of frame.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.WaitForFixedUpdate">
+            <summary>
+            Returns a <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitOnceAwaiter"/> that will complete at the next fixed update.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.PromiseYielder.Instructions">
+            <summary>
+            Contains instructions returned by <see cref="T:Proto.Promises.PromiseYielder"/> functions.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.PromiseYielder.Instructions.WaitOneFrameAwaiter">
+            <summary>
+            Awaiter used to wait for a single frame to pass.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitOneFrameAwaiter.GetAwaiter">
+            <summary>Gets the awaiter for this.</summary>
+            <remarks>This method is intended for compiler use rather than use directly in code.</remarks>
+            <returns>this</returns>
+        </member>
+        <member name="P:Proto.Promises.PromiseYielder.Instructions.WaitOneFrameAwaiter.IsCompleted">
+            <summary>Gets whether the operation is complete.</summary>
+            <remarks>This property is intended for compiler use rather than use directly in code.</remarks>
+            <returns>false</returns>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitOneFrameAwaiter.GetResult">
+            <summary>Called after the operation has completed.</summary>
+            <remarks>This property is intended for compiler use rather than use directly in code.</remarks>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitOneFrameAwaiter.OnCompleted(System.Action)">
+            <summary>Schedules the continuation.</summary>
+            <param name="continuation">The action to invoke when the operation completes.</param>
+            <remarks>This property is intended for compiler use rather than use directly in code.</remarks>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitOneFrameAwaiter.UnsafeOnCompleted(System.Action)">
+            <summary>Schedules the continuation onto the <see cref="T:Proto.Promises.Promise"/> associated with this <see cref="T:Proto.Promises.Async.CompilerServices.PromiseAwaiterVoid"/>.</summary>
+            <param name="continuation">The action to invoke when the await operation completes.</param>
+            <remarks>This property is intended for compiler use rather than use directly in code.</remarks>
+            <exception cref="T:Proto.Promises.InvalidOperationException">The <see cref="T:Proto.Promises.Promise"/> has already been awaited or forgotten.</exception>
+        </member>
+        <member name="T:Proto.Promises.PromiseYielder.Instructions.WaitFramesInstruction">
+            <summary>
+            Await instruction used to wait a number of frames.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitFramesInstruction.#ctor(System.UInt32)">
+            <summary>
+            Gets a new <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitFramesInstruction"/>.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitFramesInstruction.ToPromise(Proto.Promises.CancelationToken)">
+            <summary>
+            Converts this to a <see cref="T:Proto.Promises.Promise"/>.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.PromiseYielder.Instructions.WaitTimeInstruction">
+            <summary>
+            Await instruction used to wait an amount of time, scaled to the game clock.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitTimeInstruction.#ctor(System.TimeSpan)">
+            <summary>
+            Gets a new <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitTimeInstruction"/>.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitTimeInstruction.ToPromise(Proto.Promises.CancelationToken)">
+            <summary>
+            Converts this to a <see cref="T:Proto.Promises.Promise"/>.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.PromiseYielder.Instructions.WaitRealTimeInstruction">
+            <summary>
+            Await instruction used to wait an amount of time, using unscaled, real time.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitRealTimeInstruction.#ctor(System.TimeSpan)">
+            <summary>
+            Gets a new <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitRealTimeInstruction"/>.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitRealTimeInstruction.ToPromise(Proto.Promises.CancelationToken)">
+            <summary>
+            Converts this to a <see cref="T:Proto.Promises.Promise"/>.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.PromiseYielder.Instructions.WaitUntilInstruction">
+            <summary>
+            Await instruction used to wait until a condition is true.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitUntilInstruction.#ctor(System.Func{System.Boolean})">
+            <summary>
+            Gets a new <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitUntilInstruction"/>.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitUntilInstruction.ToPromise(Proto.Promises.CancelationToken)">
+            <summary>
+            Converts this to a <see cref="T:Proto.Promises.Promise"/>.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.PromiseYielder.Instructions.WaitUntilInstruction`1">
+            <summary>
+            Await instruction used to wait until a condition is true.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitUntilInstruction`1.#ctor(`0,System.Func{`0,System.Boolean})">
+            <summary>
+            Gets a new <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitUntilInstruction`1"/>.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitUntilInstruction`1.ToPromise(Proto.Promises.CancelationToken)">
+            <summary>
+            Converts this to a <see cref="T:Proto.Promises.Promise"/>.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.PromiseYielder.Instructions.WaitWhileInstruction">
+            <summary>
+            Await instruction used to wait while a condition is true.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitWhileInstruction.#ctor(System.Func{System.Boolean})">
+            <summary>
+            Gets a new <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitWhileInstruction"/>.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitWhileInstruction.ToPromise(Proto.Promises.CancelationToken)">
+            <summary>
+            Converts this to a <see cref="T:Proto.Promises.Promise"/>.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.PromiseYielder.Instructions.WaitWhileInstruction`1">
+            <summary>
+            Await instruction used to wait while a condition is true.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitWhileInstruction`1.#ctor(`0,System.Func{`0,System.Boolean})">
+            <summary>
+            Gets a new <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitWhileInstruction`1"/>.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitWhileInstruction`1.ToPromise(Proto.Promises.CancelationToken)">
+            <summary>
+            Converts this to a <see cref="T:Proto.Promises.Promise"/>.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.PromiseYielder.Instructions.WaitAsyncOperationInstruction">
+            <summary>
+            Await instruction used to wait for an <see cref="T:UnityEngine.AsyncOperation"/>.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitAsyncOperationInstruction.#ctor(UnityEngine.AsyncOperation)">
+            <summary>
+            Gets a new <see cref="T:Proto.Promises.PromiseYielder.Instructions.WaitAsyncOperationInstruction"/>.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitAsyncOperationInstruction.ToPromise(Proto.Promises.CancelationToken)">
+            <summary>
+            Converts this to a <see cref="T:Proto.Promises.Promise"/>.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.PromiseYielder.Instructions.WaitOnceAwaiter">
+            <summary>
+            Awaiter used to wait for a context (FixedUpdate, EndOfFrame).
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitOnceAwaiter.GetAwaiter">
+            <summary>Gets the awaiter for this.</summary>
+            <remarks>This method is intended for compiler use rather than use directly in code.</remarks>
+            <returns>this</returns>
+        </member>
+        <member name="P:Proto.Promises.PromiseYielder.Instructions.WaitOnceAwaiter.IsCompleted">
+            <summary>Gets whether the operation is complete.</summary>
+            <remarks>This property is intended for compiler use rather than use directly in code.</remarks>
+            <returns>false</returns>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitOnceAwaiter.GetResult">
+            <summary>Called after the operation has completed.</summary>
+            <remarks>This property is intended for compiler use rather than use directly in code.</remarks>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitOnceAwaiter.OnCompleted(System.Action)">
+            <summary>Schedules the continuation.</summary>
+            <param name="continuation">The action to invoke when the operation completes.</param>
+            <remarks>This property is intended for compiler use rather than use directly in code.</remarks>
+        </member>
+        <member name="M:Proto.Promises.PromiseYielder.Instructions.WaitOnceAwaiter.UnsafeOnCompleted(System.Action)">
+            <summary>Schedules the continuation onto the <see cref="T:Proto.Promises.Promise"/> associated with this <see cref="T:Proto.Promises.Async.CompilerServices.PromiseAwaiterVoid"/>.</summary>
+            <param name="continuation">The action to invoke when the await operation completes.</param>
+            <remarks>This property is intended for compiler use rather than use directly in code.</remarks>
+            <exception cref="T:Proto.Promises.InvalidOperationException">The <see cref="T:Proto.Promises.Promise"/> has already been awaited or forgotten.</exception>
+        </member>
+        <member name="T:Proto.Promises.IAwaitInstruction">
+            <summary>
+            Interface used to await a condition.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.IAwaitInstruction.IsCompleted">
+            <summary>
+            Continues the async function when it returns true.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.IAwaitWithProgressInstruction">
+            <summary>
+            Interface used to await a condition with progress.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.IAwaitWithProgressInstruction.IsCompleted(System.Single@)">
+            <summary>
+            Continues the async function when it returns true. Progress may be reported.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.PromiseYieldExtensions">
+            <summary>
+            Awaiter extensions facilitating the `await` keyword on await instructions.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.PromiseYieldExtensions.IAwaiter`1">
+            <summary>
+            Helper interface intended for internal use.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldExtensions.IAwaiter`1.GetAwaiter">
+            <summary>
+            Returns self.
+            </summary>
+        </member>
+        <member name="P:Proto.Promises.PromiseYieldExtensions.IAwaiter`1.IsCompleted">
+            <summary>
+            Gets whether this is complete.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldExtensions.IAwaiter`1.GetResult">
+            <summary>
+            Completes the await.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.PromiseYieldExtensions.AwaitInstructionAwaiter`1">
+            <summary>
+            Awaiter facilitating the `await` keyword on await instructions.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldExtensions.AwaitInstructionAwaiter`1.#ctor(`0)">
+            <summary>
+            Creates a new awaiter wrapping the instruction.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldExtensions.AwaitInstructionAwaiter`1.#ctor(`0,Proto.Promises.CancelationToken)">
+            <summary>
+            Creates a new awaiter wrapping the <paramref name="awaitInstruction"/>, with cancelation.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldExtensions.AwaitInstructionAwaiter`1.WithCancelation(Proto.Promises.CancelationToken)">
+            <summary>
+            Returns a duplicate awaiter with cancelation.
+            </summary>
+        </member>
+        <member name="P:Proto.Promises.PromiseYieldExtensions.AwaitInstructionAwaiter`1.IsCompleted">
+            <summary>
+            Gets whether this is complete.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldExtensions.AwaitInstructionAwaiter`1.GetAwaiter">
+            <summary>
+            Returns self.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldExtensions.AwaitInstructionAwaiter`1.OnCompleted(System.Action)">
+            <summary>
+            Schedules the continuation.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldExtensions.AwaitInstructionAwaiter`1.UnsafeOnCompleted(System.Action)">
+            <summary>
+            Schedules the continuation.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldExtensions.AwaitInstructionAwaiter`1.GetResult">
+            <summary>
+            Completes the await.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldExtensions.GetAwaiter``1(``0)">
+            <summary>
+            Gets an awaiter wrapping the <paramref name="awaitInstruction"/>.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldExtensions.WithCancelation``1(``0,Proto.Promises.CancelationToken)">
+            <summary>
+            Gets an awaiter wrapping the <paramref name="awaitInstruction"/>, with cancelation.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldExtensions.ToPromise``1(``0,Proto.Promises.CancelationToken)">
+            <summary>
+            Converts the <paramref name="awaitInstruction"/> to a <see cref="T:Proto.Promises.Promise"/>.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldExtensions.ToPromise``1(``0)">
+            <summary>
+            Converts the <paramref name="awaiter"/> to a <see cref="T:Proto.Promises.Promise"/>.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.PromiseYieldWithProgressExtensions">
+            <summary>
+            Awaiter extensions facilitating the `await` keyword on await instructions.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.PromiseYieldWithProgressExtensions.AwaitInstructionAwaiter`1">
+            <summary>
+            Awaiter facilitating the `await` keyword on await instructions.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldWithProgressExtensions.AwaitInstructionAwaiter`1.#ctor(`0)">
+            <summary>
+            Creates a new awaiter wrapping the <paramref name="awaitInstruction"/>.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldWithProgressExtensions.AwaitInstructionAwaiter`1.#ctor(`0,Proto.Promises.CancelationToken)">
+            <summary>
+            Creates a new awaiter wrapping the <paramref name="awaitInstruction"/>, with cancelation.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldWithProgressExtensions.AwaitInstructionAwaiter`1.WithCancelation(Proto.Promises.CancelationToken)">
+            <summary>
+            Returns a duplicate awaiter with cancelation.
+            </summary>
+        </member>
+        <member name="P:Proto.Promises.PromiseYieldWithProgressExtensions.AwaitInstructionAwaiter`1.IsCompleted">
+            <summary>
+            Gets whether this is complete.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldWithProgressExtensions.AwaitInstructionAwaiter`1.GetAwaiter">
+            <summary>
+            Returns self.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldWithProgressExtensions.AwaitInstructionAwaiter`1.OnCompleted(System.Action)">
+            <summary>
+            Schedules the continuation.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldWithProgressExtensions.AwaitInstructionAwaiter`1.UnsafeOnCompleted(System.Action)">
+            <summary>
+            Schedules the continuation.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldWithProgressExtensions.AwaitInstructionAwaiter`1.GetResult">
+            <summary>
+            Completes the await.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldWithProgressExtensions.GetAwaiter``1(``0)">
+            <summary>
+            Gets an awaiter wrapping the <paramref name="awaitInstruction"/>.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldWithProgressExtensions.WithCancelation``1(``0,Proto.Promises.CancelationToken)">
+            <summary>
+            Gets an awaiter wrapping the <paramref name="awaitInstruction"/>, with cancelation.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldWithProgressExtensions.AwaitWithProgress``1(``0,System.Single,System.Single,Proto.Promises.CancelationToken)">
+            <summary>
+            Gets an awaiter wrapping the <paramref name="awaitInstruction"/>, with progress reported to the `async Promise` function, optionally with cancelation.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldWithProgressExtensions.AwaitWithProgress``1(``0,System.Single,Proto.Promises.CancelationToken)">
+            <summary>
+            Gets an awaiter wrapping the <paramref name="awaitInstruction"/>, with progress reported to the `async Promise` function, optionally with cancelation.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldWithProgressExtensions.ToPromise``1(``0,Proto.Promises.CancelationToken)">
+            <summary>
+            Converts the <paramref name="awaitInstruction"/> to a <see cref="T:Proto.Promises.Promise"/>.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.UnityHelperExtensions">
+            <summary>
+            Extensions to convert Promises to Yield Instructions for Coroutines.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.UnityHelperExtensions.ToYieldInstruction(Proto.Promises.Promise)">
+            <summary>
+            Convert the <paramref name="promise"/> to a <see cref="T:Proto.Promises.PromiseYieldInstruction"/>.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.UnityHelperExtensions.ToYieldInstruction``1(Proto.Promises.Promise{``0})">
+            <summary>
+            Convert the <paramref name="promise"/> to a <see cref="T:Proto.Promises.PromiseYieldInstruction`1"/>.
+            </summary>
+        </member>
+        <member name="T:Proto.Promises.PromiseYieldInstruction">
+            <summary>
+            Yield instruction that can be yielded in a coroutine to wait until the <see cref="T:Proto.Promises.Promise"/> it came from has settled.
+            </summary>
+        </member>
+        <member name="P:Proto.Promises.PromiseYieldInstruction.State">
+            <summary>
+            The state of the <see cref="T:Proto.Promises.Promise"/> this came from.
+            </summary>
+            <value>The state.</value>
+        </member>
+        <member name="P:Proto.Promises.PromiseYieldInstruction.keepWaiting">
+            <summary>
+            Is the Promise still pending?
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldInstruction.GetResult">
+            <summary>
+            Get the result. If the Promise resolved successfully, this will return without error.
+            If the Promise was rejected or canceled, this will throw the appropriate exception.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldInstruction.Dispose">
+            <summary>
+            Adds this object back to the pool if object pooling is enabled.
+            Don't try to access it after disposing! Results are undefined.
+            </summary>
+            <remarks>Call <see cref="M:Proto.Promises.PromiseYieldInstruction.Dispose"/> when you are finished using the
+            <see cref="T:UnityEngine.YieldInstruction"/>. The <see cref="M:Proto.Promises.PromiseYieldInstruction.Dispose"/> method leaves the
+            <see cref="T:UnityEngine.YieldInstruction"/> in an unusable state. After calling
+            <see cref="M:Proto.Promises.PromiseYieldInstruction.Dispose"/>, you must release all references to the
+            <see cref="T:UnityEngine.YieldInstruction"/> so the garbage collector can reclaim the memory
+            that the <see cref="T:UnityEngine.YieldInstruction"/> was occupying.</remarks>
+        </member>
+        <member name="T:Proto.Promises.PromiseYieldInstruction`1">
+            <summary>
+            Yield instruction that can be yielded in a coroutine to wait until the <see cref="T:Proto.Promises.Promise`1"/> it came from has settled.
+            An instance of this should be disposed when you are finished with it.
+            </summary>
+        </member>
+        <member name="M:Proto.Promises.PromiseYieldInstruction`1.GetResult">
+            <summary>
+            Get the result. If the Promise resolved successfully, this will return the result of the operation.
+            If the Promise was rejected or canceled, this will throw the appropriate exception.
+            </summary>
+        </member>
+    </members>
+</doc>

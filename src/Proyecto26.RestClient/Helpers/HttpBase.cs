@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using Proyecto26.Common;
+using Proto.Promises;
 
 namespace Proyecto26
 {
@@ -70,6 +71,69 @@ namespace Proyecto26
             while (retries <= options.Retries);
         }
 
+        public static Promise<ResponseHelper> CreateRequestAndRetryAsync(RequestHelper options, CancelationToken cancelationToken = default(CancelationToken))
+        {
+            var deferred = Promise.NewDeferred<ResponseHelper>();
+            RequestAndRetry(deferred, options, cancelationToken.GetRetainer());
+            return options.ProgressCallback == null
+                ? deferred.Promise
+                : deferred.Promise.Progress(options.ProgressCallback);
+        }
+
+        // async/await would be cleaner, but it's not available in old .Net 3.5 runtime.
+        private static void RequestAndRetry(Promise<ResponseHelper>.Deferred deferred, RequestHelper opts, CancelationToken.Retainer cancelationRetainer, int currentRetryCount = 0)
+        {
+            var webRequest = CreateRequest(opts);
+            PromiseYielder.WaitForAsyncOperation(webRequest.SendWebRequestWithOptions(opts))
+                .ToPromise(cancelationRetainer.token)
+                .Progress(deferred, (def, progress) => def.ReportProgress(progress))
+                .Then(ValueTuple.Create(deferred, opts, currentRetryCount, webRequest, cancelationRetainer), tuple =>
+                {
+                    var def = tuple.Item1;
+                    var options = tuple.Item2;
+                    var retries = tuple.Item3;
+                    var request = tuple.Item4;
+                    var retainer = tuple.Item5;
+
+#if UNITY_2020_2_OR_NEWER
+                    bool isNetworkError = (request.result == UnityWebRequest.Result.ConnectionError);
+#else
+                    bool isNetworkError = request.isNetworkError;
+#endif
+                    var response = request.CreateWebResponse();
+                    if (request.IsValidRequest(options))
+                    {
+                        DebugLog(options.EnableDebug, string.Format("RestClient - Response\nUrl: {0}\nMethod: {1}\nStatus: {2}\nResponse: {3}", options.Uri, options.Method, request.responseCode, options.ParseResponseBody ? response.Text : "body not parsed"), false);
+                        retainer.Dispose();
+                        def.Resolve(response);
+                    }
+                    else if (!options.IsAborted && retries < options.Retries && (!options.RetryCallbackOnlyOnNetworkErrors || isNetworkError))
+                    {
+                        if (options.RetryCallback != null)
+                        {
+                            options.RetryCallback(CreateException(options, request), retries);
+                        }
+                        PromiseYielder.WaitForRealTime(TimeSpan.FromSeconds(options.RetrySecondsDelay))
+                            .ToPromise()
+                            .Then(tuple, tup =>
+                            {
+                                DebugLog(tup.Item2.EnableDebug, string.Format("RestClient - Retry Request\nUrl: {0}\nMethod: {1}", tup.Item2.Uri, tup.Item2.Method), false);
+                                RequestAndRetry(tup.Item1, tup.Item2, tup.Item5, tup.Item3 + 1);
+                            })
+                            .Forget();
+                    }
+                    else
+                    {
+                        var err = CreateException(options, request);
+                        DebugLog(options.EnableDebug, err, true);
+                        retainer.Dispose();
+                        def.Reject(err);
+                    }
+                })
+                .Finally(webRequest, request => request.Dispose())
+                .Forget();
+        }
+
         private static UnityWebRequest CreateRequest(RequestHelper options)
         {
             var url = options.Uri.BuildUrl(options.Params);
@@ -135,6 +199,27 @@ namespace Proyecto26
             });
         }
 
+        public static Promise<TResponse> DefaultUnityWebRequestAsync<TResponse>(RequestHelper options, CancelationToken cancelationToken = default(CancelationToken))
+        {
+            return CreateRequestAndRetryAsync(options, cancelationToken)
+                .Then(res =>
+                {
+                    try
+                    {
+                        if (res.StatusCode != HTTP_NO_CONTENT && res.Data != null && options.ParseResponseBody)
+                        {
+                            return JsonUtility.FromJson<TResponse>(res.Text);
+                        }
+                        return default(TResponse);
+                    }
+                    catch (Exception error)
+                    {
+                        DebugLog(options.EnableDebug, string.Format("RestClient - Invalid JSON format\nError: {0}", error.Message), true);
+                        throw new RequestException(error.Message);
+                    }
+                });
+        }
+
         public static IEnumerator DefaultUnityWebRequest<TResponse>(RequestHelper options, Action<RequestException, ResponseHelper, TResponse[]> callback)
         {
             return CreateRequestAndRetry(options, (RequestException err, ResponseHelper res) => {
@@ -154,6 +239,27 @@ namespace Proyecto26
                     callback(err, res, body);
                 }
             });
+        }
+
+        public static Promise<TResponse[]> DefaultUnityWebRequestArrayAsync<TResponse>(RequestHelper options, CancelationToken cancelationToken = default(CancelationToken))
+        {
+            return CreateRequestAndRetryAsync(options, cancelationToken)
+                .Then(res =>
+                {
+                    try
+                    {
+                        if (res.StatusCode != HTTP_NO_CONTENT && res.Data != null && options.ParseResponseBody)
+                        {
+                            return JsonHelper.ArrayFromJson<TResponse>(res.Text);
+                        }
+                        return default(TResponse[]);
+                    }
+                    catch (Exception error)
+                    {
+                        DebugLog(options.EnableDebug, string.Format("RestClient - Invalid JSON format\nError: {0}", error.Message), true);
+                        throw new RequestException(error.Message);
+                    }
+                });
         }
 
     }
