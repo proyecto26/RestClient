@@ -338,9 +338,9 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 
 ### Collaborators
 <!-- COLLABORATORS-LIST:START - Do not remove or modify this section -->
-[<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/2154886?v=3&s=117" width="117">](https://github.com/jdnichollsc) | [<img alt="diegoossa" src="https://avatars3.githubusercontent.com/u/3436237?v=3&s=117" width="117">](https://github.com/diegoossa) | [<img alt="nasdull" src="https://avatars3.githubusercontent.com/u/25492923?v=3&s=117" width="117">](https://github.com/nasdull) |
-:---: | :---: | :---: |
-[Juan Nicholls](mailto:jdnichollsc@hotmail.com) | [Diego Ossa](mailto:diegoossa@gmail.com) | [Nasdull](mailto:nasdull@hotmail.com) |
+[<img alt="jdnichollsc" src="https://avatars3.githubusercontent.com/u/2154886?v=3&s=117" width="117">](https://github.com/jdnichollsc) | [<img alt="diegoossa" src="https://avatars3.githubusercontent.com/u/3436237?v=3&s=117" width="117">](https://github.com/diegoossa) | [<img alt="nasdull" src="https://avatars3.githubusercontent.com/u/25492923?v=3&s=117" width="117">](https://github.com/nasdull) | [<img alt="nasdull" src="https://avatars.githubusercontent.com/u/29339330?v=4" width="117">](https://github.com/maifeeulasad) |
+:---: | :---: | :---: | :---: |
+[Juan Nicholls](mailto:jdnichollsc@hotmail.com) | [Diego Ossa](mailto:diegoossa@gmail.com) | [Nasdull](mailto:nasdull@hotmail.com) | [Maifee Ul Asad](mailto:maifeeulasad@gmail.com) |
 <!-- COLLABORATORS-LIST:END -->
 
 ## Supporting 🍻
