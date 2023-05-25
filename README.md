@@ -364,6 +364,12 @@ The maintainers of RestClient for Unity and thousands of other packages are work
 ## Security contact information 🚨
 To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
 
+## Who is using RestClient ⚔️
+We are battle tested. There is a list of our usage in production:
+ - mainware. Ref: https://github.com/proyecto26/RestClient/issues/138#issuecomment-725552712
+ - virsabi. Ref: https://github.com/proyecto26/RestClient/issues/138#issuecomment-863222899
+ - type3studio. Ref: https://github.com/proyecto26/RestClient/issues/138#issuecomment-1415945883
+
 ## License ⚖️
 This repository is available under the [MIT License](https://github.com/proyecto26/RestClient/blob/develop/LICENSE).
 
