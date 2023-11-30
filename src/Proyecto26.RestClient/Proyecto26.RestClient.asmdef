@@ -1,6 +1,9 @@
 {
     "name": "Proyecto26.RestClient",
+    "rootNamespace": "",
     "references": [
+        "ProtoPromiseUnityHelpers",
+        "ProtoPromise"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
