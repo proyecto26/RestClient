@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.6.3] - 2025-11-22
+
+### Fixed
+- Fixed **ArgumentNullException** when calling `Abort()` or accessing properties on completed requests ([#103](https://github.com/proyecto26/RestClient/issues/103)).
+- Enhanced disposal detection for UnityWebRequest objects to prevent crashes during cleanup scenarios.
+- Added proper exception handling for all RequestHelper properties that access disposed UnityWebRequest instances.
+- Improved thread safety for request cancellation in Unity's OnDestroy patterns.
+
 ## [2.6.2] - 2021-12-26
 
 ### Added
