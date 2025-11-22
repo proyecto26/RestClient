@@ -20,7 +20,15 @@ namespace Proyecto26
                 float progress = 0;
                 if (this.Request != null)
                 {
-                    progress = this.Request.uploadProgress;
+                    try
+                    {
+                        progress = this.Request.uploadProgress;
+                    }
+                    catch (ArgumentNullException)
+                    {
+                        // Request was disposed - return 0 progress
+                        progress = 0;
+                    }
                 }
                 return progress;
             }
@@ -36,7 +44,15 @@ namespace Proyecto26
                 ulong bytes = 0;
                 if (this.Request != null)
                 {
-                    bytes = this.Request.uploadedBytes;
+                    try
+                    {
+                        bytes = this.Request.uploadedBytes;
+                    }
+                    catch (ArgumentNullException)
+                    {
+                        // Request was disposed - return 0 bytes
+                        bytes = 0;
+                    }
                 }
                 return bytes;
             }
@@ -52,7 +68,15 @@ namespace Proyecto26
                 float progress = 0;
                 if (this.Request != null)
                 {
-                    progress = this.Request.downloadProgress;
+                    try
+                    {
+                        progress = this.Request.downloadProgress;
+                    }
+                    catch (ArgumentNullException)
+                    {
+                        // Request was disposed - return 0 progress
+                        progress = 0;
+                    }
                 }
                 return progress;
             }
@@ -68,7 +92,15 @@ namespace Proyecto26
                 ulong bytes = 0;
                 if (this.Request != null)
                 {
-                    bytes = this.Request.downloadedBytes;
+                    try
+                    {
+                        bytes = this.Request.downloadedBytes;
+                    }
+                    catch (ArgumentNullException)
+                    {
+                        // Request was disposed - return 0 bytes
+                        bytes = 0;
+                    }
                 }
                 return bytes;
             }
@@ -81,10 +113,18 @@ namespace Proyecto26
         /// <param name="name">The name of the header.</param>
         public string GetHeader(string name)
         {
-            string headerValue;
+            string headerValue = null;
             if (this.Request != null)
             {
-                headerValue = this.Request.GetRequestHeader(name);
+                try
+                {
+                    headerValue = this.Request.GetRequestHeader(name);
+                }
+                catch (ArgumentNullException)
+                {
+                    // Request was disposed - fall back to headers dictionary
+                    this.Headers.TryGetValue(name, out headerValue);
+                }
             }
             else
             {
@@ -130,6 +170,12 @@ namespace Proyecto26
                     if (!this.Request.isDone) {
                         this.Request.Abort();
                     }
+                }
+                catch (ArgumentNullException)
+                {
+                    // Request was already disposed by UnityWebRequest's using block - this is expected behavior
+                    // No need to log this as it's a normal part of the request lifecycle
+                    HttpBase.DebugLog(this.EnableDebug, "Request was already disposed; abort skipped.", true);
                 }
                 catch (Exception error) {
                     HttpBase.DebugLog(this.EnableDebug, error.Message, true);
