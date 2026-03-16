@@ -2,9 +2,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg)](https://github.com/proyecto26/RestClient/graphs/commit-activity)
 [![Tidelift Subscription](https://tidelift.com/badges/package/nuget/Proyecto26.RestClient)](https://tidelift.com/subscription/pkg/nuget-proyecto26-restclient?utm_source=nuget-proyecto26-restclient&utm_medium=referral&utm_campaign=readme)
-[![Build Status](https://travis-ci.org/proyecto26/RestClient.svg?branch=master)](https://travis-ci.org/proyecto26/RestClient)
 [![Twitter Follow][twitter-image]][twitter-url]
-<!-- TODO: Refactor code [![BCH compliance](https://bettercodehub.com/edge/badge/proyecto26/RestClient?branch=master)](https://bettercodehub.com/)--> 
 
 [twitter-image]:https://img.shields.io/twitter/follow/jdnichollsc.svg?style=social&label=Follow%20me
 [twitter-url]:https://twitter.com/jdnichollsc
@@ -334,7 +332,9 @@ Please do contribute! Issues and pull requests are welcome.
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 
-[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/0)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/0)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/1)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/1)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/2)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/2)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/3)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/3)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/4)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/4)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/5)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/5)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/6)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/6)[![](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/images/7)](https://sourcerer.io/fame/jdnichollsc/proyecto26/RestClient/links/7)
+<a href="https://github.com/proyecto26/RestClient/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=proyecto26/RestClient" />
+</a>
 
 ### Collaborators
 <!-- COLLABORATORS-LIST:START - Do not remove or modify this section -->
