@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.8.4] - 2026-03-16
+### Changed
+- v2.8.3 ([5d2be8d](https://github.com/proyecto26/RestClient/commit/5d2be8dcc0f177db62d1b57c73bab13f0c832443)).
+- remove dead CI configs and fix broken badges ([fc7fea2](https://github.com/proyecto26/RestClient/commit/fc7fea22c010dcbb38a0a7a5cd2ff04beaf425c0)).
+- v2.8.2 ([338117e](https://github.com/proyecto26/RestClient/commit/338117e9acfbe0aba63c69045dfeb4f4ea63361c)).
+- v2.8.1 ([3d66484](https://github.com/proyecto26/RestClient/commit/3d66484422c966528dff7dcfe8d2de8ec13832ea)).
+
+### Fixed
+- include demo scene and documentation in .unitypackage ([ed1b4bb](https://github.com/proyecto26/RestClient/commit/ed1b4bba642ebe65f7f4b499afda43f81530fdaf)).
+
+
+
+
 ## [2.8.3] - 2026-03-16
 ### Changed
 - remove dead CI configs and fix broken badges ([fc7fea2](https://github.com/proyecto26/RestClient/commit/fc7fea22c010dcbb38a0a7a5cd2ff04beaf425c0)).
@@ -242,7 +255,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [...1.0.1]
 Missing tags for previous versions 🤷‍♂
 
-[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.8.3...HEAD
+[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.8.4...HEAD
+[2.8.4]: https://github.com/proyecto26/RestClient/compare/v2.8.3...v2.8.4
 [2.8.3]: https://github.com/proyecto26/RestClient/compare/v2.8.2...v2.8.3
 [2.8.2]: https://github.com/proyecto26/RestClient/compare/v2.8.1...v2.8.2
 [2.8.1]: https://github.com/proyecto26/RestClient/compare/v2.8.0...v2.8.1
