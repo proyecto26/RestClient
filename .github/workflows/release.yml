@@ -222,7 +222,7 @@ jobs:
   publish-nuget:
     name: Publish to NuGet
     needs: release
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     if: needs.release.outputs.new_version != ''
     steps:
       - uses: actions/checkout@v4
@@ -238,18 +238,11 @@ jobs:
       - name: Build NuGet package
         run: |
           cd src/Proyecto26.RestClient
-          nuget pack Proyecto26.RestClient.nuspec \
-            -Version ${{ needs.release.outputs.new_version }} \
-            -OutputDirectory ../../artifacts
-          echo "Built package:"
-          ls -la ../../artifacts/*.nupkg
+          nuget pack Proyecto26.RestClient.nuspec -Version ${{ needs.release.outputs.new_version }} -OutputDirectory ../../artifacts
 
       - name: Publish to NuGet
         run: |
-          nuget push artifacts/*.nupkg \
-            -ApiKey ${{ secrets.NUGET_API_KEY }} \
-            -Source https://api.nuget.org/v3/index.json \
-            -SkipDuplicate
+          nuget push artifacts\*.nupkg -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json -SkipDuplicate
 
   split-branches:
     name: Split UPM & NuGet branches
