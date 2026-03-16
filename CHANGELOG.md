@@ -6,6 +6,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.7.0] - 2026-03-16
+### Added
+- add automated release workflow with semantic versioning ([f0d0cdd](https://github.com/proyecto26/RestClient/commit/f0d0cdd30d9833f1d0a7c3f712105c391f3dc012)).
+
+### Changed
+- [chores]: updated changelog w ref of #103; ([2f831dc](https://github.com/proyecto26/RestClient/commit/2f831dc323a2205235f5ecc18bea687d315617ac)).
+- [version]: set to `2.6.3`; ([be566ca](https://github.com/proyecto26/RestClient/commit/be566ca2d6e881e892ae912fc78717e465e4ce2c)).
+- [fix]: properly handle `ArgumentNullException` for abort controller;  - ref #103 ([a162b09](https://github.com/proyecto26/RestClient/commit/a162b094c2806f7e5ea8715469ca184001d8a848)).
+- Update README.md ([1cfecf6](https://github.com/proyecto26/RestClient/commit/1cfecf6d6116d10982d86500b88ae3acdbc77faf)).
+- added on production usage ([b6a44ab](https://github.com/proyecto26/RestClient/commit/b6a44ab880bb70194315409277ee2cdf72b29e2e)).
+- added `maifeeulasad` to the list of contributors ([f93ab01](https://github.com/proyecto26/RestClient/commit/f93ab01a99aab5775ee10f28a70690bac8b407e5)).
+- Fix HEAD promise method incorrectly calling DELETE ([ed1009d](https://github.com/proyecto26/RestClient/commit/ed1009d6b8486b343e0127e5babf70ae07109f4f)).
+- Update demo project using NuGet package ([3cf90c1](https://github.com/proyecto26/RestClient/commit/3cf90c154c305c2db071b2f7efb0f29ba65395c1)).
+- Updated Ci to restore to previous events ([5a5d5f6](https://github.com/proyecto26/RestClient/commit/5a5d5f60f17133176efcd82e6ba4fab41528f20c)).
+- moved to Samples~ directory (as outlined by unity) ([2fcd8c3](https://github.com/proyecto26/RestClient/commit/2fcd8c38ffa4ece9c2d8cd33b32b85af85ba67eb)).
+- Reverted package number to original one ([47f7514](https://github.com/proyecto26/RestClient/commit/47f75145abea90aae0bf40d2a234f56e0fae651c)).
+- Added demo asmdef file and referenced the library ([97cb348](https://github.com/proyecto26/RestClient/commit/97cb3487d10b5027e47fea76404f36c76b23ad2a)).
+- Meta file is needed. ([4ac0bdb](https://github.com/proyecto26/RestClient/commit/4ac0bdb8d47f722e9260a7a3db2de6ba130f5948)).
+- meta file is needed ([8354073](https://github.com/proyecto26/RestClient/commit/835407353c454ba33e12c8863e94656f7716b12d)).
+- Updated package ([2340197](https://github.com/proyecto26/RestClient/commit/2340197eaff841317a97e72012bf04b5a351b3de)).
+- Added option to workflow dispatch an action ([56f75e6](https://github.com/proyecto26/RestClient/commit/56f75e621c7893a238180a2a43514111568143d4)).
+- Updated name ([5ba63f9](https://github.com/proyecto26/RestClient/commit/5ba63f93d74675376cab42d10fa144623b4404ec)).
+- Added assembly definition file ([3411773](https://github.com/proyecto26/RestClient/commit/34117739c1dded394a9c611d731c50b80ec35ef4)).
+- Update ci.yml ([7589c39](https://github.com/proyecto26/RestClient/commit/7589c391be7a20c2ac474369af5eafd3f50df041)).
+- Update Proyecto26.RestClient.nuspec ([bf26ad7](https://github.com/proyecto26/RestClient/commit/bf26ad7d44cb04a01a0e0bacfa8e79ed4d960fa5)).
+- Update ci.yml ([c034e2c](https://github.com/proyecto26/RestClient/commit/c034e2cad29f7ec689ca28c645290fc911f93988)).
+- Update README.md ([135badf](https://github.com/proyecto26/RestClient/commit/135badf8c7db1b6fc772b2ceaf2e643c21a7e493)).
+
+### Fixed
+- remove secrets context from if condition (not allowed in expressions) ([b003fac](https://github.com/proyecto26/RestClient/commit/b003facf43297f3885a6d98be5a461f108305731)).
+- proper .unitypackage build, NuGet CLI, UPM tagging ([95880e1](https://github.com/proyecto26/RestClient/commit/95880e1b6e6e8f7610e9aa981da07efbd15263ec)).
+- add .unitypackage artifact to releases, clean up .gitignore ([a513b6b](https://github.com/proyecto26/RestClient/commit/a513b6bfafd210c485e1485c2e74000e28ee5655)).
+
+
+
+
 ## [2.6.3] - 2025-11-22
 
 ### Fixed
@@ -167,7 +203,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [...1.0.1]
 Missing tags for previous versions 🤷‍♂
 
-[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.6.2...HEAD
+[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.7.0...HEAD
+[2.7.0]: https://github.com/proyecto26/RestClient/compare/v2.6.3...v2.7.0
 [2.6.2]: https://github.com/proyecto26/RestClient/compare/v2.6.1...v2.6.2
 [2.6.1]: https://github.com/proyecto26/RestClient/compare/v2.6.0...v2.6.1
 [2.6.0]: https://github.com/proyecto26/RestClient/compare/v2.5.9...v2.6.0
