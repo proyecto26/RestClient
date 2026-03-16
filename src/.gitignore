@@ -278,6 +278,13 @@ paket-files/
 __pycache__/
 *.pyc
 
+# Unity stub DLLs (should be referenced from Unity installation, not committed)
+dlls/
+
+# Build artifacts (generated during CI/CD)
+artifacts/
+*.unitypackage
+
 # Cake - Uncomment if you are using it
 # tools/**
 # !tools/packages.config

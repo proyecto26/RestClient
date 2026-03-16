@@ -1,6 +1,6 @@
 {
   "name": "com.proyecto26.restclient",
-  "version": "2.6.2",
+  "version": "2.6.3",
   "displayName": "RestClient for Unity",
   "description": "Simple HTTP and REST client for Unity based on Promises, also support Callbacks!",
   "unity": "2017.1",

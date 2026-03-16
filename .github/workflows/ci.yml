@@ -3,6 +3,10 @@ on:
   push:
     branches:
     - master
+    # Skip when the release workflow already handles branch splitting
+    paths-ignore:
+    - 'CHANGELOG.md'
+    - '.github/workflows/release.yml'
 jobs:
   split-upm:
     name: split upm branch

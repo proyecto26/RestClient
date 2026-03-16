@@ -23,7 +23,7 @@ namespace Proyecto26
             get
             {
                 if (_version == null) {
-                    _version = new System.Version("2.6.2");
+                    _version = new System.Version("2.6.3");
                 }
                 return _version;
             }
