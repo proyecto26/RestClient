@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.8.3] - 2026-03-16
+### Changed
+- remove dead CI configs and fix broken badges ([fc7fea2](https://github.com/proyecto26/RestClient/commit/fc7fea22c010dcbb38a0a7a5cd2ff04beaf425c0)).
+- v2.8.2 ([338117e](https://github.com/proyecto26/RestClient/commit/338117e9acfbe0aba63c69045dfeb4f4ea63361c)).
+- v2.8.1 ([3d66484](https://github.com/proyecto26/RestClient/commit/3d66484422c966528dff7dcfe8d2de8ec13832ea)).
+
+
+
+
 ## [2.8.2] - 2026-03-16
 ### Changed
 - v2.8.1 ([3d66484](https://github.com/proyecto26/RestClient/commit/3d66484422c966528dff7dcfe8d2de8ec13832ea)).
@@ -233,7 +242,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [...1.0.1]
 Missing tags for previous versions 🤷‍♂
 
-[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.8.2...HEAD
+[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.8.3...HEAD
+[2.8.3]: https://github.com/proyecto26/RestClient/compare/v2.8.2...v2.8.3
 [2.8.2]: https://github.com/proyecto26/RestClient/compare/v2.8.1...v2.8.2
 [2.8.1]: https://github.com/proyecto26/RestClient/compare/v2.8.0...v2.8.1
 [2.8.0]: https://github.com/proyecto26/RestClient/compare/v2.7.0...v2.8.0
