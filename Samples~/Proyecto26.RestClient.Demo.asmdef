@@ -1,0 +1,16 @@
+{
+    "name": "Proyecto26.RestClient.Demo",
+    "rootNamespace": "",
+    "references": [
+        "GUID:fbfbf4d8d5c249a458d69ae047a2fbd2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
