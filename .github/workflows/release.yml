@@ -202,6 +202,37 @@ jobs:
             add_folder_meta "$PKG_SRC/Helpers.meta" "$UNITY_ROOT/Helpers"
           fi
 
+          # Add demo scene and sample scripts (matching old manual package)
+          DEMO_ROOT="Assets/RestClient/DemoScene"
+          if [ -d "demo/Assets" ]; then
+            for f in $(find "demo/Assets" -type f \( -name "*.cs" -o -name "*.unity" -o -name "*.asmdef" \)); do
+              META="${f}.meta"
+              if [ -f "$META" ]; then
+                REL_PATH="${f#demo/Assets/}"
+                add_asset "$f" "$META" "$DEMO_ROOT/$REL_PATH"
+              fi
+            done
+            # Add demo folder .meta files
+            for f in $(find "demo/Assets" -maxdepth 2 -name "*.meta" -type f); do
+              BASENAME=$(basename "$f" .meta)
+              DIR=$(dirname "$f")
+              if [ -d "$DIR/$BASENAME" ]; then
+                REL_PATH="${f#demo/Assets/}"
+                FOLDER_PATH="${REL_PATH%.meta}"
+                add_folder_meta "$f" "$DEMO_ROOT/$FOLDER_PATH"
+              fi
+            done
+          fi
+
+          # Add documentation PDF
+          if [ -f "doc/RestClient.pdf" ]; then
+            # Generate a stable GUID for the PDF (no .meta file exists)
+            PDF_GUID="d0c5f3a1e2b4c6d8f0a1b2c3d4e5f6a7"
+            mkdir -p "$STAGING/$PDF_GUID"
+            cp "doc/RestClient.pdf" "$STAGING/$PDF_GUID/asset"
+            echo "Assets/RestClient/RestClient.pdf" > "$STAGING/$PDF_GUID/pathname"
+          fi
+
           # Create the .unitypackage
           cd "$STAGING"
           ASSET_COUNT=$(ls -d */ 2>/dev/null | wc -l)
