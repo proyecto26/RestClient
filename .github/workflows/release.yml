@@ -232,24 +232,21 @@ jobs:
       - name: Pull latest (includes version bump commit)
         run: git pull origin master
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: Install NuGet CLI
-        run: dotnet tool install --global NuGet.CommandLine --version '*'
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v2
 
       - name: Build NuGet package
         run: |
           cd src/Proyecto26.RestClient
-          ~/.dotnet/tools/nuget pack Proyecto26.RestClient.nuspec \
+          nuget pack Proyecto26.RestClient.nuspec \
             -Version ${{ needs.release.outputs.new_version }} \
             -OutputDirectory ../../artifacts
+          echo "Built package:"
+          ls -la ../../artifacts/*.nupkg
 
       - name: Publish to NuGet
         run: |
-          ~/.dotnet/tools/nuget push artifacts/*.nupkg \
+          nuget push artifacts/*.nupkg \
             -ApiKey ${{ secrets.NUGET_API_KEY }} \
             -Source https://api.nuget.org/v3/index.json \
             -SkipDuplicate
