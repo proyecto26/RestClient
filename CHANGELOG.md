@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.8.0] - 2026-03-16
+### Changed
+- v2.7.0 ([f64f226](https://github.com/proyecto26/RestClient/commit/f64f226a7dd8ce1461823cc7921d41a6e7e0cd30)).
+
+### Fixed
+- NuGet CLI install and NuGet branch split ([e149fcf](https://github.com/proyecto26/RestClient/commit/e149fcf2a4c3cc3bd6e8bb67083b9f14a8d66cf5)).
+- remove secrets context from if condition (not allowed in expressions) ([b003fac](https://github.com/proyecto26/RestClient/commit/b003facf43297f3885a6d98be5a461f108305731)).
+- proper .unitypackage build, NuGet CLI, UPM tagging ([95880e1](https://github.com/proyecto26/RestClient/commit/95880e1b6e6e8f7610e9aa981da07efbd15263ec)).
+- add .unitypackage artifact to releases, clean up .gitignore ([a513b6b](https://github.com/proyecto26/RestClient/commit/a513b6bfafd210c485e1485c2e74000e28ee5655)).
+
+
+
+
 ## [2.7.0] - 2026-03-16
 ### Added
 - add automated release workflow with semantic versioning ([f0d0cdd](https://github.com/proyecto26/RestClient/commit/f0d0cdd30d9833f1d0a7c3f712105c391f3dc012)).
@@ -203,7 +216,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [...1.0.1]
 Missing tags for previous versions 🤷‍♂
 
-[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.7.0...HEAD
+[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.8.0...HEAD
+[2.8.0]: https://github.com/proyecto26/RestClient/compare/v2.7.0...v2.8.0
 [2.7.0]: https://github.com/proyecto26/RestClient/compare/v2.6.3...v2.7.0
 [2.6.2]: https://github.com/proyecto26/RestClient/compare/v2.6.1...v2.6.2
 [2.6.1]: https://github.com/proyecto26/RestClient/compare/v2.6.0...v2.6.1
