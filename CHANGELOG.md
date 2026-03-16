@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.8.2] - 2026-03-16
+### Changed
+- v2.8.1 ([3d66484](https://github.com/proyecto26/RestClient/commit/3d66484422c966528dff7dcfe8d2de8ec13832ea)).
+
+### Fixed
+- use windows runner for NuGet pack (nuget.exe requires .NET Framework) ([282f32c](https://github.com/proyecto26/RestClient/commit/282f32c8a9945864db00d5f0afdfab7bf45ed316)).
+
+
+
+
 ## [2.8.1] - 2026-03-16
 ### Fixed
 - use nuget/setup-nuget action for NuGet CLI ([74a47b8](https://github.com/proyecto26/RestClient/commit/74a47b8d2a193b47d3b857ae35055e1aaada17fe)).
@@ -223,7 +233,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [...1.0.1]
 Missing tags for previous versions 🤷‍♂
 
-[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.8.1...HEAD
+[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.8.2...HEAD
+[2.8.2]: https://github.com/proyecto26/RestClient/compare/v2.8.1...v2.8.2
 [2.8.1]: https://github.com/proyecto26/RestClient/compare/v2.8.0...v2.8.1
 [2.8.0]: https://github.com/proyecto26/RestClient/compare/v2.7.0...v2.8.0
 [2.7.0]: https://github.com/proyecto26/RestClient/compare/v2.6.3...v2.7.0
