@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.8.1] - 2026-03-16
+### Fixed
+- use nuget/setup-nuget action for NuGet CLI ([74a47b8](https://github.com/proyecto26/RestClient/commit/74a47b8d2a193b47d3b857ae35055e1aaada17fe)).
+
+
+
+
 ## [2.8.0] - 2026-03-16
 ### Changed
 - v2.7.0 ([f64f226](https://github.com/proyecto26/RestClient/commit/f64f226a7dd8ce1461823cc7921d41a6e7e0cd30)).
@@ -216,7 +223,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [...1.0.1]
 Missing tags for previous versions 🤷‍♂
 
-[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.8.0...HEAD
+[Unreleased]: https://github.com/proyecto26/RestClient/compare/v2.8.1...HEAD
+[2.8.1]: https://github.com/proyecto26/RestClient/compare/v2.8.0...v2.8.1
 [2.8.0]: https://github.com/proyecto26/RestClient/compare/v2.7.0...v2.8.0
 [2.7.0]: https://github.com/proyecto26/RestClient/compare/v2.6.3...v2.7.0
 [2.6.2]: https://github.com/proyecto26/RestClient/compare/v2.6.1...v2.6.2
