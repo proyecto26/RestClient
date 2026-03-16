@@ -220,6 +220,32 @@ jobs:
           git tag "v${{ steps.version.outputs.new_version }}"
           git push origin master --follow-tags
 
+      - name: Build .unitypackage artifact
+        run: |
+          # Create a clean directory structure for the Unity package
+          PKG_DIR="/tmp/unity-package"
+          ASSET_DIR="$PKG_DIR/Assets/Proyecto26.RestClient"
+          mkdir -p "$ASSET_DIR"
+          # Copy only Unity-relevant source files (exclude build system files)
+          cp -r src/Proyecto26.RestClient/Helpers "$ASSET_DIR/"
+          cp src/Proyecto26.RestClient/RestClient.cs "$ASSET_DIR/"
+          cp src/Proyecto26.RestClient/RestClientPromise.cs "$ASSET_DIR/"
+          cp src/Proyecto26.RestClient/package.json "$ASSET_DIR/"
+          cp src/Proyecto26.RestClient/Proyecto26.RestClient.asmdef "$ASSET_DIR/"
+          # Copy meta files if they exist
+          find src/Proyecto26.RestClient -name "*.meta" -exec sh -c 'cp "$1" "'"$ASSET_DIR"'/$(basename "$1")" 2>/dev/null || true' _ {} \;
+          cp -r src/Proyecto26.RestClient/Helpers/*.meta "$ASSET_DIR/Helpers/" 2>/dev/null || true
+          cp src/Proyecto26.RestClient/RestClient.cs.meta "$ASSET_DIR/" 2>/dev/null || true
+          cp src/Proyecto26.RestClient/RestClientPromise.cs.meta "$ASSET_DIR/" 2>/dev/null || true
+          cp src/Proyecto26.RestClient/package.json.meta "$ASSET_DIR/" 2>/dev/null || true
+          cp src/Proyecto26.RestClient/Proyecto26.RestClient.asmdef.meta "$ASSET_DIR/" 2>/dev/null || true
+          cp LICENSE "$ASSET_DIR/"
+          cp README.md "$ASSET_DIR/"
+          # Create a tarball as the distributable (Unity .unitypackage format requires Unity Editor)
+          cd "$PKG_DIR"
+          tar -czf "/tmp/Proyecto26.RestClient-${{ steps.version.outputs.new_version }}.tar.gz" Assets/
+          echo "Package built: Proyecto26.RestClient-${{ steps.version.outputs.new_version }}.tar.gz"
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -228,6 +254,8 @@ jobs:
           body_path: /tmp/release_body.md
           draft: false
           prerelease: false
+          files: |
+            /tmp/Proyecto26.RestClient-${{ steps.version.outputs.new_version }}.tar.gz
 
   publish-nuget:
     name: Publish to NuGet
@@ -253,14 +281,12 @@ jobs:
           dotnet pack -c Release -o ../../artifacts
 
       - name: Publish to NuGet
-        if: ${{ env.NUGET_API_KEY != '' }}
+        if: ${{ secrets.NUGET_API_KEY != '' }}
         run: |
           dotnet nuget push artifacts/*.nupkg \
             --api-key ${{ secrets.NUGET_API_KEY }} \
             --source https://api.nuget.org/v3/index.json \
             --skip-duplicate
-        env:
-          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
   split-branches:
     name: Split UPM & NuGet branches
