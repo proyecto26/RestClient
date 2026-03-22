@@ -316,14 +316,23 @@ router.post('/', function(req, res) {
 });
 ```
 
-## Credits 👍
-* **C-Sharp-Promise:** [Promises library for C# for management of asynchronous operations.](https://github.com/Real-Serious-Games/C-Sharp-Promise)
-* **MyAPI:** [A template to create awesome APIs easily ⚡️](https://github.com/proyecto26/MyAPI)
+## Star History 🌟
+
+[![Star History Chart](https://api.star-history.com/svg?repos=proyecto26/RestClient&type=Date)](https://star-history.com/#proyecto26/RestClient-code&Date)
+
+## Sponsors 💜
+
+This project is free and open source. Sponsors help keep it maintained and growing.
+
+[**Become a Sponsor**](https://github.com/sponsors/proyecto26) | [Sponsorship Program](https://proyecto26.com/sponsors/)
 
 ## Contributing ✨
-When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.  
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated** ❤️.  
-You can learn more about how you can contribute to this project in the [contribution guide](https://github.com/proyecto26/RestClient/blob/develop/CONTRIBUTING.md).
+When contributing to this repository, please first discuss the change you wish to make via issue,
+email, or any other method with the owners of this repository before making a change.
+ 
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated** ❤️.
+ 
+You can learn more about how you can contribute to this project in the [contribution guide](https://github.com/proyecto26/.github/blob/master/CONTRIBUTING.md).
 
 ## Contributors ✨
 Please do contribute! Issues and pull requests are welcome.
@@ -343,16 +352,6 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 [Juan Nicholls](mailto:jdnichollsc@hotmail.com) | [Diego Ossa](mailto:diegoossa@gmail.com) | [Nasdull](mailto:nasdull@hotmail.com) | [Maifee Ul Asad](mailto:maifeeulasad@gmail.com) |
 <!-- COLLABORATORS-LIST:END -->
 
-## Supporting 🍻
-I believe in Unicorns 🦄
-Support [me](http://www.paypal.me/jdnichollsc/2), if you do too.
-
-Donate **Ethereum**, **ADA**, **BNB**, **SHIBA**, **USDT/USDC**, **DOGE**, etc:
-
-> Wallet address: jdnichollsc.eth
-
-Please let us know your contributions! 🙏
-
 ## Enterprise 💼
 
 Available as part of the Tidelift Subscription.
@@ -371,7 +370,11 @@ We are battle tested. There is a list of our usage in production:
 ## License ⚖️
 This repository is available under the [MIT License](https://github.com/proyecto26/RestClient/blob/develop/LICENSE).
 
+## Credits 👍
+* **C-Sharp-Promise:** [Promises library for C# for management of asynchronous operations.](https://github.com/Real-Serious-Games/C-Sharp-Promise)
+* **MyAPI:** [A template to create awesome APIs easily ⚡️](https://github.com/proyecto26/MyAPI)
+
 ## Happy coding 💯
-Made with ❤️
+Made with ❤️ by [Proyecto 26](https://proyecto26.com)
 
 <img width="150px" src="https://avatars0.githubusercontent.com/u/28855608?s=200&v=4" align="right">
