@@ -1,8 +1,6 @@
-#if NET_40
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
-#endif
 using UnityEngine;
 
 namespace Proyecto26.Helper
@@ -37,7 +35,6 @@ namespace Proyecto26.Helper
             }
         }
 
-#if NET_40
         /// <summary>
         /// Store all instance of Action's and try to invoke them
         /// </summary>
@@ -60,6 +57,5 @@ namespace Proyecto26.Helper
                 }
             }
         }
-#endif
     }
 }
